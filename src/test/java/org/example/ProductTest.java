@@ -14,7 +14,7 @@ class ProductTest {
     @Test
     void checkingIf_whenAddedNewProductWithNullProductName_thenMethodThrowsException() {
 
-        Assertions.assertThatThrownBy(() -> new Product(null)).hasMessage("You cannot add null product name");
+        Assertions.assertThatThrownBy(() -> new Product(null)).hasMessage("You cannot add or remove product with null name");
 
     }
 

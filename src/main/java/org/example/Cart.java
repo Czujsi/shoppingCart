@@ -45,7 +45,7 @@ public class Cart {
         int oldAmount = quantityOf(productName);
         products.put(new Product(productName), oldAmount - productQuantity);
         if (oldAmount < productQuantity) {
-            throw new RuntimeException("You cannot remove more product than you have in cart");
+            throw new RuntimeException("You cannot remove quantity of product that is not in your cart");
         }
 
     }

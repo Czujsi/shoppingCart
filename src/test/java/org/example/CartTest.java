@@ -72,7 +72,7 @@ class CartTest {
         Cart cart = new Cart();
 
         //when-then
-        Assertions.assertThatThrownBy(() -> cart.addItem(null, 1)).hasMessage("You cannot add null product name");
+        Assertions.assertThatThrownBy(() -> cart.addItem(null, 1)).hasMessage("You cannot add or remove product with null name");
 
     }
 
@@ -200,19 +200,6 @@ class CartTest {
     }
 
     @Test
-    void givenCartWithTwoItem_whenRemovingQuantityOfItemThatIsBiggerThatActualQuantity_thenThrowException() {
-        //given
-        Cart cart = new Cart();
-        cart.addItem("Butter", 2);
-
-        //when
-        ThrowableAssert.ThrowingCallable removeQuantity = () -> cart.removeQuantity("Butter", 3);
-
-        Assertions.assertThatThrownBy(removeQuantity).hasMessage("You cannot remove more product than you have in cart");
-
-    }
-
-    @Test
     void givenCartWithTwoItem_whenRemovingNegativeValueOfQuantity_thenThrowException() {
         //given
         Cart cart = new Cart();
@@ -222,6 +209,43 @@ class CartTest {
         ThrowableAssert.ThrowingCallable removeQuantity = () -> cart.removeQuantity("Butter", -3);
 
         Assertions.assertThatThrownBy(removeQuantity).hasMessage("You cannot remove negative value of products");
+
+    }
+
+    @Test
+    void givenCartWithMultipleAddedItems_whenRemovingQuantityMultipleTimes_thenCheckingIfResultIsCorrect() {
+        //given
+        Cart cart = new Cart();
+        cart.addItem("Butter", 2);
+        cart.addItem("Butter", 2);
+        cart.addItem("Butter", 2);
+        cart.addItem("Butter", 2);
+        //when
+        cart.removeQuantity("Butter", 1);
+        cart.removeQuantity("Butter", 1);
+        cart.removeQuantity("Butter", 1);
+        cart.removeQuantity("Butter", 1);
+
+        Assertions.assertThat(cart.quantityOf("Butter")).isEqualTo(4);
+
+    }
+
+    @Test
+    void givenAnEmptyCart_whenRemoveOneItemQuantity_thenThrowingException() {
+        //given
+        Cart cart = new Cart();
+
+        //when then
+        Assertions.assertThatThrownBy(() -> cart.removeQuantity("Butter", 1)).hasMessage("You cannot remove quantity of product that is not in your cart");
+    }
+
+    @Test
+    void givenCartWithOneItem_thenRemovingItemQuantityWithNullProductNameAndCheckingIfExceptionIsThrown() {
+        //given
+        Cart cart = new Cart();
+
+        //when-then
+        Assertions.assertThatThrownBy(() -> cart.removeQuantity(null, 1)).hasMessage("You cannot add or remove product with null name");
 
     }
 

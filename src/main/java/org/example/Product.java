@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Product {
     public Product(String productName) {
         if (productName == null) {
-            throw new RuntimeException("You cannot add null product name");
+            throw new RuntimeException("You cannot add or remove product with null name");
         }
         this.productName = productName;
     }
