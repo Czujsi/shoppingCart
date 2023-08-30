@@ -6,10 +6,7 @@ import java.util.Objects;
 
 @ToString
 public class Product {
-    private final double productPrice;
-
-    public Product(String productName, double productPrice) {
-        this.productPrice = productPrice;
+    public Product(String productName) {
         if (productName == null) {
             throw new RuntimeException("You cannot add or remove product with null name");
         }

@@ -252,5 +252,9 @@ class CartTest {
 
     //endregion - -
 
+    //region sumProductsPrices method tests
+
+
+    //endregion
 
 }

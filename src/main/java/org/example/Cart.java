@@ -19,7 +19,7 @@ public class Cart {
             throw new RuntimeException("You cannot add negative value of product");
         }
         int oldAmount = quantityOf(productName);
-        products.put(new Product(productName, 12.50), productQuantity + oldAmount);
+        products.put(new Product(productName), productQuantity + oldAmount);
 
     }
 
@@ -29,13 +29,14 @@ public class Cart {
 
 
     public boolean has(String item) {
-        return products.containsKey(new Product(item, 12.50));
+        return products.containsKey(new Product(item));
     }
 
     public int quantityOf(String item) {
-        Integer quantity = products.get(new Product(item, 12.50));
+        Integer quantity = products.get(new Product(item));
         return quantity == null ? 0 : quantity;
     }
+
 
     public void removeQuantity(String productName, int productQuantity) {
 
@@ -43,10 +44,11 @@ public class Cart {
             throw new RuntimeException("You cannot remove negative value of products");
         }
         int oldAmount = quantityOf(productName);
-        products.put(new Product(productName, 12.50), oldAmount - productQuantity);
+        products.put(new Product(productName), oldAmount - productQuantity);
         if (oldAmount < productQuantity) {
             throw new RuntimeException("You cannot remove quantity of product that is not in your cart");
         }
 
     }
+
 }
