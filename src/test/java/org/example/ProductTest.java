@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 class ProductTest {
     @Test
     void qualityTest() {
-        Product a = new Product(new ProductName("Butter"), new Price(2.50));
-        Product b = new Product(new ProductName("Butter"), new Price(2.50));
+        Product a = new Product("Butter", new Price(2.50));
+        Product b = new Product("Butter", new Price(2.50));
         Assertions.assertThat(a).isEqualTo(b);
     }
 
@@ -20,8 +20,8 @@ class ProductTest {
 
     @Test
     void checkingIfEqualMethodWillFindSameNamesOfItemsButWithDifferentSizeLetters() {
-        Product a = new Product(new ProductName("Butter"), new Price(2.50));
-        Product b = new Product(new ProductName("Butter"), new Price(2.50));
+        Product a = new Product("Butter", new Price(2.50));
+        Product b = new Product("bUtTer", new Price(2.50));
         Assertions.assertThat(a).isEqualTo(b);
     }
 }
