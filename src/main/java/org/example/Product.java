@@ -1,36 +1,24 @@
 package org.example;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Objects;
-
 @ToString
+@EqualsAndHashCode
 public class Product {
-    public Product(String productName) {
-        if (productName == null) {
+    @Getter
+    private final Price price;
+
+    @Getter
+    private String productName;
+
+    public Product(ProductName productName, Price price1) {
+        if (this.productName == null) {
             throw new RuntimeException("You cannot add or remove product with null name");
         }
-        this.productName = productName;
-    }
 
-    @Override
-    //a.equals (b)
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
-        if (this.getClass() != o.getClass()) return false;
-        Product other = (Product) o;
-        return Objects.equals(this.productName.toLowerCase(), other.productName.toLowerCase());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(productName);
-    }
-
-    private final String productName;
-
-    public Object getProductName() {
-        return productName;
+        this.productName = this.productName;
+        this.price = price1;
     }
 }
