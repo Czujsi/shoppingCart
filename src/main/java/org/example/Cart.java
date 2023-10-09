@@ -26,7 +26,7 @@ public class Cart {
     }
 
     public void removeItem(String productName) {
-        products.entrySet().removeIf(product -> product.getKey().getProductName().equals(productName));
+        products.entrySet().removeIf(product -> product.getKey().getProductName().equals(new ProductName(productName)));
     }
 
 

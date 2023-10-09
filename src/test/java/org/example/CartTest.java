@@ -249,7 +249,10 @@ class CartTest {
 
     }
 
-
+    @Test
+    void name() {
+        Assertions.assertThat("abc").isEqualTo("abc");
+    }
     //endregion - -
 
     //region sumProductsPrices method tests
