@@ -6,6 +6,5 @@ public class ProductName {
     public ProductName(String productName) {
 
 
-
     }
 }

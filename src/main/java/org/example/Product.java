@@ -7,11 +7,13 @@ import lombok.ToString;
 import java.util.Objects;
 
 @ToString
-
 public class Product {
     @Getter
     private final Price price;
 
+
+    @Getter
+    private final String productName;
 
     public Product(String productName, Price price1) {
         if (productName == null) {
@@ -37,9 +39,5 @@ public class Product {
         return Objects.hash(productName);
     }
 
-    private final String productName;
 
-    public Object getProductName() {
-        return productName;
-    }
 }
