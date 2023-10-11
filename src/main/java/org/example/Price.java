@@ -2,12 +2,16 @@ package org.example;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
 @EqualsAndHashCode
 @ToString
 public class Price {
 
-    public Price(double productPrice) {
+    private final double productPrice;
 
+    public Price(double productPrice) {
+        this.productPrice = productPrice;
     }
+
 
 }

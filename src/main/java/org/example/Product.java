@@ -17,13 +17,13 @@ public class Product {
     private final ProductName productName;
 
 
-    public Product(String productName, Price price1) {
+    public Product(String productName, Price price) {
         if (productName == null) {
             throw new RuntimeException("You cannot add or remove product with null name");
         }
 
         this.productName = new ProductName(productName);
-        this.price = price1;
+        this.price = price;
     }
 
 //    @Override
