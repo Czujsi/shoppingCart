@@ -62,17 +62,24 @@ class ExchangeRate {
 
     //originalCurrency, targetCurrency, rate
     private final Set<SingleRate> exchangeRates;
+    //tutaj jest stworzony Set single rate
 
     public boolean forDate(ZonedDateTime date) {
         return date.toLocalDate().isEqual(exchangeDate);
     }
+    //sprawdzamy czy dana data to dzisiejsza lokalna data
 
     public Money exchange(Money price, Scratch.Currency targetCurrency) {
+        //tutaj mamy przyjecie ilości pieniędzy i przyjecie waluty na którą chcemy wymieniać pieniądze
 
         return exchangeRates.stream().filter(singleRate -> singleRate.getOriginalCurrency().equals(price.getCurrency()))
+                //stremujemy exchange rate i przepuszczamy przez filtr biorąc z single rate naszą oryginalną walutę i sprawdzamy walute???
                 .filter(singleRate -> singleRate.getTargetCurrency().equals(targetCurrency))
+                //tutaj filtrujemy z single rate naszą walutę docelową i sprawdzamy co to za waluta ???
                 .map(singleRate -> singleRate.getRate() * price.getAmount()).map(newAmount -> new Money(newAmount, targetCurrency))
+                //mapujemy do tego, że single rate to przelicznik mnożony przez ilość pieniędzy z czego wychodzą nam jakby nowe pieniądze z nową ilością w walucie docelowej
                 .toList().get(0);
+                //na koniec wrzucamy to do listy i bierzemy pierwszą ilość
     }
 
     @Getter
@@ -85,6 +92,7 @@ class ExchangeRate {
         @EqualsAndHashCode.Include
         private final Scratch.Currency targetCurrency;
         private final double rate;
+        //tworzymy klasę single rate ze zmiennymi oryginalej waluty, waluty na, którą wymieniamy i przelicznikiem
 
     }
 
