@@ -19,7 +19,8 @@ class Scratch {
     }
 
     public static void main(String[] args) {
-        Converter converter = new Converter(Set.of(new ExchangeRate(LocalDate.of(2020, Month.APRIL, 3), Set.of(new ExchangeRate.SingleRate(Currency.PLN, Currency.USD, 0.46)))));
+        Converter converter = new Converter(Set.of(new ExchangeRate(LocalDate.of(2020, Month.APRIL, 3),
+                Set.of(new ExchangeRate.SingleRate(Currency.PLN, Currency.USD, 0.46)))));
         //tutaj tworzymy nowy Converter do wymiany walut, którego parametry to:
         //tworzymy set(używamy seta aby zapobiec duplikowaniu) nowych ExchangeRate na dany dzień
         //tworzymy set nowych SingleRate(przeliczników z jednej waluty na drugą czyli z PLN na USD za pomocą mnożnika rate)

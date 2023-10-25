@@ -2,15 +2,24 @@ package org.example;
 
 
 import lombok.ToString;
+import org.example.calculator.Calculate;
+import org.example.coupons.CouponManager;
+import org.example.coupons.Discount;
+import org.example.coupons.map.parameters.CodeValue;
 
 import java.util.HashMap;
-
-
 import java.util.Map;
+import java.util.stream.Stream;
 
 @ToString
 public class Cart {
-    private final Map<Product, Integer> products = new HashMap<>();
+    private static final Map<Product, Integer> products = new HashMap<>();
+
+    Calculate calculate;
+
+    public static Map<Product, Integer> getProducts() {
+        return products;
+    }
 
 
     public void addItem(String productName, int productQuantity) {
@@ -52,6 +61,22 @@ public class Cart {
         }
 
 
+    }
+
+    public void isDiscountValid(String code) {
+        //sprawdzamy czy taki kupon jaki użytkowanik nam dał istanieje w bazie kuponów
+
+        if (CouponManager.checkDiscountCode(code)) {
+            //jeżeli istnieje to pobieramy wartość dla kuponu
+            CodeValue valueForCode = Discount.getValueForCode(code);
+            //następnie wysyłamy wartość kuponu do metody liczącej w klasie Calculate
+            Stream.of(valueForCode).forEach(calculate::getValueToOperateForDiscount);
+            //następnie pobierz nowe ceny produktów
+
+
+        } else {
+            System.out.println("Coupon is not valid or correct");
+        }
     }
 
 
