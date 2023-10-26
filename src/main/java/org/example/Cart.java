@@ -6,6 +6,7 @@ import org.example.calculator.Calculate;
 import org.example.coupons.CouponManager;
 import org.example.coupons.Discount;
 import org.example.coupons.map.parameters.CodeValue;
+import org.example.coupons.map.parameters.CouponCode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,7 +64,7 @@ public class Cart {
 
     }
 
-    public void isDiscountValid(String code) {
+    public void isDiscountValid(CouponCode code) {
         //sprawdzamy czy taki kupon jaki użytkowanik nam dał istanieje w bazie kuponów
 
         if (CouponManager.checkDiscountCode(code)) {

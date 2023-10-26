@@ -9,19 +9,18 @@ public class Discount {
 
     private static final HashMap<CouponCode, CodeValue> coupons = new HashMap<>();
 
-    protected static boolean hasCoupon(String code) {
+    protected static boolean hasCoupon(CouponCode code) {
 
-        return coupons.containsKey(new CouponCode(code));
+        return coupons.containsKey(new CouponCode(code.toString()));
     }
 
-    public static CodeValue getValueForCode(String code) {
-
+    public static CodeValue getValueForCode(CouponCode code) {
         return coupons.get(code);
     }
 
-    public void addDiscount(String discountCode) {
+    public void addDiscount(String discountCode, double codeValue) {
 
-        coupons.put(new CouponCode(discountCode), new CodeValue());
+        coupons.put(new CouponCode(discountCode), new CodeValue(codeValue));
 
     }
 }
