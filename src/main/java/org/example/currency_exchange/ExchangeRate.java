@@ -14,10 +14,6 @@ import java.util.Set;
 @ToString
 
 public class ExchangeRate {
-    enum Currency {
-        PLN, USD
-        // Tutaj mamy wewnętrzną klasę enum, bez parametrów, która posiada nazwy walut na jakich możemy operować
-    }
 
     @EqualsAndHashCode.Include
     private final LocalDate exchangeDate;
@@ -38,7 +34,7 @@ public class ExchangeRate {
                 //stremujemy exchange rate i przepuszczamy przez filtr biorąc z single rate naszą oryginalną walutę i sprawdzamy walute???
                 .filter(singleRate -> singleRate.getTargetCurrency().equals(targetCurrency))
                 //tutaj filtrujemy z single rate naszą walutę docelową i sprawdzamy co to za waluta ???
-                .map(singleRate -> singleRate.getRate() * price.getAmount()).map(newAmount -> new Money(newAmount, targetCurrency))
+                .map(singleRate -> singleRate.getRate() * price.getAmount().doubleValue()).map(newAmount -> Money.of(newAmount, targetCurrency))
                 //mapujemy do tego, że single rate to przelicznik mnożony przez ilość pieniędzy z czego wychodzą nam jakby nowe pieniądze z nową ilością w walucie docelowej
                 .toList().get(0);
         //na koniec wrzucamy to do listy i bierzemy pierwszą ilość

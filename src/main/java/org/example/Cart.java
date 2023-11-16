@@ -1,37 +1,42 @@
 package org.example;
 
 
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import org.example.calculator.Calculate;
 import org.example.coupons.CouponManager;
-import org.example.coupons.Discount;
-import org.example.coupons.map.parameters.CodeValue;
-import org.example.coupons.map.parameters.CouponCode;
+import org.example.coupons.DiscountDefinition;
+import org.example.currency_exchange.Currency;
+import org.example.currency_exchange.Money;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.stream.Stream;
+import java.util.Set;
 
+@RequiredArgsConstructor
 @ToString
 public class Cart {
-    private static final Map<Product, Integer> products = new HashMap<>();
 
-    Calculate calculate;
+    private final Map<Product, Integer> products = new HashMap<>();
 
-    public static Map<Product, Integer> getProducts() {
-        return products;
-    }
+    private final Set<DiscountDefinition> discounts = new HashSet<>();
+
+    Money amount;
+    private final CouponManager couponManager;
 
 
-    public void addItem(String productName, int productQuantity) {
-        if (productQuantity == 0) {
+    public void addItem(Product product, int amount) {
+        if (product == null)
+            throw new RuntimeException("Product cannot be null");
+        if (amount == 0) {
             return;
         }
-        if (productQuantity < 0) {
+        if (amount < 0) {
             throw new RuntimeException("You cannot add negative value of product");
         }
-        int oldAmount = quantityOf(productName);
-        products.put(new Product(productName, new Price(2.50)), productQuantity + oldAmount);
+        int oldAmount = quantityOf(product.getProductName().getValue());
+        products.put(product, amount + oldAmount);
 
     }
 
@@ -39,46 +44,72 @@ public class Cart {
         products.entrySet().removeIf(product -> product.getKey().getProductName().equals(new ProductName(productName)));
     }
 
-
     public boolean has(String productName) {
-        return products.containsKey(new Product(productName, new Price(2.50)));
+        return !products.keySet().stream()
+                .map(Product::getProductName)
+                .filter(pn -> pn.equals(new ProductName(productName)))
+                .toList().isEmpty();
     }
 
     public int quantityOf(String item) {
-        Integer quantity = products.get(new Product(item, new Price(2.50)));
-        return quantity == null ? 0 : quantity;
+        return products.entrySet().stream()
+                .filter(e -> e.getKey().getProductName().equals(new ProductName(item)))
+                .map(Map.Entry::getValue)
+                .findFirst()
+                .orElse(0);
     }
 
-
     public void removeQuantity(String productName, int productQuantity) {
-
         if (productQuantity <= 0) {
             throw new RuntimeException("You cannot remove negative value of products");
         }
+
         int oldAmount = quantityOf(productName);
-        products.put(new Product(productName, new Price(2.50)), oldAmount - productQuantity);
+
         if (oldAmount < productQuantity) {
             throw new RuntimeException("You cannot remove quantity of product that is not in your cart");
         }
 
-
+        Product product = products.keySet().stream().filter(p -> p.getProductName().getValue().equals(productName.toLowerCase())).findFirst().orElseThrow();
+        products.replace(product, oldAmount - productQuantity);
     }
 
-    public void isDiscountValid(CouponCode code) {
-        //sprawdzamy czy taki kupon jaki użytkowanik nam dał istanieje w bazie kuponów
+    public void applyDiscountCode(String code) {
 
-        if (CouponManager.checkDiscountCode(code)) {
-            //jeżeli istnieje to pobieramy wartość dla kuponu
-            CodeValue valueForCode = Discount.getValueForCode(code);
-            //następnie wysyłamy wartość kuponu do metody liczącej w klasie Calculate
-            Stream.of(valueForCode).forEach(calculate::getValueToOperateForDiscount);
-            //następnie pobierz nowe ceny produktów
-
-
-        } else {
-            System.out.println("Coupon is not valid or correct");
+        if (!couponManager.checkDiscountCode(code)) {
+            throw new RuntimeException("This coupon code isn't valid");
         }
+        DiscountDefinition couponForCode = couponManager.getCouponForCode(code);
+        discounts.add(couponForCode);
+
     }
 
+
+    public Money overallSum() {
+        Money total = Money.of(BigDecimal.ZERO, Currency.PLN);
+        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+            Integer amount = entry.getValue();
+            Money price = applyProductDiscount(entry.getKey());
+            Money priceByAmount = price.multiply(amount);
+            total = total.add(priceByAmount);
+        }
+        return discountCart(total);
+    }
+
+    private Money applyProductDiscount(Product key) {
+        Money t = key.getPrice();
+        for (DiscountDefinition discountDefinition : discounts) {
+            t = discountDefinition.applyDiscountForProduct(t);
+        }                                                                   //takie same typy jak oryginalne miejsce tych zniżek
+        return t;
+    }
+
+    private Money discountCart(Money total) {
+        Money t = total;
+        for (DiscountDefinition discountDefinition : discounts) {
+            t = discountDefinition.applyDiscountForCart(t);
+        }
+        return t;
+    }
 
 }

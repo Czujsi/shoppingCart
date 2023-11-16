@@ -1,12 +1,11 @@
 package org.example.coupons;
 
-import lombok.AllArgsConstructor;
-import org.example.coupons.map.parameters.CouponCode;
+public interface CouponManager {
+    boolean checkDiscountCode(String code);
 
-@AllArgsConstructor
-public class CouponManager {
-    public static boolean checkDiscountCode(CouponCode code) {
-        return Discount.hasCoupon(code);
-    }
+    DiscountDefinition getCouponForCode(String code);
+
+    void addDiscount(DiscountDefinition discountDefinition);
+
 
 }

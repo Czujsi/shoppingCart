@@ -13,7 +13,7 @@ public class Converter {
     private final Set<ExchangeRate> exchangeRates;
 
     // tworzymy tutaj prywatny finalny Set ExchangeRate o nazwie exchangeRates
-    public Money convert(Money price, ExchangeRate.Currency currency, ZonedDateTime date) {
+    public Money convert(Money price, Currency currency, ZonedDateTime date) {
         //tutaj mamy konstruktor Money (ale nie wiem skąd się wział w sennsie skąd konstruktor z taką ilościa parametrów skoro klasa money ma tylko dwa)
         //czym dokładnie jest convert? widzę że to metoda którą mamy wyżej i przyjmuje trzy parametry ale jak ona jest tutaj połączona z konstruktorem
         return exchangeRates.stream().filter(exchangeRate -> exchangeRate.forDate(date))

@@ -8,10 +8,10 @@ import lombok.ToString;
 @ToString
 @Getter
 public final class ProductName {
-    private final String productName;
+    private final String value;
 
     public ProductName(String productName) {
 
-        this.productName = productName.toLowerCase();
+        this.value = productName.toLowerCase();
     }
 }

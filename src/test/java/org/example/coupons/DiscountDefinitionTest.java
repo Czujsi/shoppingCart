@@ -1,12 +1,14 @@
 package org.example.coupons;
 
+import org.example.currency_exchange.Money;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DiscountTest {
+class DiscountDefinitionTest {
     @Test
-    void wrew1() {
+    void checkingIfHasIsWorkingProperly() {
+
 
 
     }
