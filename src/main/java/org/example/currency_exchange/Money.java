@@ -27,11 +27,19 @@ public class Money implements Comparable<Money> {
     }
 
     public Money add(Money priceByAmount) {
+        validateCurrencyIsMatching(priceByAmount);
         return new Money(amount.add(priceByAmount.amount), currency);
     }
 
     public Money subtract(Money other) {
+        validateCurrencyIsMatching(other);
         return new Money(amount.subtract(other.amount), currency);
+    }
+
+    private void validateCurrencyIsMatching(Money priceByAmount) {
+        if (!currency.equals(priceByAmount.getCurrency())) {
+            throw new IllegalArgumentException("You cannot add different currencies");
+        }
     }
 
     public Money multiply(BigDecimal multiplier) {
