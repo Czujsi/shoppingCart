@@ -322,6 +322,22 @@ class CartTest {
         return Product.of("Butter", Money.of(BigDecimal.valueOf(v), Currency.PLN));
     }
     //endregion
+    @Test
+    void removingDiscountFromCart() {
+        // given
+        Cart cart = new Cart(couponManager);
+        couponManager.addDiscount(FLAT_10_PERCENT);
+        cart.addItem(sampleProduct(2.30), 1000);
+        cart.applyDiscountCode(FLAT_10_PERCENT.getCode());
+
+        // when
+        cart.removeDiscountFromCart("code");
+
+        // then
+        Assertions.assertThat(cart.overallSum())
+                .isEqualByComparingTo(Money.of(BigDecimal.valueOf(2300.00), Currency.PLN));
+    }
+
 
     //region MockCouponManager
     static class MockCouponManager implements CouponManager {

@@ -112,6 +112,12 @@ public class Cart {
 //      return handleDiscount(total, discount -> discount::applyDiscountForCart);
     }
 
+    public void removeDiscountFromCart(String code){
+        for (DiscountDefinition discountDefinition : discounts){
+            discounts.removeIf(d -> discountDefinition.getCode().equals(code));
+        }
+    }
+
 //    private Money handleDiscount(Money initial, Function<DiscountDefinition, Function<Money, Money>> f) {
 //        Money t = initial;
 //        for (DiscountDefinition discountDefinition : discounts) {
