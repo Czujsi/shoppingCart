@@ -341,6 +341,11 @@ class CartTest {
         public void addDiscount(DiscountDefinition discountDefinition) {
 
         }
+
+        @Override
+        public void removeDiscount(DiscountDefinition discountDefinition) {
+
+        }
     }
     //endregion
 }

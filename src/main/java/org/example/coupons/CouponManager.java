@@ -7,5 +7,7 @@ public interface CouponManager {
 
     void addDiscount(DiscountDefinition discountDefinition);
 
+    void removeDiscount(DiscountDefinition discountDefinition);
+
 
 }

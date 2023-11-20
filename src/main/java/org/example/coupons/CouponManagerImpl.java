@@ -19,4 +19,9 @@ public class CouponManagerImpl implements CouponManager {
         discountInMemoryRepository.save(discountDefinition);
     }
 
+    @Override
+    public void removeDiscount(DiscountDefinition discountDefinition) {
+        discountInMemoryRepository.delete(discountDefinition.getCode());
+    }
+
 }

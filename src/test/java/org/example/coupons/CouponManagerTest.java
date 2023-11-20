@@ -1,21 +1,36 @@
-/*
 package org.example.coupons;
 
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
+
 class CouponManagerTest {
+    public static DiscountDefinition FREE_TRANSPORT = new DiscountDefinition("code", Map.of(
+            DiscountType.Transport, new FreeTransportDiscount("aaa", 10.00)
+    ));
     @Test
-    void name() {
+    void addDiscount() {
         DiscountInMemoryRepository discountInMemoryRepository = new DiscountInMemoryRepository();
 
-        CouponManager couponManager = new CouponManagerImpl(discountInMemoryRepository);
+        CouponManagerImpl couponManager = new CouponManagerImpl(discountInMemoryRepository);
 
-        couponManager.addFlatPercentDiscount(new FlatPercentDiscount("abc", 10.0));
+        couponManager.addDiscount(FREE_TRANSPORT);
 
-        Assertions.assertTrue(discountInMemoryRepository.exists("abc"));
-
-
-
+        Assertions.assertThat(discountInMemoryRepository.exists("code")).isTrue();
     }
-}*/
+
+    @Test
+    void removeDiscount() {
+        // given
+        DiscountInMemoryRepository discountInMemoryRepository = new DiscountInMemoryRepository();
+        CouponManagerImpl couponManager = new CouponManagerImpl(discountInMemoryRepository);
+        couponManager.addDiscount(FREE_TRANSPORT);
+
+        // when
+        couponManager.removeDiscount(FREE_TRANSPORT);
+
+        // then
+        Assertions.assertThat(discountInMemoryRepository.exists("code")).isFalse();
+    }
+}

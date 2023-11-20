@@ -7,7 +7,6 @@ import org.example.coupons.CouponManager;
 import org.example.coupons.DiscountDefinition;
 import org.example.currency_exchange.Currency;
 import org.example.currency_exchange.Money;
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -24,7 +23,6 @@ public class Cart {
 
     Money amount;
     private final CouponManager couponManager;
-
 
     public void addItem(Product product, int amount) {
         if (product == null)
@@ -84,7 +82,6 @@ public class Cart {
 
     }
 
-
     public Money overallSum() {
         Money total = Money.of(BigDecimal.ZERO, Currency.PLN);
         for (Map.Entry<Product, Integer> entry : products.entrySet()) {
@@ -100,8 +97,10 @@ public class Cart {
         Money t = key.getPrice();
         for (DiscountDefinition discountDefinition : discounts) {
             t = discountDefinition.applyDiscountForProduct(t);
-        }                                                                   //takie same typy jak oryginalne miejsce tych zniżek
+        }
         return t;
+
+//      return handleDiscount(key.getPrice(), discount -> discount::applyDiscountForProduct);
     }
 
     private Money discountCart(Money total) {
@@ -110,6 +109,15 @@ public class Cart {
             t = discountDefinition.applyDiscountForCart(t);
         }
         return t;
+//      return handleDiscount(total, discount -> discount::applyDiscountForCart);
     }
 
+//    private Money handleDiscount(Money initial, Function<DiscountDefinition, Function<Money, Money>> f) {
+//        Money t = initial;
+//        for (DiscountDefinition discountDefinition : discounts) {
+//            t = f.apply(discountDefinition).apply(t);
+//        }
+//        return t;
+//    }
 }
+
