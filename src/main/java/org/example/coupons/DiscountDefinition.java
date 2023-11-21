@@ -3,9 +3,8 @@ package org.example.coupons;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.example.currency_exchange.Money;
+import org.example.currency_exchange_money.Money;
 
-import java.util.HashMap;
 import java.util.Map;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @RequiredArgsConstructor

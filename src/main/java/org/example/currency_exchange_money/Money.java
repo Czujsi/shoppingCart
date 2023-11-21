@@ -1,4 +1,4 @@
-package org.example.currency_exchange;
+package org.example.currency_exchange_money;
 
 import lombok.*;
 

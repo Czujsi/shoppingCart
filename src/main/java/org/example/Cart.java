@@ -5,8 +5,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.example.coupons.CouponManager;
 import org.example.coupons.DiscountDefinition;
-import org.example.currency_exchange.Currency;
-import org.example.currency_exchange.Money;
+import org.example.currency_exchange_money.Currency;
+import org.example.currency_exchange_money.Money;
+import org.example.product.Product;
+import org.example.product.ProductName;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.HashSet;

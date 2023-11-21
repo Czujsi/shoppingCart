@@ -1,12 +1,13 @@
 package org.example;
 
-import org.example.coupons.DiscountDefinition;
-import org.example.coupons.FlatPercentDiscount;
-import org.example.currency_exchange.Money;
+import org.example.currency_exchange_money.Money;
+import org.example.product.Price;
+import org.example.product.Product;
+import org.example.product.ProductName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.example.currency_exchange.Currency.*;
+import static org.example.currency_exchange_money.Currency.*;
 
 class ProductTest {
     //public static final DiscountDefinition FLAT_10_PERCENT_DISCOUNT_DEFINITION = new FlatPercentDiscount("abc", 10.0);

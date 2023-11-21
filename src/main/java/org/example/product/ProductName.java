@@ -1,4 +1,4 @@
-package org.example;
+package org.example.product;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

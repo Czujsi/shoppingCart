@@ -1,9 +1,8 @@
-package org.example;
+package org.example.product;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.example.currency_exchange.ExchangeRate;
-import org.example.currency_exchange.Money;
+import org.example.currency_exchange_money.Money;
 
 @EqualsAndHashCode
 @ToString

@@ -1,6 +1,6 @@
 package org.example.coupons;
 
-import org.example.currency_exchange.Money;
+import org.example.currency_exchange_money.Money;
 
 public class FreeTransportDiscount implements DiscountCalculator {
     public FreeTransportDiscount(String discountCode, double value

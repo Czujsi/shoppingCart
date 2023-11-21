@@ -9,5 +9,4 @@ public interface CouponManager {
 
     void removeDiscount(DiscountDefinition discountDefinition);
 
-
 }

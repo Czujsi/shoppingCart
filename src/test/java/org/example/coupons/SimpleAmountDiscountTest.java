@@ -1,8 +1,8 @@
 package org.example.coupons;
 
 import org.assertj.core.api.Assertions;
-import org.example.currency_exchange.Currency;
-import org.example.currency_exchange.Money;
+import org.example.currency_exchange_money.Currency;
+import org.example.currency_exchange_money.Money;
 import org.junit.jupiter.api.Test;
 
 class SimpleAmountDiscountTest {

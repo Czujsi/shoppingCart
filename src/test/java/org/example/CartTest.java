@@ -3,8 +3,9 @@ package org.example;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.ThrowableAssert;
 import org.example.coupons.*;
-import org.example.currency_exchange.Currency;
-import org.example.currency_exchange.Money;
+import org.example.currency_exchange_money.Currency;
+import org.example.currency_exchange_money.Money;
+import org.example.product.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
