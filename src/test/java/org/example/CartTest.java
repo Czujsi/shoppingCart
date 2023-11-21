@@ -21,7 +21,7 @@ class CartTest {
             DiscountType.Product, new FlatPercentDiscount(BigDecimal.TEN)
     ));
 
-    public static DiscountDefinition FREE_TRANSPORT = new DiscountDefinition("code", Map.of(
+    public static DiscountDefinition FREE_TRANSPORT = new DiscountDefinition("aaa", Map.of(
             DiscountType.Transport, new FreeTransportDiscount("aaa", 10.00)
     ));
 
@@ -328,11 +328,13 @@ class CartTest {
         // given
         Cart cart = new Cart(couponManager);
         couponManager.addDiscount(FLAT_10_PERCENT);
+        couponManager.addDiscount(FREE_TRANSPORT);
         cart.addItem(sampleProduct(2.30), 1000);
         cart.applyDiscountCode(FLAT_10_PERCENT.getCode());
+        cart.applyDiscountCode(FREE_TRANSPORT.getCode());
 
         // when
-        cart.removeDiscountFromCart("code");
+        cart.removeDiscount("code");
 
         // then
         Assertions.assertThat(cart.overallSum())
