@@ -16,7 +16,7 @@ class ProductManagerImplTest {
         ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
         ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
 
-        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(2.50, Currency.PLN))));
+        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN))));
 
         Assertions.assertThat(productInMemoryRepository.exists("butter")).isTrue();
     }
@@ -26,8 +26,8 @@ class ProductManagerImplTest {
         ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
         ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
 
-        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(2.50, Currency.PLN))));
-        productManager.addProduct(new ProductDefinition(new ProductName("Milk"), new Price(Money.of(2.50, Currency.PLN))));
+        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN))));
+        productManager.addProduct(new ProductDefinition(new ProductName("Milk"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN))));
 
         Assertions.assertThat(productInMemoryRepository.exists("butter")).isTrue();
         Assertions.assertThat(productInMemoryRepository.exists("milk")).isTrue();
@@ -37,8 +37,8 @@ class ProductManagerImplTest {
     void checkingIfRemoveProductMethodWorksProperly() {
         ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
         ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
-        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(2.50, Currency.PLN))));
-        productManager.addProduct(new ProductDefinition(new ProductName("Milk"), new Price(Money.of(2.50, Currency.PLN))));
+        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN))));
+        productManager.addProduct(new ProductDefinition(new ProductName("Milk"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN))));
 
         productManager.removeProduct("MILK");
 
