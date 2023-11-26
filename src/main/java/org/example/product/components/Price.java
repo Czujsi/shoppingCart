@@ -1,4 +1,4 @@
-package org.example.product;
+package org.example.product.components;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -8,7 +8,7 @@ import org.example.currency_exchange_money.Money;
 @ToString
 public class Price {
 
-    Money productPrice;
+    public Money productPrice;
 
     public Price(Money productPrice) {
         this.productPrice = productPrice;

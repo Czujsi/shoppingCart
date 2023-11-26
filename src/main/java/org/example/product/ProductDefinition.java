@@ -5,21 +5,23 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.example.currency_exchange_money.Money;
+import org.example.product.components.Price;
+import org.example.product.components.ProductName;
 
 @EqualsAndHashCode
 @ToString
-public class Product {
+public class ProductDefinition {
     @EqualsAndHashCode.Exclude
     private Price price;
 
     @Getter
     private final ProductName productName;
 
-    public Product(ProductName productName, Money price) {
+    public ProductDefinition(ProductName productName, Money price) {
         this(productName, new Price(price));
     }
 
-    public Product(ProductName productName, Price price) {
+    public ProductDefinition(ProductName productName, Price price) {
         if (productName == null) {
             throw new RuntimeException("You cannot add or remove product with null name");
         }
@@ -28,9 +30,10 @@ public class Product {
         this.price = price;
     }
 
-    public static Product of(String productName, Money price){
-        return new Product(new ProductName(productName), new Price(price));
+    public static ProductDefinition of(String productName, Money price){
+        return new ProductDefinition(new ProductName(productName), new Price(price));
     }
+
 
     public Money getPrice() {
         return this.price.productPrice;
@@ -44,7 +47,7 @@ public class Product {
 //        if (this == o) return true;
 //        if (o == null) return false;
 //        if (this.getClass() != o.getClass()) return false;
-//        Product other = (Product) o;
+//        ProductDefinition other = (ProductDefinition) o;
 //        return Objects.equals(this.productName.toLowerCase(), other.productName.toLowerCase());
 //    }
 //

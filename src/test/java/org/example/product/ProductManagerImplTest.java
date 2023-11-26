@@ -1,0 +1,79 @@
+package org.example.product;
+
+import org.assertj.core.api.Assertions;
+import org.example.currency_exchange_money.Currency;
+import org.example.currency_exchange_money.Money;
+import org.example.product.components.Price;
+import org.example.product.components.ProductName;
+import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
+
+class ProductManagerImplTest {
+
+    @Test
+    void checkingIfAddProductMethodWorksProperly() {
+        ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
+        ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
+
+        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(2.50, Currency.PLN))));
+
+        Assertions.assertThat(productInMemoryRepository.exists("butter")).isTrue();
+    }
+
+    @Test
+    void checkingIfWhenAddingTwoProductsTwoProductsAreInRepository() {
+        ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
+        ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
+
+        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(2.50, Currency.PLN))));
+        productManager.addProduct(new ProductDefinition(new ProductName("Milk"), new Price(Money.of(2.50, Currency.PLN))));
+
+        Assertions.assertThat(productInMemoryRepository.exists("butter")).isTrue();
+        Assertions.assertThat(productInMemoryRepository.exists("milk")).isTrue();
+    }
+
+    @Test
+    void checkingIfRemoveProductMethodWorksProperly() {
+        ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
+        ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
+        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(2.50, Currency.PLN))));
+        productManager.addProduct(new ProductDefinition(new ProductName("Milk"), new Price(Money.of(2.50, Currency.PLN))));
+
+        productManager.removeProduct("MILK");
+
+        Assertions.assertThat(productInMemoryRepository.exists("butter")).isTrue();
+        Assertions.assertThat(productInMemoryRepository.exists("milk")).isFalse();
+    }
+
+    @Test
+    void checkingIfWhenRemovingProductThatIsNotInRepositoryExceptionWillBeThrown() {
+        ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
+        ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
+
+        Assertions.assertThatThrownBy(() -> productManager.removeProduct("MILK")).hasMessage("You cannot remove product that does not exist");
+
+    }
+
+    @Test
+    void checkingIfEditMethodWorksProperlyWitchChangingPrice() {
+        ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
+        ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
+        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN))));
+
+        productManager.editProduct("Butter", new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.60), Currency.PLN))));
+
+        Assertions.assertThat(productInMemoryRepository.get("butter").getPrice().getAmount()).isEqualByComparingTo(BigDecimal.valueOf(2.60));
+    }
+
+    @Test
+    void checkingIfEditMethodWorksProperlyWithChangingName() {
+        ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
+        ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
+        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN))));
+
+        productManager.editProduct("Butter", new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.60), Currency.PLN))));
+
+        Assertions.assertThat(productInMemoryRepository.get("butter").getPrice().getAmount()).isEqualByComparingTo(BigDecimal.valueOf(2.60));
+    }
+}

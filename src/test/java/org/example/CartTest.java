@@ -5,7 +5,7 @@ import org.assertj.core.api.ThrowableAssert;
 import org.example.coupons.*;
 import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
-import org.example.product.Product;
+import org.example.product.ProductDefinition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ import java.util.Map;
 
 class CartTest {
     private static final String NON_EXISTING_PRODUCT_NAME = "nonExistingProductName";
-    Product product = sampleProduct(2.30);
+    ProductDefinition productDefinition = sampleProduct(2.30);
     //public static final DiscountDefinition FLAT_10_PERCENT_DISCOUNT_DEFINITION = new FlatPercentDiscount("abc", 10.0);
 
     public static DiscountDefinition FLAT_10_PERCENT = new DiscountDefinition("code", Map.of(
@@ -34,7 +34,7 @@ class CartTest {
 
     @BeforeEach
     void setUp() {
-        DiscountInMemoryRepository discountInMemoryRepository = new DiscountInMemoryRepository();
+        DiscountInMemoryDiscountRepository discountInMemoryRepository = new DiscountInMemoryDiscountRepository();
 
         couponManager = new CouponManagerImpl(discountInMemoryRepository);
     }
@@ -46,7 +46,7 @@ class CartTest {
         Cart cart = new Cart(MockCouponManager.INSTANCE);
 
         //when then
-        Assertions.assertThatCode(() -> cart.addItem(product, 1)).doesNotThrowAnyException();
+        Assertions.assertThatCode(() -> cart.addItem(productDefinition, 1)).doesNotThrowAnyException();
     }
 
     @Test
@@ -55,7 +55,7 @@ class CartTest {
         Cart cart = new Cart(MockCouponManager.INSTANCE);
 
         //when
-        cart.addItem(product, 1);
+        cart.addItem(productDefinition, 1);
 
         //then
         Assertions.assertThat(cart.has("Butter")).isTrue();
@@ -78,7 +78,7 @@ class CartTest {
         Cart cart = new Cart(MockCouponManager.INSTANCE);
 
         //when
-        cart.addItem(product, 99);
+        cart.addItem(productDefinition, 99);
 
         //then
         Assertions.assertThat(cart.has("Butter")).isTrue();
@@ -91,7 +91,7 @@ class CartTest {
         Cart cart = new Cart(MockCouponManager.INSTANCE);
 
         //when
-        cart.addItem(product, 0);
+        cart.addItem(productDefinition, 0);
 
         //then
         Assertions.assertThat(cart.has("Butter")).isFalse();
@@ -104,7 +104,7 @@ class CartTest {
         Cart cart = new Cart(MockCouponManager.INSTANCE);
 
         //when-then
-        Assertions.assertThatThrownBy(() -> cart.addItem(null, 1)).hasMessage("Product cannot be null");
+        Assertions.assertThatThrownBy(() -> cart.addItem(null, 1)).hasMessage("ProductDefinition cannot be null");
 
     }
 
@@ -114,10 +114,10 @@ class CartTest {
         Cart cart = new Cart(MockCouponManager.INSTANCE);
 
         //when
-        ThrowableAssert.ThrowingCallable addItem = () -> cart.addItem(product, -2);
+        ThrowableAssert.ThrowingCallable addItem = () -> cart.addItem(productDefinition, -2);
 
         //then
-        Assertions.assertThatThrownBy(addItem).hasMessage("You cannot add negative value of product");
+        Assertions.assertThatThrownBy(addItem).hasMessage("You cannot add negative value of productDefinition");
 
     }
 
@@ -125,14 +125,14 @@ class CartTest {
     void givenACartWithOneItem_whenAddedTheSameItem_thenQuantityIsASumOfItems() {
         //given
         Cart cart = new Cart(MockCouponManager.INSTANCE);
-        cart.addItem(product, 1);
+        cart.addItem(productDefinition, 1);
 
         //when
-        cart.addItem(product, 1);
+        cart.addItem(productDefinition, 1);
 
         //then
-        Assertions.assertThat(cart.has(product.getProductName().getValue())).isTrue();
-        Assertions.assertThat(cart.quantityOf(product.getProductName().getValue())).isEqualTo(2);
+        Assertions.assertThat(cart.has(productDefinition.getProductName().getValue())).isTrue();
+        Assertions.assertThat(cart.quantityOf(productDefinition.getProductName().getValue())).isEqualTo(2);
     }
 
     @Test
@@ -141,13 +141,13 @@ class CartTest {
         Cart cart = new Cart(MockCouponManager.INSTANCE);
 
         //when
-        cart.addItem(product, 1);
+        cart.addItem(productDefinition, 1);
 
         //then
-        cart.addItem(product, 2);
+        cart.addItem(productDefinition, 2);
 
-        Assertions.assertThat(cart.has(product.getProductName().getValue())).isTrue();
-        Assertions.assertThat(cart.quantityOf(product.getProductName().getValue())).isEqualTo(3);
+        Assertions.assertThat(cart.has(productDefinition.getProductName().getValue())).isTrue();
+        Assertions.assertThat(cart.quantityOf(productDefinition.getProductName().getValue())).isEqualTo(3);
     }
 
     @Test
@@ -156,12 +156,12 @@ class CartTest {
         Cart cart = new Cart(MockCouponManager.INSTANCE);
 
         //when
-        cart.addItem(product, 2);
-        cart.addItem(product, 1);
+        cart.addItem(productDefinition, 2);
+        cart.addItem(productDefinition, 1);
 
         //then
-        Assertions.assertThat(cart.has(product.getProductName().getValue())).isTrue();
-        Assertions.assertThat(cart.quantityOf(product.getProductName().getValue())).isEqualTo(3);
+        Assertions.assertThat(cart.has(productDefinition.getProductName().getValue())).isTrue();
+        Assertions.assertThat(cart.quantityOf(productDefinition.getProductName().getValue())).isEqualTo(3);
     }
 
     @Test
@@ -175,7 +175,7 @@ class CartTest {
     void giveACartWithOneItem_whenRemovingItem_checkingIfItemWasRemovedWithQuantity() {
         //given
         Cart cart = new Cart(MockCouponManager.INSTANCE);
-        cart.addItem(product, 1);
+        cart.addItem(productDefinition, 1);
 
         //when
         cart.removeItem("Butter");
@@ -192,7 +192,7 @@ class CartTest {
         //given
         Cart cart = new Cart(MockCouponManager.INSTANCE);
 
-        cart.addItem(product, 1);
+        cart.addItem(productDefinition, 1);
 
         //when
         cart.removeItem("Butter");
@@ -207,7 +207,7 @@ class CartTest {
         //given
         Cart cart = new Cart(MockCouponManager.INSTANCE);
 
-        cart.addItem(product, 3);
+        cart.addItem(productDefinition, 3);
 
         //when
         cart.removeItem("Butter");
@@ -224,12 +224,12 @@ class CartTest {
         //given
         Cart cart = new Cart(MockCouponManager.INSTANCE);
 
-        cart.addItem(product, 2);
+        cart.addItem(productDefinition, 2);
 
         //when
-        cart.removeQuantity(product.getProductName().getValue(), 1);
+        cart.removeQuantity(productDefinition.getProductName().getValue(), 1);
 
-        Assertions.assertThat(cart.quantityOf(product.getProductName().getValue())).isEqualTo(1);
+        Assertions.assertThat(cart.quantityOf(productDefinition.getProductName().getValue())).isEqualTo(1);
 
     }
 
@@ -237,7 +237,7 @@ class CartTest {
     void givenCartWithTwoItem_whenRemovingNegativeValueOfQuantity_thenThrowException() {
         //given
         Cart cart = new Cart(MockCouponManager.INSTANCE);
-        cart.addItem(product, 2);
+        cart.addItem(productDefinition, 2);
 
         //when
         ThrowableAssert.ThrowingCallable removeQuantity = () -> cart.removeQuantity("Butter", -3);
@@ -250,10 +250,10 @@ class CartTest {
     void givenCartWithMultipleAddedItems_whenRemovingQuantityMultipleTimes_thenCheckingIfResultIsCorrect() {
         //given
         Cart cart = new Cart(MockCouponManager.INSTANCE);
-        cart.addItem(product, 2);
-        cart.addItem(product, 2);
-        cart.addItem(product, 2);
-        cart.addItem(product, 2);
+        cart.addItem(productDefinition, 2);
+        cart.addItem(productDefinition, 2);
+        cart.addItem(productDefinition, 2);
+        cart.addItem(productDefinition, 2);
         //when
         cart.removeQuantity("butter", 1);
         cart.removeQuantity("butter", 1);
@@ -270,7 +270,7 @@ class CartTest {
         Cart cart = new Cart(MockCouponManager.INSTANCE);
 
         //when then
-        Assertions.assertThatThrownBy(() -> cart.removeQuantity("Butter", 1)).hasMessage("You cannot remove quantity of product that is not in your cart");
+        Assertions.assertThatThrownBy(() -> cart.removeQuantity("Butter", 1)).hasMessage("You cannot remove quantity of productDefinition that is not in your cart");
     }
 
     @Test
@@ -283,7 +283,7 @@ class CartTest {
 
         // then
         Assertions.assertThatThrownBy(action)
-                .hasMessage("You cannot remove quantity of product that is not in your cart");
+                .hasMessage("You cannot remove quantity of productDefinition that is not in your cart");
     }
 
     @Test
@@ -297,7 +297,7 @@ class CartTest {
     void creatingOverallSum() {
         Cart cart = new Cart(MockCouponManager.INSTANCE);
 
-        cart.addItem(product, 1000);
+        cart.addItem(productDefinition, 1000);
 
         Assertions.assertThat(cart.overallSum()).isEqualTo(Money.of(2300, Currency.PLN));
     }
@@ -319,8 +319,8 @@ class CartTest {
                 .isEqualByComparingTo(Money.of(BigDecimal.valueOf(2070.00), Currency.PLN));
     }
 
-    private static Product sampleProduct(double v) {
-        return Product.of("Butter", Money.of(BigDecimal.valueOf(v), Currency.PLN));
+    private static ProductDefinition sampleProduct(double v) {
+        return ProductDefinition.of("Butter", Money.of(BigDecimal.valueOf(v), Currency.PLN));
     }
     //endregion
     @Test

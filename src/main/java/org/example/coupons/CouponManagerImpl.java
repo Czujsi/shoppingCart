@@ -4,24 +4,24 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class CouponManagerImpl implements CouponManager {
-    private final Repository<String, DiscountDefinition> discountInMemoryRepository;
+    private final DiscountRepository<String, DiscountDefinition> discountInMemoryDiscountRepository;
     @Override
     public boolean checkDiscountCode(String code) {
-        return discountInMemoryRepository.exists(code);
+        return discountInMemoryDiscountRepository.exists(code);
     }
 
     @Override
     public DiscountDefinition getCouponForCode(String code) {
-        return discountInMemoryRepository.get(code);
+        return discountInMemoryDiscountRepository.get(code);
     }
     @Override
     public void addDiscount(DiscountDefinition discountDefinition) {
-        discountInMemoryRepository.save(discountDefinition);
+        discountInMemoryDiscountRepository.save(discountDefinition);
     }
 
     @Override
     public void removeDiscount(DiscountDefinition discountDefinition) {
-        discountInMemoryRepository.delete(discountDefinition.getCode());
+        discountInMemoryDiscountRepository.delete(discountDefinition.getCode());
     }
 
 }

@@ -11,7 +11,7 @@ class CouponManagerTest {
     ));
     @Test
     void addDiscount() {
-        DiscountInMemoryRepository discountInMemoryRepository = new DiscountInMemoryRepository();
+        DiscountInMemoryDiscountRepository discountInMemoryRepository = new DiscountInMemoryDiscountRepository();
 
         CouponManagerImpl couponManager = new CouponManagerImpl(discountInMemoryRepository);
 
@@ -23,7 +23,7 @@ class CouponManagerTest {
     @Test
     void removeDiscount() {
         // given
-        DiscountInMemoryRepository discountInMemoryRepository = new DiscountInMemoryRepository();
+        DiscountInMemoryDiscountRepository discountInMemoryRepository = new DiscountInMemoryDiscountRepository();
         CouponManagerImpl couponManager = new CouponManagerImpl(discountInMemoryRepository);
         couponManager.addDiscount(FREE_TRANSPORT);
 

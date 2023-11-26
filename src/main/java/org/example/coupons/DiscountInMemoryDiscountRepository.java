@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import java.util.HashMap;
 import java.util.Map;
 @EqualsAndHashCode
-public class DiscountInMemoryRepository implements Repository<String, DiscountDefinition>{
+public class DiscountInMemoryDiscountRepository implements DiscountRepository<String, DiscountDefinition> {
     private final Map<String, DiscountDefinition> repository = new HashMap<>();
     @Override
     public void save(DiscountDefinition object) {
