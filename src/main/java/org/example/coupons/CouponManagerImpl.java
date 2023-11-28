@@ -1,10 +1,11 @@
 package org.example.coupons;
 
 import lombok.AllArgsConstructor;
+import org.example.common.Repository;
 
 @AllArgsConstructor
 public class CouponManagerImpl implements CouponManager {
-    private final DiscountRepository<String, DiscountDefinition> discountInMemoryDiscountRepository;
+    private final Repository<String, DiscountDefinition> discountInMemoryDiscountRepository;
     @Override
     public boolean checkDiscountCode(String code) {
         return discountInMemoryDiscountRepository.exists(code);

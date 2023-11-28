@@ -1,12 +1,15 @@
 package org.example.coupons;
 
 import lombok.EqualsAndHashCode;
+import org.example.common.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
+
 @EqualsAndHashCode
-public class DiscountInMemoryDiscountRepository implements DiscountRepository<String, DiscountDefinition> {
+public class DiscountInMemoryRepository implements Repository<String, DiscountDefinition> {
     private final Map<String, DiscountDefinition> repository = new HashMap<>();
+
     @Override
     public void save(DiscountDefinition object) {
         repository.put(object.getCode(), object);

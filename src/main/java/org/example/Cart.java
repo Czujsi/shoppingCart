@@ -1,6 +1,7 @@
 package org.example;
 
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.example.coupons.CouponManager;
@@ -26,6 +27,7 @@ public class Cart {
 
     Money amount;
     private final CouponManager couponManager;
+    private final UserId userId;
 
     public void addItem(ProductDefinition productDefinition, int amount) {
         if (productDefinition == null)
@@ -115,8 +117,12 @@ public class Cart {
 //      return handleDiscount(total, discount -> discount::applyDiscountForCart);
     }
 
-    public void removeDiscount(String code){
+    public void removeDiscount(String code) {
         discounts.removeIf(d -> d.getCode().equals(code));
+    }
+
+    public UserId getUserId() {
+        return this.userId;
     }
 
 //    private Money handleDiscount(Money initial, Function<DiscountDefinition, Function<Money, Money>> f) {
