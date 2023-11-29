@@ -1,7 +1,6 @@
-package org.example;
+package org.example.cart_components;
 
 
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.example.coupons.CouponManager;

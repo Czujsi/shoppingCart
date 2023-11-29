@@ -1,4 +1,4 @@
-package org.example;
+package org.example.cart_components;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

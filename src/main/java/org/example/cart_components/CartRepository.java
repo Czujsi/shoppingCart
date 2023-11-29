@@ -1,4 +1,4 @@
-package org.example;
+package org.example.cart_components;
 
 import org.example.common.Repository;
 

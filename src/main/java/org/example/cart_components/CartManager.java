@@ -1,4 +1,4 @@
-package org.example;
+package org.example.cart_components;
 
 public interface CartManager {
     void addCart(Cart cart);

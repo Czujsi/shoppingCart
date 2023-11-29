@@ -1,7 +1,11 @@
 package org.example;
 
+import org.example.text_interface.CartFramework;
+import org.example.text_interface.RunCart;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        RunCart runCart = new RunCart();
+        runCart.runCartFramework();
     }
 }

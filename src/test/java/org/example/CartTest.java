@@ -2,6 +2,8 @@ package org.example;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.ThrowableAssert;
+import org.example.cart_components.Cart;
+import org.example.cart_components.UserId;
 import org.example.coupons.*;
 import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
