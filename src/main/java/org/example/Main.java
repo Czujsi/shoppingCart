@@ -1,11 +1,10 @@
 package org.example;
 
-import org.example.text_interface.CartFramework;
-import org.example.text_interface.RunCart;
+import org.example.text_interface.Shop;
 
 public class Main {
     public static void main(String[] args) {
-        RunCart runCart = new RunCart();
-        runCart.runCartFramework();
+        Shop shop = new Shop();
+        shop.run();
     }
 }

@@ -2,10 +2,8 @@ package org.example.product.components;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 @EqualsAndHashCode
-@ToString
 @Getter
 public final class ProductName {
     private final String value;
@@ -13,5 +11,10 @@ public final class ProductName {
     public ProductName(String productName) {
 
         this.value = productName.toLowerCase();
+    }
+
+    @Override
+    public String toString() {
+        return value;
     }
 }

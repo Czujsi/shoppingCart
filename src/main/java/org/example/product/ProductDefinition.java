@@ -40,8 +40,7 @@ public class ProductDefinition {
     }
 
 
-
-//    @Override
+    //    @Override
 //    //a.equals (b)
 //    public boolean equals(Object o) {
 //        if (this == o) return true;

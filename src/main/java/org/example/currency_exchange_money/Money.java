@@ -54,4 +54,9 @@ public class Money implements Comparable<Money> {
         }
         return this.getAmount().compareTo(o.getAmount());
     }
+
+    @Override
+    public String toString() {
+        return getAmount() + " " + getCurrency();
+    }
 }

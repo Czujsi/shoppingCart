@@ -11,10 +11,7 @@ import org.example.product.ProductDefinition;
 import org.example.product.components.ProductName;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @RequiredArgsConstructor
 @ToString
@@ -39,6 +36,7 @@ public class Cart {
         }
         int oldAmount = quantityOf(productDefinition.getProductName().getValue());
         products.put(productDefinition, amount + oldAmount);
+        System.out.println();
 
     }
 
@@ -124,12 +122,27 @@ public class Cart {
         return this.userId;
     }
 
-//    private Money handleDiscount(Money initial, Function<DiscountDefinition, Function<Money, Money>> f) {
+    public void writeOutProducts() {
+        for (Map.Entry<ProductDefinition, Integer> entry : products.entrySet()) {
+            System.out.println("Product: " +
+                    entry.getKey().getProductName().getValue() +
+                    ", quantity: " +
+                    entry.getValue().toString());
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Selected products: " +
+                 products;
+    }
+    //    private Money handleDiscount(Money initial, Function<DiscountDefinition, Function<Money, Money>> f) {
 //        Money t = initial;
 //        for (DiscountDefinition discountDefinition : discounts) {
 //            t = f.apply(discountDefinition).apply(t);
 //        }
 //        return t;
 //    }
+
 }
 
