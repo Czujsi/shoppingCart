@@ -7,8 +7,13 @@ import org.example.product.ProductDefinition;
 import org.example.product.ProductManager;
 import org.example.user.UserManager;
 
+import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Scanner;
+
+import static java.lang.System.*;
+import static java.text.MessageFormat.*;
+import static java.util.stream.Collectors.*;
 
 @RequiredArgsConstructor
 public class Store {
@@ -18,29 +23,29 @@ public class Store {
     private final Cart cart;
     private final Customer customer;
     private final Employee employee;
-    Scanner scanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(in);
 
     // adding item to client's cart from repository if exists
     public void addItemToCart(String input) {
         customer.addToCart(input);
-        System.out.println(input + " has been added to Your cart");
+        out.println(input + " has been added to Your cart");
     }
 
     //removing item from client's cart if exist
     public void removeItemFromCart(String input) {
-        System.out.println(input + " has been removed.");
+        out.println(input + " has been removed.");
         customer.removeFromCart(input);
     }
 
     //printing all products, with prices and sum of prices from client's shopping's
     public void printSummary() {
-        for (Map.Entry<ProductDefinition, Integer> entry : cart.writeOutProducts().entrySet()) {
-            System.out.println("Product: " +
+        for (Map.Entry<ProductDefinition, Integer> entry : cart.getProducts().entrySet()) {
+            out.println("Product: " +
                     entry.getKey().getProductName().getValue() +
                     ", quantity: " +
                     entry.getValue().toString());
         }
-        System.out.println(cart.overallSum());
+        out.println(cart.overallSum());
     }
 
     //check if item exists
@@ -66,14 +71,21 @@ public class Store {
     //searching and printing item properties from stock, method for employee
     public void searchForItem(String productName) {
         if (!productManager.exist(productName)) {
-            System.out.println("Sorry, but we don't have that product on stock");
+            out.println("Sorry, but we don't have that product on stock");
             return;
         }
-        System.out.println(productManager.getProductForName(productName));
+        out.println(productManager.getProductForName(productName));
     }
 
     //printing all items from stock, method from employee and client
     public void printAllItemsFromStock() {
-        productManager.printAllProductsFromRepository();
+        out.println((productManager.getAllProducts().stream()
+                .map(Store::getString)
+                .collect(joining(lineSeparator()))));
     }
+
+    private static String getString(ProductDefinition pd) {
+        return format("Product: {0}, price: {1}", pd.getProductName().getValue(), pd.getPrice().getAmount());
+    }
+
 }

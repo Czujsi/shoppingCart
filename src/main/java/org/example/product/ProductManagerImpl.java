@@ -2,6 +2,8 @@ package org.example.product;
 
 import lombok.AllArgsConstructor;
 
+import java.util.Collection;
+
 @AllArgsConstructor
 public class ProductManagerImpl implements ProductManager {
     private final ProductRepositoryInterface<String, ProductDefinition> productRepositoryInterface;
@@ -13,7 +15,7 @@ public class ProductManagerImpl implements ProductManager {
 
     @Override
     public void removeProduct(String name) {
-        if(!productRepositoryInterface.exists(name.toLowerCase())){
+        if (!productRepositoryInterface.exists(name.toLowerCase())) {
             throw new IllegalArgumentException("You cannot remove product that does not exist");
         }
         productRepositoryInterface.delete(name.toLowerCase());
@@ -35,7 +37,7 @@ public class ProductManagerImpl implements ProductManager {
     }
 
     @Override
-    public void printAllProductsFromRepository() {
-        productRepositoryInterface.getAll();
+    public Collection<ProductDefinition> getAllProducts() {
+        return productRepositoryInterface.getAll();
     }
 }

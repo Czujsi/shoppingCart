@@ -4,13 +4,14 @@ package org.example.product;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 @ToString
 @EqualsAndHashCode
 public class ProductRepository implements ProductRepositoryInterface<String, ProductDefinition> {
-    private final HashMap<String, ProductDefinition> productRepository = new HashMap<>();
+    private final Map<String, ProductDefinition> productRepository = new HashMap<>();
 
     @Override
     public void save(ProductDefinition object) {
@@ -29,8 +30,8 @@ public class ProductRepository implements ProductRepositoryInterface<String, Pro
     }
 
     @Override
-    public void update(String oldName, ProductDefinition object) {
-        productRepository.replace(oldName, object);
+    public void update(String oldName, ProductDefinition productDefinition) {
+        productRepository.replace(oldName, productDefinition);
     }
 
     public ProductDefinition get(String name) {
@@ -38,16 +39,7 @@ public class ProductRepository implements ProductRepositoryInterface<String, Pro
     }
 
     @Override
-    public void getAll() {
-        writeOutProducts();
-    }
-    //return products sout in store
-    public void writeOutProducts() {
-        for (Map.Entry<String, ProductDefinition> entry : productRepository.entrySet()) {
-            System.out.println("Product: " +
-                    entry.getValue().getProductName().getValue() +
-                    ", price: " +
-                    entry.getValue().getPrice().getAmount().toString());
-        }
+    public Collection<ProductDefinition> getAll() {
+        return productRepository.values();
     }
 }

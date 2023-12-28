@@ -119,7 +119,7 @@ public class Cart {
         return this.userId;
     }
 
-    public Map<ProductDefinition, Integer> writeOutProducts() {
+    public Map<ProductDefinition, Integer> getProducts() {
         return products;
     }
 }
