@@ -9,7 +9,6 @@ import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
 import org.example.product.components.ProductName;
-import org.example.user.UserManager;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -124,13 +123,8 @@ public class Cart {
     }
 
     //return products sout in store
-    public void writeOutProducts() {
-        for (Map.Entry<ProductDefinition, Integer> entry : products.entrySet()) {
-            System.out.println("Product: " +
-                    entry.getKey().getProductName().getValue() +
-                    ", quantity: " +
-                    entry.getValue().toString());
-        }
+    public Map<ProductDefinition, Integer> writeOutProducts() {
+        return products;
     }
 
     @Override

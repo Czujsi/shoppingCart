@@ -92,5 +92,6 @@ public class TextInterface extends UserInterface {
     //just for testing
     private void addItemsToStock() {
         System.out.println("Type product name, and price");
+        store.addItemToStock();
     }
 }

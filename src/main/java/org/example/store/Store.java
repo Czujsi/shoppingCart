@@ -3,9 +3,11 @@ package org.example.store;
 import lombok.RequiredArgsConstructor;
 import org.example.cart_components.Cart;
 import org.example.coupons.CouponManager;
+import org.example.product.ProductDefinition;
 import org.example.product.ProductManager;
 import org.example.user.UserManager;
 
+import java.util.Map;
 import java.util.Scanner;
 
 @RequiredArgsConstructor
@@ -32,7 +34,12 @@ public class Store {
 
     //printing all products, with prices and sum of prices from client's shopping's
     public void printSummary() {
-        cart.writeOutProducts();
+        for (Map.Entry<ProductDefinition, Integer> entry : cart.writeOutProducts().entrySet()) {
+            System.out.println("Product: " +
+                    entry.getKey().getProductName().getValue() +
+                    ", quantity: " +
+                    entry.getValue().toString());
+        }
         System.out.println(cart.overallSum());
     }
 
@@ -42,7 +49,7 @@ public class Store {
     }
 
     //adding item to store(productRepository), method for employee
-    private void addItemToStock() {
+    public void addItemToStock() {
         employee.addToStock();
     }
 
