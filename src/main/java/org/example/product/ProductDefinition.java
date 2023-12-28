@@ -12,14 +12,10 @@ import org.example.product.components.ProductName;
 @ToString
 public class ProductDefinition {
     @EqualsAndHashCode.Exclude
-    private Price price;
+    private final Price price;
 
     @Getter
     private final ProductName productName;
-
-    public ProductDefinition(ProductName productName, Money price) {
-        this(productName, new Price(price));
-    }
 
     public ProductDefinition(ProductName productName, Price price) {
         if (productName == null) {
@@ -30,30 +26,11 @@ public class ProductDefinition {
         this.price = price;
     }
 
-    public static ProductDefinition of(String productName, Money price){
+    public static ProductDefinition of(String productName, Money price) {
         return new ProductDefinition(new ProductName(productName), new Price(price));
     }
-
 
     public Money getPrice() {
         return this.price.productPrice;
     }
-
-
-    //    @Override
-//    //a.equals (b)
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null) return false;
-//        if (this.getClass() != o.getClass()) return false;
-//        ProductDefinition other = (ProductDefinition) o;
-//        return Objects.equals(this.productName.toLowerCase(), other.productName.toLowerCase());
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(productName);
-//    }
-
-
 }

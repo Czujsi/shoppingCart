@@ -16,7 +16,6 @@ import java.util.*;
 @RequiredArgsConstructor
 @ToString
 public class Cart {
-
     private final Map<ProductDefinition, Integer> products = new HashMap<>();
 
     private final Set<DiscountDefinition> discounts = new HashSet<>();
@@ -101,8 +100,6 @@ public class Cart {
             t = discountDefinition.applyDiscountForProduct(t);
         }
         return t;
-
-//      return handleDiscount(key.getPrice(), discount -> discount::applyDiscountForProduct);
     }
 
     private Money discountCart(Money total) {
@@ -122,23 +119,8 @@ public class Cart {
         return this.userId;
     }
 
-    //return products sout in store
     public Map<ProductDefinition, Integer> writeOutProducts() {
         return products;
     }
-
-    @Override
-    public String toString() {
-        return "Selected products: " +
-                 products;
-    }
-    //    private Money handleDiscount(Money initial, Function<DiscountDefinition, Function<Money, Money>> f) {
-//        Money t = initial;
-//        for (DiscountDefinition discountDefinition : discounts) {
-//            t = f.apply(discountDefinition).apply(t);
-//        }
-//        return t;
-//    }
-
 }
 

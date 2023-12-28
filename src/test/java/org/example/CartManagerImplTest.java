@@ -12,25 +12,25 @@ class CartManagerImplTest {
     private final static UserId USER_ID = new UserId(1233412L);
     private final static UserId USER_ID_2 = new UserId(122233412L);
 
-    private CartInMemoryRepository cartInMemoryRepository;
+    private CartRepositoryImpl cartRepositoryImpl;
     private CartManager cartManager;
 
     @BeforeEach
     void setUp() {
-        cartInMemoryRepository = new CartInMemoryRepository();
-        cartManager = new CartManagerImpl(cartInMemoryRepository);
+        cartRepositoryImpl = new CartRepositoryImpl();
+        cartManager = new CartManagerImpl(cartRepositoryImpl);
     }
 
     @Test
     void checkingIfAddCartMethodWorksProperly() {
         cartManager.addCart(cartForUser(USER_ID));
 
-        assertThat(cartInMemoryRepository.exists(USER_ID)).isTrue();
+        assertThat(cartRepositoryImpl.exists(USER_ID)).isTrue();
     }
 
     @Test
     void checkingIfAddCartMethodWorksProperly2() {
-        assertThat(cartInMemoryRepository.exists(USER_ID_2)).isFalse();
+        assertThat(cartRepositoryImpl.exists(USER_ID_2)).isFalse();
     }
 
     @Test
@@ -39,7 +39,7 @@ class CartManagerImplTest {
 
         cartManager.deleteCart(USER_ID);
 
-        assertThat(cartInMemoryRepository.exists(USER_ID)).isFalse();
+        assertThat(cartRepositoryImpl.exists(USER_ID)).isFalse();
     }
 
     private Cart cartForUser(UserId userId) {

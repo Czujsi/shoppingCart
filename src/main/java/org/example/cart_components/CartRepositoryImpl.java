@@ -3,7 +3,7 @@ package org.example.cart_components;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CartInMemoryRepository implements CartRepository {
+public class CartRepositoryImpl implements CartRepository {
     private final Map<UserId, Cart> cartsRepository = new HashMap<>();
 
     @Override
