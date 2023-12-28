@@ -13,7 +13,7 @@ class ProductManagerImplTest {
 
     @Test
     void checkingIfAddProductMethodWorksProperly() {
-        ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
+        ProductRepository productInMemoryRepository = new ProductRepository();
         ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
 
         productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN))));
@@ -23,7 +23,7 @@ class ProductManagerImplTest {
 
     @Test
     void checkingIfWhenAddingTwoProductsTwoProductsAreInRepository() {
-        ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
+        ProductRepository productInMemoryRepository = new ProductRepository();
         ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
 
         productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN))));
@@ -35,7 +35,7 @@ class ProductManagerImplTest {
 
     @Test
     void checkingIfRemoveProductMethodWorksProperly() {
-        ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
+        ProductRepository productInMemoryRepository = new ProductRepository();
         ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
         productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN))));
         productManager.addProduct(new ProductDefinition(new ProductName("Milk"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN))));
@@ -48,7 +48,7 @@ class ProductManagerImplTest {
 
     @Test
     void checkingIfWhenRemovingProductThatIsNotInRepositoryExceptionWillBeThrown() {
-        ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
+        ProductRepository productInMemoryRepository = new ProductRepository();
         ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
 
         Assertions.assertThatThrownBy(() -> productManager.removeProduct("MILK")).hasMessage("You cannot remove product that does not exist");
@@ -57,7 +57,7 @@ class ProductManagerImplTest {
 
     @Test
     void checkingIfEditMethodWorksProperlyWitchChangingPrice() {
-        ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
+        ProductRepository productInMemoryRepository = new ProductRepository();
         ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
         productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN))));
 
@@ -68,7 +68,7 @@ class ProductManagerImplTest {
 
     @Test
     void checkingIfEditMethodWorksProperlyWithChangingName() {
-        ProductInMemoryRepository productInMemoryRepository = new ProductInMemoryRepository();
+        ProductRepository productInMemoryRepository = new ProductRepository();
         ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
         productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN))));
 

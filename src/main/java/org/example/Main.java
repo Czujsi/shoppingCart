@@ -1,10 +1,10 @@
 package org.example;
 
-import org.example.text_interface.Shop;
+import org.example.run.Run;
 
 public class Main {
     public static void main(String[] args) {
-        Shop shop = new Shop();
-        shop.run();
+       Run run = new Run();
+       run.runTextInterface();
     }
 }

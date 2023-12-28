@@ -11,26 +11,26 @@ class CouponManagerTest {
     ));
     @Test
     void addDiscount() {
-        DiscountInMemoryRepository discountInMemoryRepository = new DiscountInMemoryRepository();
+        DiscountRepository discountRepository = new DiscountRepository();
 
-        CouponManagerImpl couponManager = new CouponManagerImpl(discountInMemoryRepository);
+        CouponManagerImpl couponManager = new CouponManagerImpl(discountRepository);
 
         couponManager.addDiscount(FREE_TRANSPORT);
 
-        Assertions.assertThat(discountInMemoryRepository.exists("code")).isTrue();
+        Assertions.assertThat(discountRepository.exists("code")).isTrue();
     }
 
     @Test
     void removeDiscount() {
         // given
-        DiscountInMemoryRepository discountInMemoryRepository = new DiscountInMemoryRepository();
-        CouponManagerImpl couponManager = new CouponManagerImpl(discountInMemoryRepository);
+        DiscountRepository discountRepository = new DiscountRepository();
+        CouponManagerImpl couponManager = new CouponManagerImpl(discountRepository);
         couponManager.addDiscount(FREE_TRANSPORT);
 
         // when
         couponManager.removeDiscount(FREE_TRANSPORT);
 
         // then
-        Assertions.assertThat(discountInMemoryRepository.exists("code")).isFalse();
+        Assertions.assertThat(discountRepository.exists("code")).isFalse();
     }
 }

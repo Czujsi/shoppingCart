@@ -37,9 +37,9 @@ class CartTest {
 
     @BeforeEach
     void setUp() {
-        DiscountInMemoryRepository discountInMemoryRepository = new DiscountInMemoryRepository();
+        DiscountRepository discountRepository = new DiscountRepository();
 
-        couponManager = new CouponManagerImpl(discountInMemoryRepository);
+        couponManager = new CouponManagerImpl(discountRepository);
     }
 
     //region addItem method test
