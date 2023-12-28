@@ -7,13 +7,12 @@ import org.example.product.ProductDefinition;
 import org.example.product.ProductManager;
 import org.example.user.UserManager;
 
-import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Scanner;
 
 import static java.lang.System.*;
-import static java.text.MessageFormat.*;
-import static java.util.stream.Collectors.*;
+import static java.text.MessageFormat.format;
+import static java.util.stream.Collectors.joining;
 
 @RequiredArgsConstructor
 public class Store {
