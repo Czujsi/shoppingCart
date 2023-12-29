@@ -42,7 +42,7 @@ public class Store {
 
     //check if item exists
     public boolean checkIfExists(String input) {
-        return productManager.exist(input);
+        return employee.checkIfExist(input);
     }
 
     //adding item to store(productRepository), method for employee
@@ -62,7 +62,7 @@ public class Store {
 
     //searching and printing item properties from stock, method for employee
     public void searchForItem(String productName) {
-        if (!productManager.exist(productName)) {
+        if (!checkIfExists(productName)) {
             out.println("Sorry, but we don't have that product on stock");
             return;
         }
@@ -79,5 +79,4 @@ public class Store {
     private static String getString(ProductDefinition pd) {
         return format("Product: {0}, price: {1}", pd.getProductName().getValue(), pd.getPrice().getAmount());
     }
-
 }
