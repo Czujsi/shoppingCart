@@ -14,7 +14,6 @@ import org.example.product.ProductManagerImpl;
 import org.example.product.ProductRepository;
 import org.example.product.components.Price;
 import org.example.product.components.ProductName;
-import org.example.user.UserManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,9 +25,7 @@ class StoreTest {
     DiscountRepository discountRepository = new DiscountRepository();
     ProductManager productManager = new ProductManagerImpl(productRepository);
     CouponManager couponManager = new CouponManagerImpl(discountRepository);
-    UserManager userManager = new UserManager();
     UserId userId = new UserId(1L);
-    Cart cart = new Cart(couponManager, userId);
     Employee employee = new EmployeeImpl(productManager);
     Customer customer = new CustomerImpl(new Cart(couponManager, userId), productManager, employee);
 
@@ -40,7 +37,7 @@ class StoreTest {
     }
     @Test
     void writingTest() {
-        Store store = new Store(productManager, couponManager, userManager, cart, customer, employee);
+        Store store = new Store(productManager, customer, employee);
 
         productManager.addProduct(new ProductDefinition(new ProductName("milk"), new Price(Money.of(2.54, Currency.PLN))));
         store.printAllItemsFromStock();

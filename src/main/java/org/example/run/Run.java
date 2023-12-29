@@ -10,7 +10,6 @@ import org.example.product.ProductManagerImpl;
 import org.example.product.ProductRepository;
 import org.example.store.*;
 import org.example.text_interface.TextInterface;
-import org.example.user.UserManager;
 import org.example.user_interface.UserInterface;
 
 public class Run {
@@ -18,16 +17,13 @@ public class Run {
     DiscountRepository discountRepository = new DiscountRepository();
     ProductManager productManager = new ProductManagerImpl(productRepository);
     CouponManager couponManager = new CouponManagerImpl(discountRepository);
-    UserManager userManager = new UserManager();
     UserId userId = new UserId(1L);
-    Cart cart = new Cart(couponManager, userId);
     Employee employee = new EmployeeImpl(productManager);
     Customer customer = new CustomerImpl(new Cart(couponManager, userId), productManager, employee);
-    Store store = new Store(productManager, couponManager, userManager, cart, customer, employee);
+    Store store = new Store(productManager, customer, employee);
     UserInterface textInterface = new TextInterface(store);
-    TextInterface textInterface1 = new TextInterface(store);
 
     public void runTextInterface() {
-        textInterface1.run();
+        textInterface.run();
     }
 }

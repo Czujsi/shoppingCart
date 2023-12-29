@@ -2,7 +2,11 @@ package org.example.store;
 
 import lombok.AllArgsConstructor;
 import org.example.cart_components.Cart;
+import org.example.currency_exchange_money.Money;
+import org.example.product.ProductDefinition;
 import org.example.product.ProductManager;
+
+import java.util.Map;
 
 @AllArgsConstructor
 public class CustomerImpl implements Customer {
@@ -31,5 +35,15 @@ public class CustomerImpl implements Customer {
     @Override
     public void checkPrice() {
 
+    }
+
+    @Override
+    public Map<ProductDefinition, Integer> getCart() {
+        return cart.getProducts();
+    }
+
+    @Override
+    public Money overallSum() {
+        return cart.overallSum();
     }
 }
