@@ -21,26 +21,34 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 class StoreTest {
-    ProductRepository productRepository = new ProductRepository();
-    DiscountRepository discountRepository = new DiscountRepository();
-    ProductManager productManager = new ProductManagerImpl(productRepository);
-    CouponManager couponManager = new CouponManagerImpl(discountRepository);
+    ProductRepository productRepository;
+    DiscountRepository discountRepository;
+    ProductManager productManager;
+    CouponManager couponManager;
     UserId userId = new UserId(1L);
-    Employee employee = new EmployeeImpl(productManager);
-    Customer customer = new CustomerImpl(new Cart(couponManager, userId), productManager, employee);
+    Employee employee;
+    Customer customer;
 
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
     public void setUp() {
+        productRepository = new ProductRepository();
+        discountRepository = new DiscountRepository();
+        productManager = new ProductManagerImpl(productRepository);
+        couponManager = new CouponManagerImpl(discountRepository);
+        employee = new EmployeeImpl(productManager);
+        customer = new CustomerImpl(new Cart(couponManager, userId), productManager, employee);
         System.setOut(new PrintStream(outputStreamCaptor));
     }
+
     @Test
     void writingTest() {
         Store store = new Store(productManager, customer, employee);
 
         productManager.addProduct(new ProductDefinition(new ProductName("milk"), new Price(Money.of(2.54, Currency.PLN))));
         store.printAllItemsFromStock();
+
         Assertions.assertThat("Product: milk, price: 2,54").isEqualTo(outputStreamCaptor.toString().trim());
     }
 }
