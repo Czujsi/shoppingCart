@@ -142,9 +142,6 @@ public class TextInterface extends UserInterface {
         System.out.println("Type product name, and price");
         store.addItemToStock();
     }
-    private void removeItemFromStock(String productName){
-        store.removeItemFromStock(productName);
-    }
     private void addFlatPercentDiscount() {
         employee.addFlatPercentDiscount();
     }
