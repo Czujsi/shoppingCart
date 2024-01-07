@@ -2,6 +2,7 @@ package org.example.store;
 
 import lombok.RequiredArgsConstructor;
 import org.example.UserInput;
+import org.example.coupons.*;
 import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
@@ -10,15 +11,20 @@ import org.example.product.components.Price;
 import org.example.product.components.ProductName;
 
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Scanner;
+
+import static java.lang.System.out;
 
 @RequiredArgsConstructor
 public class EmployeeImpl implements Employee {
     ProductManager productManager;
+    CouponManager couponManager;
     Scanner scanner = new Scanner(System.in);
 
-    public EmployeeImpl(ProductManager productManager) {
+    public EmployeeImpl(ProductManager productManager, CouponManager couponManager) {
         this.productManager = productManager;
+        this.couponManager = couponManager;
     }
 
     @Override
@@ -44,12 +50,31 @@ public class EmployeeImpl implements Employee {
     }
 
     @Override
-    public void removeFromStock() {
-        String productName = UserInput.getInput(scanner);
-        if (!productManager.exist(productName)) {
+    public void removeFromStock(String input) {
+        if (!productManager.exist(input)) {
             System.out.println("Sorry, but we don't have that product on stock");
             return;
         }
-        productManager.removeProduct(productName);
+        productManager.removeProduct(input);
+    }
+
+    @Override
+    public void addFlatPercentDiscount() {
+        System.out.println("Type discount code: ");
+        String discountCode = UserInput.getInput(scanner);
+        System.out.println("Type discount rate from 1 to 100: ");
+        String value = UserInput.getInput(scanner);
+        BigDecimal percent = new BigDecimal(value);
+        couponManager.addDiscount(new DiscountDefinition(discountCode, Map.of(
+                DiscountType.Cart, new FlatPercentDiscount(percent))));
+    }
+
+    @Override
+    public void searchForItem(String input) {
+        if (!checkIfExist(input)) {
+            out.println("Sorry, but we don't have that product on stock");
+            return;
+        }
+        out.println(productManager.getProductForName(input));
     }
 }

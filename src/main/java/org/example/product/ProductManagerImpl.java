@@ -1,43 +1,45 @@
 package org.example.product;
 
 import lombok.AllArgsConstructor;
+import org.example.cart_components.Cart;
 
 import java.util.Collection;
 
 @AllArgsConstructor
 public class ProductManagerImpl implements ProductManager {
-    private final ProductRepositoryInterface<String, ProductDefinition> productRepositoryInterface;
+
+    private final ProductRepository<String, ProductDefinition> productRepository;
 
     @Override
     public void addProduct(ProductDefinition productDefinition) {
-        productRepositoryInterface.save(productDefinition);
+        productRepository.save(productDefinition);
     }
 
     @Override
     public void removeProduct(String name) {
-        if (!productRepositoryInterface.exists(name.toLowerCase())) {
+        if (!productRepository.exists(name.toLowerCase())) {
             throw new IllegalArgumentException("You cannot remove product that does not exist");
         }
-        productRepositoryInterface.delete(name.toLowerCase());
+        productRepository.delete(name.toLowerCase());
     }
 
     @Override
     public void editProduct(String productName, ProductDefinition productDefinition) {
-        productRepositoryInterface.update(productName.toLowerCase(), productDefinition);
+        productRepository.update(productName.toLowerCase(), productDefinition);
     }
 
     @Override
     public boolean exist(String name) {
-        return productRepositoryInterface.exists(name);
+        return productRepository.exists(name);
     }
 
     @Override
     public ProductDefinition getProductForName(String name) {
-        return productRepositoryInterface.get(name);
+        return productRepository.get(name);
     }
 
     @Override
     public Collection<ProductDefinition> getAllProducts() {
-        return productRepositoryInterface.getAll();
+        return productRepository.getAll();
     }
 }

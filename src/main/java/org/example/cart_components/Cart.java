@@ -35,8 +35,6 @@ public class Cart {
         }
         int oldAmount = quantityOf(productDefinition.getProductName().getValue());
         products.put(productDefinition, amount + oldAmount);
-        System.out.println();
-
     }
 
     public void removeItem(String productName) {
@@ -74,13 +72,11 @@ public class Cart {
     }
 
     public void applyDiscountCode(String code) {
-
         if (!couponManager.checkDiscountCode(code)) {
             throw new RuntimeException("This coupon code isn't valid");
         }
         DiscountDefinition couponForCode = couponManager.getCouponForCode(code);
         discounts.add(couponForCode);
-
     }
 
     public Money overallSum() {
@@ -121,6 +117,10 @@ public class Cart {
 
     public Map<ProductDefinition, Integer> getProducts() {
         return products;
+    }
+
+    public Set<DiscountDefinition> getDiscounts() {
+        return discounts;
     }
 }
 

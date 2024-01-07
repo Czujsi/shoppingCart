@@ -11,7 +11,7 @@ import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
 import org.example.product.ProductManager;
 import org.example.product.ProductManagerImpl;
-import org.example.product.ProductRepository;
+import org.example.product.ProductRepositoryImpl;
 import org.example.product.components.Price;
 import org.example.product.components.ProductName;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 class StoreTest {
-    ProductRepository productRepository;
+    ProductRepositoryImpl productRepositoryImpl;
     DiscountRepository discountRepository;
     ProductManager productManager;
     CouponManager couponManager;
@@ -33,18 +33,18 @@ class StoreTest {
 
     @BeforeEach
     public void setUp() {
-        productRepository = new ProductRepository();
+        productRepositoryImpl = new ProductRepositoryImpl();
         discountRepository = new DiscountRepository();
-        productManager = new ProductManagerImpl(productRepository);
+        productManager = new ProductManagerImpl(productRepositoryImpl);
         couponManager = new CouponManagerImpl(discountRepository);
-        employee = new EmployeeImpl(productManager);
+        employee = new EmployeeImpl(productManager, couponManager);
         customer = new CustomerImpl(new Cart(couponManager, userId), productManager, employee);
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
     @Test
     void writingTest() {
-        Store store = new Store(productManager, customer, employee);
+        Store store = new Store(productManager, customer, employee, couponManager);
 
         productManager.addProduct(new ProductDefinition(new ProductName("milk"), new Price(Money.of(2.54, Currency.PLN))));
         store.printAllItemsFromStock();

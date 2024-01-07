@@ -33,6 +33,7 @@ public class DiscountDefinition {
         return calculator != null ? calculator.discount(amount) : amount;
     }
 
-
-
+    public Object getDiscountValue(String code) {
+        return calculators;
+    }
 }
