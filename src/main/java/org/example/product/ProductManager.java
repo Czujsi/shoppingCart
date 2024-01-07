@@ -1,10 +1,7 @@
 package org.example.product;
 
-import org.example.cart_components.Cart;
-
+import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 public interface ProductManager {
     void addProduct(ProductDefinition productDefinition);
@@ -18,4 +15,6 @@ public interface ProductManager {
     ProductDefinition getProductForName(String name);
 
     Collection<ProductDefinition> getAllProducts();
+
+    BigDecimal getProductPrice(String input);
 }

@@ -1,8 +1,8 @@
 package org.example.product;
 
 import lombok.AllArgsConstructor;
-import org.example.cart_components.Cart;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
 @AllArgsConstructor
@@ -41,5 +41,10 @@ public class ProductManagerImpl implements ProductManager {
     @Override
     public Collection<ProductDefinition> getAllProducts() {
         return productRepository.getAll();
+    }
+
+    @Override
+    public BigDecimal getProductPrice(String input) {
+        return productRepository.get(input).getPrice().getAmount();
     }
 }
