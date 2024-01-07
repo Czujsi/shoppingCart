@@ -25,6 +25,7 @@ public class CustomerImpl implements Customer {
             return;
         }
         cart.addItem(productManager.getProductForName(input), 1);
+        out.println(input + ", added to cart");
     }
 
     @Override
