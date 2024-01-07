@@ -25,7 +25,7 @@ public class CustomerImpl implements Customer {
             return;
         }
         cart.addItem(productManager.getProductForName(input), 1);
-        out.println(input + ", has been added to cart with price: " + productManager.getProductPrice(input));
+        out.println(input + ", has been added to cart with price: " + productManager.getProductPrice(input) + productManager.getProductCurrency(input));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package org.example.product;
 
 import lombok.AllArgsConstructor;
+import org.example.currency_exchange_money.Currency;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -46,5 +47,10 @@ public class ProductManagerImpl implements ProductManager {
     @Override
     public BigDecimal getProductPrice(String input) {
         return productRepository.get(input).getPrice().getAmount();
+    }
+
+    @Override
+    public Currency getProductCurrency(String input) {
+        return productRepository.get(input).getPrice().getCurrency();
     }
 }
