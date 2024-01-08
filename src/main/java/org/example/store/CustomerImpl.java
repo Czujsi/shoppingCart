@@ -45,7 +45,7 @@ public class CustomerImpl implements Customer {
 
     @Override
     public void removeAll(String input) {
-        if (cart.has(input)){
+        if (cart.has(input)) {
             cart.removeItem(input);
         }
     }
