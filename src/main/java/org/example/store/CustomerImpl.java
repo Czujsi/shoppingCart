@@ -25,10 +25,10 @@ public class CustomerImpl implements Customer {
             return;
         }
         cart.addItem(productManager.getProductForName(input), 1);
-        out.println(geAddingInformation(input));
+        out.println(getAfterAddingInformation(input));
     }
 
-    private String geAddingInformation(String input) {
+    private String getAfterAddingInformation(String input) {
         return input + ", has been added to cart with price: "
                 + productManager.getProductPrice(input) + " "
                 + productManager.getProductCurrency(input);
