@@ -30,7 +30,7 @@ public class CustomerImpl implements Customer {
 
     private String geAddingInformation(String input) {
         return input + ", has been added to cart with price: "
-                + productManager.getProductPrice(input) + ", "
+                + productManager.getProductPrice(input) + " "
                 + productManager.getProductCurrency(input);
     }
 
