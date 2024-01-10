@@ -81,7 +81,7 @@ public class Store {
                 .collect(joining(lineSeparator()))));
     }
     private static String getString(ProductDefinition pd) {
-        return format("Product: {0}, price: {1}", pd.getProductName().getValue(), pd.getPrice().getAmount());
+        return format("Product: {0}, price: {1}, date: {2}", pd.getProductName().getValue(), pd.getPrice().getAmount(), pd.getLocalDate());
     }
     public void applyDiscountForCart(String input){
         if (!couponManager.checkDiscountCode(input)){

@@ -12,6 +12,7 @@ import org.example.product.ProductDefinition;
 import org.example.product.ProductManager;
 import org.example.product.ProductManagerImpl;
 import org.example.product.ProductRepositoryImpl;
+import org.example.product.components.DateForProduct;
 import org.example.product.components.Price;
 import org.example.product.components.ProductName;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.time.LocalDate;
 
 class StoreTest {
     ProductRepositoryImpl productRepositoryImpl;
@@ -28,6 +30,7 @@ class StoreTest {
     UserId userId = new UserId(1L);
     Employee employee;
     Customer customer;
+    DateForProduct dateForProduct;
 
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
@@ -40,15 +43,16 @@ class StoreTest {
         employee = new EmployeeImpl(productManager, couponManager);
         customer = new CustomerImpl(new Cart(couponManager, userId), productManager, employee);
         System.setOut(new PrintStream(outputStreamCaptor));
+        dateForProduct = new DateForProduct(LocalDate.now());
     }
 
     @Test
     void writingTest() {
         Store store = new Store(productManager, customer, employee, couponManager);
 
-        productManager.addProduct(new ProductDefinition(new ProductName("milk"), new Price(Money.of(2.54, Currency.PLN))));
+        productManager.addProduct(new ProductDefinition(new ProductName("milk"), new Price(Money.of(2.54, Currency.PLN)), dateForProduct));
         store.printAllItemsFromStock();
 
-        Assertions.assertThat("Product: milk, price: 2,54").isEqualTo(outputStreamCaptor.toString().trim());
+        Assertions.assertThat("Product: milk, price: 2,54, date: 2024-01-10").isEqualTo(outputStreamCaptor.toString().trim());
     }
 }
