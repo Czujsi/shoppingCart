@@ -1,41 +1,38 @@
 package org.example.product;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import static org.assertj.core.api.Assertions.*;
 
 class ProductHistoryTest {
-    @Test
-    void changingProductNameTestMethod(){
-        ProductHistory productHistory = new ProductHistory();
-        productHistory.append(new Change<>(Change.ChangeType.NAME, "d"));
 
-        Assertions.assertThat(
-                productHistory.versionControl(Change.ChangeType.NAME))
-                .contains(List.of(new Change<>(Change.ChangeType.NAME, "d")));
+    public static final Change<String> EXAMPLE_NAME_CHANGE = new Change<>(Change.ChangeType.NAME, "d");
+    public static final Change<String> EXAMPLE_PRICE_CHANGE = new Change<>(Change.ChangeType.PRICE, "d");
+
+    @Test
+    void changingProductNameTestMethod() {
+        // Given
+        ProductHistory productHistory = new ProductHistory();
+
+        // When
+        productHistory.append(EXAMPLE_NAME_CHANGE);
+
+        // Then
+        assertThat(productHistory.versionControl(Change.ChangeType.NAME))
+                .isNotEmpty()
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("timestamp")
+                .contains(EXAMPLE_NAME_CHANGE);
     }
-    @Test
-    void changingProductPriceTestMethod(){
-        ProductHistory productHistory = new ProductHistory();
-        productHistory.append(new Change<>(Change.ChangeType.PRICE, "d"));
 
-        Assertions.assertThat(
-                productHistory.versionControl(Change.ChangeType.PRICE))
-                .contains(List.of(new Change<>(Change.ChangeType.PRICE, "d")));
-    }
     @Test
-    void changingProductPriceIsNotEmptyTestMethod(){
+    void changingProductPriceTestMethod() {
         ProductHistory productHistory = new ProductHistory();
-        productHistory.append(new Change<>(Change.ChangeType.PRICE, "d"));
 
-        Assertions.assertThat(productHistory.versionControl(Change.ChangeType.PRICE)).isNotEmpty();
-    }
-    @Test
-    void changingProductNameIsNotEmptyTestMethod(){
-        ProductHistory productHistory = new ProductHistory();
-        productHistory.append(new Change<>(Change.ChangeType.NAME, "d"));
+        productHistory.append(EXAMPLE_PRICE_CHANGE);
 
-        Assertions.assertThat(productHistory.versionControl(Change.ChangeType.NAME)).isNotEmpty();
+        assertThat(productHistory.versionControl(Change.ChangeType.PRICE))
+                .isNotEmpty()
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("timestamp")
+                .contains(EXAMPLE_PRICE_CHANGE);
     }
 }

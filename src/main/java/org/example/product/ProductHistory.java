@@ -5,9 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.example.product.Change.ChangeType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
+import static org.example.product.Change.ChangeType.*;
+
 @ToString
 @RequiredArgsConstructor
 @EqualsAndHashCode
@@ -25,23 +26,17 @@ public class ProductHistory {
         productHistory.add(change);
     }
 
-    public Optional<List<Change<?>>> versionControl(ChangeType changeType) {
-        List<Change<?>> changes = new ArrayList<>(productHistory);
-        switch (changeType) {
-            case NAME -> {
-                List<Change<?>> nameChanges = (changes.stream()
-                        .filter(c -> c.getType() == ChangeType.NAME)
-                        .toList());
-                return Optional.of(nameChanges);
-            }
-            case PRICE -> {
-                List<Change<?>> priceChanges = changes.stream()
-                        .filter(c -> c.getType() == ChangeType.PRICE)
-                        .toList();
-                return Optional.of(priceChanges);
-            }
-        }
-        return Optional.empty();
+    public List<Change<?>> versionControl(ChangeType changeType) {
+        return switch (changeType) {
+            case NAME -> filterChangesByType(NAME);
+            case PRICE -> filterChangesByType(PRICE);
+        };
+    }
+
+    private List<Change<?>> filterChangesByType(ChangeType type) {
+        return productHistory.stream()
+                .filter(c -> c.getType().equals(type))
+                .toList();
     }
 }
 
