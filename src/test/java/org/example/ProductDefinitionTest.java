@@ -5,6 +5,7 @@ import org.example.product.components.DateForProduct;
 import org.example.product.components.Price;
 import org.example.product.ProductDefinition;
 import org.example.product.components.ProductName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -35,5 +36,12 @@ class ProductDefinitionTest {
         ProductDefinition a = new ProductDefinition(new ProductName("Butter"), new Price(Money.of(2.50, PLN)), dateForProduct);
         ProductDefinition b = new ProductDefinition(new ProductName("Butter"), new Price(Money.of(2.50, PLN)), dateForProduct);
         assertThat(a).isEqualTo(b);
+    }
+    
+    @Nested
+    public class History{
+        @Test
+        void name() {
+        }
     }
 }

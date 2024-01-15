@@ -2,6 +2,7 @@ package org.example.product;
 
 import lombok.AllArgsConstructor;
 import org.example.currency_exchange_money.Currency;
+import org.example.product.components.DateForProduct;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -10,6 +11,7 @@ import java.util.Collection;
 public class ProductManagerImpl implements ProductManager {
 
     private final ProductRepository<String, ProductDefinition> productRepository;
+    private final ProductHistory productHistory = new ProductHistory();
 
     @Override
     public void addProduct(ProductDefinition productDefinition) {
@@ -52,5 +54,9 @@ public class ProductManagerImpl implements ProductManager {
     @Override
     public Currency getProductCurrency(String input) {
         return productRepository.get(input).getPrice().getCurrency();
+    }
+    @Override
+    public DateForProduct getDateForProduct(String productName) {
+        return productRepository.get(productName).getCreationDate();
     }
 }

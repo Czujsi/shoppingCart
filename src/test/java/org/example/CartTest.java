@@ -134,8 +134,8 @@ class CartTest {
         cart.addItem(productDefinition, 1);
 
         //then
-        Assertions.assertThat(cart.has(productDefinition.getProductName().getValue())).isTrue();
-        Assertions.assertThat(cart.quantityOf(productDefinition.getProductName().getValue())).isEqualTo(2);
+        Assertions.assertThat(cart.has(productDefinition.getName().getValue())).isTrue();
+        Assertions.assertThat(cart.quantityOf(productDefinition.getName().getValue())).isEqualTo(2);
     }
 
     @Test
@@ -149,8 +149,8 @@ class CartTest {
         //then
         cart.addItem(productDefinition, 2);
 
-        Assertions.assertThat(cart.has(productDefinition.getProductName().getValue())).isTrue();
-        Assertions.assertThat(cart.quantityOf(productDefinition.getProductName().getValue())).isEqualTo(3);
+        Assertions.assertThat(cart.has(productDefinition.getName().getValue())).isTrue();
+        Assertions.assertThat(cart.quantityOf(productDefinition.getName().getValue())).isEqualTo(3);
     }
 
     @Test
@@ -163,8 +163,8 @@ class CartTest {
         cart.addItem(productDefinition, 1);
 
         //then
-        Assertions.assertThat(cart.has(productDefinition.getProductName().getValue())).isTrue();
-        Assertions.assertThat(cart.quantityOf(productDefinition.getProductName().getValue())).isEqualTo(3);
+        Assertions.assertThat(cart.has(productDefinition.getName().getValue())).isTrue();
+        Assertions.assertThat(cart.quantityOf(productDefinition.getName().getValue())).isEqualTo(3);
     }
 
     @Test
@@ -230,9 +230,9 @@ class CartTest {
         cart.addItem(productDefinition, 2);
 
         //when
-        cart.removeQuantity(productDefinition.getProductName().getValue(), 1);
+        cart.removeQuantity(productDefinition.getName().getValue(), 1);
 
-        Assertions.assertThat(cart.quantityOf(productDefinition.getProductName().getValue())).isEqualTo(1);
+        Assertions.assertThat(cart.quantityOf(productDefinition.getName().getValue())).isEqualTo(1);
 
     }
 

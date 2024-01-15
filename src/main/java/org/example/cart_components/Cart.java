@@ -33,24 +33,24 @@ public class Cart {
         if (amount < 0) {
             throw new RuntimeException("You cannot add negative value of productDefinition");
         }
-        int oldAmount = quantityOf(productDefinition.getProductName().getValue());
+        int oldAmount = quantityOf(productDefinition.getName().getValue());
         products.put(productDefinition, amount + oldAmount);
     }
 
     public void removeItem(String productName) {
-        products.entrySet().removeIf(product -> product.getKey().getProductName().equals(new ProductName(productName)));
+        products.entrySet().removeIf(product -> product.getKey().getName().equals(new ProductName(productName)));
     }
 
     public boolean has(String productName) {
         return !products.keySet().stream()
-                .map(ProductDefinition::getProductName)
+                .map(ProductDefinition::getName)
                 .filter(pn -> pn.equals(new ProductName(productName)))
                 .toList().isEmpty();
     }
 
     public int quantityOf(String item) {
         return products.entrySet().stream()
-                .filter(e -> e.getKey().getProductName().equals(new ProductName(item)))
+                .filter(e -> e.getKey().getName().equals(new ProductName(item)))
                 .map(Map.Entry::getValue)
                 .findFirst()
                 .orElse(0);
@@ -67,7 +67,7 @@ public class Cart {
             throw new RuntimeException("You cannot remove quantity of productDefinition that is not in your cart");
         }
 
-        ProductDefinition productDefinition = products.keySet().stream().filter(p -> p.getProductName().getValue().equals(productName.toLowerCase())).findFirst().orElseThrow();
+        ProductDefinition productDefinition = products.keySet().stream().filter(p -> p.getName().getValue().equals(productName.toLowerCase())).findFirst().orElseThrow();
         products.replace(productDefinition, oldAmount - productQuantity);
     }
 

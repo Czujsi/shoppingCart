@@ -36,7 +36,7 @@ public class Store {
     public void printSummary() {
         for (Map.Entry<ProductDefinition, Integer> entry : customer.getProducts().entrySet()) {
             out.println("Product: " +
-                    entry.getKey().getProductName().getValue() +
+                    entry.getKey().getName().getValue() +
                     ", quantity: " +
                     entry.getValue());
         }
@@ -81,7 +81,8 @@ public class Store {
                 .collect(joining(lineSeparator()))));
     }
     private static String getString(ProductDefinition pd) {
-        return format("Product: {0}, price: {1}, date: {2}", pd.getProductName().getValue(), pd.getPrice().getAmount(), pd.getLocalDate());
+
+        return format("Product: {0}, price: {1}, date: {2}", pd.getName().getValue(), pd.getPrice().getAmount(), pd.getCreationDate());
     }
     public void applyDiscountForCart(String input){
         if (!couponManager.checkDiscountCode(input)){

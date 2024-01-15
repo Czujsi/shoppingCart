@@ -15,21 +15,22 @@ import java.time.LocalDate;
 @ToString
 public class ProductDefinition {
     @EqualsAndHashCode.Exclude
-    private final Price price;
+    private Price price;
 
     @Getter
-    private final ProductName productName;
+    private ProductName name;
     @Getter
-    private final DateForProduct localDate;
+    private final DateForProduct creationDate;
+    private final ProductHistory productHistory = new ProductHistory();
 
-    public ProductDefinition(ProductName productName, Price price, DateForProduct localDateForProduct) {
-        if (productName == null) {
+    public ProductDefinition(ProductName name, Price price, DateForProduct localDateForProduct) {
+        if (name == null) {
             throw new RuntimeException("You cannot add or remove product with null name");
         }
 
-        this.productName = productName;
+        this.name = name;
         this.price = price;
-        this.localDate = localDateForProduct;
+        this.creationDate = localDateForProduct;
     }
 
     public static ProductDefinition of(String productName, Money price) {
@@ -38,5 +39,15 @@ public class ProductDefinition {
 
     public Money getPrice() {
         return this.price.productPrice;
+    }
+
+    public void updateName(String productName) {
+        productHistory.append(new Change<>(Change.ChangeType.NAME, this.name));
+        this.name = new ProductName(productName);
+    }
+
+    public void updatePrice(Money newPrice) {
+        productHistory.append(new Change<>(Change.ChangeType.PRICE, this.price));
+        this.price = new Price(newPrice);
     }
 }

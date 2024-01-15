@@ -15,7 +15,7 @@ public class ProductRepositoryImpl implements ProductRepository<String, ProductD
 
     @Override
     public void save(ProductDefinition object) {
-        productRepository.put(object.getProductName().getValue(), object);
+        productRepository.put(object.getName().getValue(), object);
     }
 
     @Override
