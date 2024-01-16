@@ -3,12 +3,13 @@ package org.example.product.history;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import org.example.product.history.Change;
 import org.example.product.history.Change.ChangeType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.example.product.history.Change.ChangeType.*;
+import static org.example.product.history.Change.ChangeType.NAME;
+import static org.example.product.history.Change.ChangeType.PRICE;
 
 @ToString
 @RequiredArgsConstructor
