@@ -1,13 +1,14 @@
-package org.example.product;
+package org.example.product.history;
 
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import org.example.product.Change.ChangeType;
+import org.example.product.history.Change;
+import org.example.product.history.Change.ChangeType;
 
 import java.util.*;
 
-import static org.example.product.Change.ChangeType.*;
+import static org.example.product.history.Change.ChangeType.*;
 
 @ToString
 @RequiredArgsConstructor

@@ -3,6 +3,7 @@ package org.example.product;
 import lombok.AllArgsConstructor;
 import org.example.currency_exchange_money.Currency;
 import org.example.product.components.DateForProduct;
+import org.example.product.history.ProductHistory;
 
 import java.math.BigDecimal;
 import java.util.Collection;

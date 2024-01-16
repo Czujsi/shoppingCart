@@ -8,6 +8,8 @@ import org.example.currency_exchange_money.Money;
 import org.example.product.components.DateForProduct;
 import org.example.product.components.Price;
 import org.example.product.components.ProductName;
+import org.example.product.history.Change;
+import org.example.product.history.ProductHistory;
 
 import java.time.LocalDate;
 

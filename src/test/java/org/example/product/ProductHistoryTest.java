@@ -1,5 +1,7 @@
 package org.example.product;
 
+import org.example.product.history.Change;
+import org.example.product.history.ProductHistory;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;

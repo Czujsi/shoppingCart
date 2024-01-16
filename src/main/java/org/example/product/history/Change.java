@@ -1,4 +1,4 @@
-package org.example.product;
+package org.example.product.history;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
