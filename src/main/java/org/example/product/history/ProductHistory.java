@@ -15,14 +15,6 @@ import static org.example.product.history.Change.ChangeType.*;
 @EqualsAndHashCode
 public class ProductHistory {
     private final List<Change<?>> productHistory = new ArrayList<>();
-
-    //ublic void saveChange(String productName, ProductDefinition oldValue, ProductDefinition newValue){
-    //   Change change = new Change(productName, oldValue, newValue);
-    //   productHistory.add(change);
-    //
-    //ublic List<Change<?>> getChanges() {
-    //   return new ArrayList<>(productHistory);
-    //
     public void append(Change<?> change) {
         productHistory.add(change);
     }
