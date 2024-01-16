@@ -16,6 +16,7 @@ import static org.example.product.history.Change.ChangeType.PRICE;
 @EqualsAndHashCode
 public class ProductHistory {
     private final List<Change<?>> productHistory = new ArrayList<>();
+
     public void append(Change<?> change) {
         productHistory.add(change);
     }
