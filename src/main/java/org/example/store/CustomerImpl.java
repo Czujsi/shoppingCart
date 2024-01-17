@@ -6,7 +6,9 @@ import org.example.coupons.DiscountDefinition;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
 import org.example.product.ProductManager;
+import org.example.product.components.ProductId;
 
+import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,25 +21,24 @@ public class CustomerImpl implements Customer {
     Employee employee;
 
     @Override
-    public void addToCart(String input) {
-        if (!employee.checkIfExist(input)) {
+    public void addToCart(String id) {
+        if (!employee.checkIfExist(id)) {
             System.out.println("Sorry, we don't have that product.");
             return;
         }
-        cart.addItem(productManager.getProductForName(input), 1);
-        out.println(getAfterAddingInformation(input));
+        cart.addItem(productManager.getProductById(new ProductId(id)).orElseThrow(), 1);
+        out.println(getAfterAddingInformation(id));
     }
 
-    private String getAfterAddingInformation(String input) {
-        return input + ", has been added to cart with price: "
-                + productManager.getProductPrice(input) + " "
-                + productManager.getProductCurrency(input);
+    private String getAfterAddingInformation(String id) {
+        ProductDefinition productDefinition = productManager.getProductById(new ProductId(id)).orElseThrow();
+        return MessageFormat.format("{0}, has been added to cart with price: {1}", id, productDefinition.getPrice());
     }
 
     @Override
     public void removeFromCart(String input, int quantity) {
         if (!cart.has(input)) {
-            System.out.println("Sorry, You don't have " + input + " in Your cart.");
+            System.out.println(MessageFormat.format("Sorry, You don''t have {0} in Your cart.", input));
             return;
         }
         cart.removeQuantity(input, quantity);

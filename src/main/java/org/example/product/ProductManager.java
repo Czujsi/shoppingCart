@@ -1,29 +1,23 @@
 package org.example.product;
 
-import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
-import org.example.product.components.DateForProduct;
+import org.example.product.components.ProductId;
 
-import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Optional;
 
 public interface ProductManager {
     void addProduct(ProductDefinition productDefinition);
 
-    void removeProduct(String name);
+    void removeProduct(ProductId mappedId1);
 
-    void updateProductName(String oldName, String newName);
+    void updateProductName(ProductId id, String newName);
 
-    void updateProductPrice(String name, Money money);
+    void updateProductPrice(ProductId id, Money money);
 
-    boolean exist(String name);
+    boolean exist(ProductId productId);
 
-    ProductDefinition getProductForName(String name);
+    Optional<ProductDefinition> getProductById(ProductId productId);
 
     Collection<ProductDefinition> getAllProducts();
-
-    BigDecimal getProductPrice(String input);
-
-    Currency getProductCurrency(String input);
-    DateForProduct getDateForProduct(String productName);
 }

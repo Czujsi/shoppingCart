@@ -11,6 +11,7 @@ import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
 import org.example.product.ProductManager;
 import org.example.product.components.DateForProduct;
+import org.example.product.components.ProductId;
 import org.example.product.components.Price;
 import org.example.product.components.ProductName;
 
@@ -42,7 +43,7 @@ public class EmployeeImpl implements Employee {
 
     @Override
     public boolean checkIfExist(String input) {
-        return productManager.exist(input);
+        return productManager.exist(new ProductId(input));
     }
     // TODO
     //  add instruction/option to edit name or price
@@ -69,39 +70,39 @@ public class EmployeeImpl implements Employee {
     }
 
     private void updatePrice() {
-        out.println("Type name of product that You want to update price: ");
-        String productName = UserInput.getInput(scanner);
-        out.println(getFromStock(productName));
+        out.println("Type id of product that you want to update price: ");
+        String id = UserInput.getInput(scanner);
+        out.println(getFromStock(id));
         out.println("Type new price for that product: ");
         String textPrice = UserInput.getInput(scanner);
         BigDecimal newPrice = new BigDecimal(textPrice);
-        productManager.updateProductPrice(productName, Money.of(newPrice, Currency.PLN));
+        productManager.updateProductPrice(new ProductId(id), Money.of(newPrice, Currency.PLN));
         out.println("Successfully updated!");
-        out.println(getFromStock(productName));
+        out.println(getFromStock(id));
     }
 
     private void updateName() {
-        out.println("Type product name: ");
-        String oldName = UserInput.getInput(scanner);
-        out.println(getFromStock(oldName));
+        out.println("Type product id: ");
+        String id = UserInput.getInput(scanner);
+        out.println(getFromStock(id));
         out.println("Type new product name: ");
         String newName = UserInput.getInput(scanner);
-        productManager.updateProductName(oldName, newName);
+        productManager.updateProductName(new ProductId(id), newName);
         out.println("Successfully updated!");
         out.println(getFromStock(newName));
     }
 
-    private ProductDefinition getFromStock(String oldName) {
-        return productManager.getProductForName(oldName);
+    private ProductDefinition getFromStock(String id) {
+        return productManager.getProductById(new ProductId(id)).orElseThrow();
     }
 
     @Override
-    public void removeFromStock(String input) {
-        if (!productManager.exist(input)) {
+    public void removeFromStock(String id) {
+        if (!productManager.exist(new ProductId(id))) {
             System.out.println("Sorry, but we don't have that product on stock");
             return;
         }
-        productManager.removeProduct(input);
+        productManager.removeProduct(new ProductId(id));
     }
 
     @Override
@@ -116,11 +117,11 @@ public class EmployeeImpl implements Employee {
     }
 
     @Override
-    public void searchForItem(String input) {
-        if (!checkIfExist(input)) {
+    public void searchForItem(String id) {
+        if (!checkIfExist(id)) {
             out.println("Sorry, but we don't have that product on stock");
             return;
         }
-        out.println(productManager.getProductForName(input));
+        out.println(productManager.getProductById(new ProductId(id)));
     }
 }

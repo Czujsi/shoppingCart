@@ -65,15 +65,6 @@ public class Store {
         out.println("Sorry, " + input + " is no longer available in our store");
     }
 
-    //searching and printing item properties from stock, method for employee
-    public void searchForItem(String productName) {
-        if (!checkIfExists(productName)) {
-            out.println("Sorry, but we don't have that product on stock");
-            return;
-        }
-        out.println(productManager.getProductForName(productName));
-    }
-
     //printing all items from stock, method from employee and client
     public void printAllItemsFromStock() {
         out.println((productManager.getAllProducts().stream()

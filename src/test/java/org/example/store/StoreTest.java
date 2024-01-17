@@ -13,6 +13,7 @@ import org.example.product.ProductManager;
 import org.example.product.ProductManagerImpl;
 import org.example.product.ProductRepositoryImpl;
 import org.example.product.components.DateForProduct;
+import org.example.product.components.ProductId;
 import org.example.product.components.Price;
 import org.example.product.components.ProductName;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,6 +54,6 @@ class StoreTest {
         productManager.addProduct(new ProductDefinition(new ProductName("milk"), new Price(Money.of(2.54, Currency.PLN)), dateForProduct));
         store.printAllItemsFromStock();
 
-        Assertions.assertThat("Product: milk, price: 2,54, date: 2024-01-10").isEqualTo(outputStreamCaptor.toString().trim());
+        Assertions.assertThat("Product: milk, price: 2,54, date: 2024-01-17").isEqualTo(outputStreamCaptor.toString().trim());
     }
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.ToString;
 import org.example.currency_exchange_money.Money;
 import org.example.product.components.DateForProduct;
+import org.example.product.components.ProductId;
 import org.example.product.components.Price;
 import org.example.product.components.ProductName;
 import org.example.product.history.Change;
@@ -13,10 +14,9 @@ import org.example.product.history.ProductHistory;
 
 import java.time.LocalDate;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 public class ProductDefinition {
-    @EqualsAndHashCode.Exclude
     private Price price;
 
     @Getter
@@ -24,15 +24,18 @@ public class ProductDefinition {
     @Getter
     private final DateForProduct creationDate;
     private final ProductHistory productHistory = new ProductHistory();
+    @Getter
+    @EqualsAndHashCode.Include
+    private final ProductId productId = ProductId.createId();
 
-    public ProductDefinition(ProductName name, Price price, DateForProduct localDateForProduct) {
+    public ProductDefinition(ProductName name, Price price, DateForProduct creationDate) {
         if (name == null) {
             throw new RuntimeException("You cannot add or remove product with null name");
         }
 
         this.name = name;
         this.price = price;
-        this.creationDate = localDateForProduct;
+        this.creationDate = creationDate;
     }
 
     public static ProductDefinition of(String productName, Money price) {

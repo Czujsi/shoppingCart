@@ -1,80 +1,92 @@
 package org.example.product;
 
 import org.assertj.core.api.Assertions;
+import org.assertj.core.api.ThrowableAssert;
 import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
 import org.example.product.components.DateForProduct;
+import org.example.product.components.ProductId;
 import org.example.product.components.Price;
 import org.example.product.components.ProductName;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.ThrowableAssert.*;
+import static org.example.currency_exchange_money.Currency.*;
+
 class ProductManagerImplTest {
+
+    public static final ProductDefinition EXAMPLE_PRODUCT_BUTTER = new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), PLN)), new DateForProduct(LocalDate.now()));
+    public static final ProductDefinition EXAMPLE_PRODUCT_MILK = new ProductDefinition(new ProductName("Milk"), new Price(Money.of(BigDecimal.valueOf(2.50), PLN)), new DateForProduct(LocalDate.now()));
+    public static final ProductId NON_EXISTING_ID = new ProductId("d42e160b-0f74-4226-a45d-f0c348042a11");
+
+    ProductManager productManager;
+    ProductRepository<ProductId, ProductDefinition> productRepository;
+
+    @BeforeEach
+    void setUp(){
+        productRepository = new ProductRepositoryImpl();
+        productManager = new ProductManagerImpl(productRepository);
+    }
+
     @Test
     void checkingIfAddProductMethodWorksProperly() {
-        ProductRepositoryImpl productInMemoryRepository = new ProductRepositoryImpl();
-        ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
+        productManager.addProduct(EXAMPLE_PRODUCT_BUTTER);
 
-        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN)), new DateForProduct(LocalDate.now())));
-
-        Assertions.assertThat(productInMemoryRepository.exists("butter")).isTrue();
+        assertThat(productRepository.exists(EXAMPLE_PRODUCT_BUTTER.getProductId())).isTrue();
     }
 
     @Test
     void checkingIfWhenAddingTwoProductsTwoProductsAreInRepository() {
-        ProductRepositoryImpl productInMemoryRepository = new ProductRepositoryImpl();
-        ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
+        productManager.addProduct(EXAMPLE_PRODUCT_BUTTER);
+        productManager.addProduct(EXAMPLE_PRODUCT_MILK);
 
-        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN)), new DateForProduct(LocalDate.now())));
-        productManager.addProduct(new ProductDefinition(new ProductName("Milk"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN)), new DateForProduct(LocalDate.now())));
-
-        Assertions.assertThat(productInMemoryRepository.exists("butter")).isTrue();
-        Assertions.assertThat(productInMemoryRepository.exists("milk")).isTrue();
+        assertThat(productRepository.exists(EXAMPLE_PRODUCT_BUTTER.getProductId())).isTrue();
+        assertThat(productRepository.exists(EXAMPLE_PRODUCT_MILK.getProductId())).isTrue();
     }
 
     @Test
     void checkingIfRemoveProductMethodWorksProperly() {
-        ProductRepositoryImpl productInMemoryRepository = new ProductRepositoryImpl();
-        ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
-        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN)), new DateForProduct(LocalDate.now())));
-        productManager.addProduct(new ProductDefinition(new ProductName("Milk"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN)), new DateForProduct(LocalDate.now())));
+        productManager.addProduct(EXAMPLE_PRODUCT_BUTTER);
+        productManager.addProduct(EXAMPLE_PRODUCT_MILK);
 
-        productManager.removeProduct("MILK");
+        productManager.removeProduct(EXAMPLE_PRODUCT_MILK.getProductId());
 
-        Assertions.assertThat(productInMemoryRepository.exists("butter")).isTrue();
-        Assertions.assertThat(productInMemoryRepository.exists("milk")).isFalse();
+        assertThat(productRepository.exists(EXAMPLE_PRODUCT_BUTTER.getProductId())).isTrue();
+        assertThat(productRepository.exists(EXAMPLE_PRODUCT_MILK.getProductId())).isFalse();
     }
 
     @Test
     void checkingIfWhenRemovingProductThatIsNotInRepositoryExceptionWillBeThrown() {
-        ProductRepositoryImpl productInMemoryRepository = new ProductRepositoryImpl();
-        ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
 
-        Assertions.assertThatThrownBy(() -> productManager.removeProduct("MILK")).hasMessage("You cannot remove product that does not exist");
+        ThrowingCallable action = () -> productManager.removeProduct(NON_EXISTING_ID);
 
+        assertThatThrownBy(action).hasMessage("You cannot remove product that does not exist");
     }
 
     @Test
     void checkingIfEditMethodWorksProperlyWithChangingPrice() {
-        ProductRepositoryImpl productInMemoryRepository = new ProductRepositoryImpl();
-        ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
-        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN)), new DateForProduct(LocalDate.now())));
+        productManager.addProduct(EXAMPLE_PRODUCT_BUTTER);
+        Money newPrice = Money.of((EXAMPLE_PRODUCT_BUTTER.getPrice().getAmount().add(BigDecimal.ONE)), PLN);
 
-        productManager.updateProductPrice("butter", Money.of(BigDecimal.valueOf(2.90), Currency.PLN));
+        productManager.updateProductPrice(EXAMPLE_PRODUCT_BUTTER.getProductId(), newPrice);
 
-        Assertions.assertThat(productInMemoryRepository.get("butter").getPrice().getAmount()).isEqualByComparingTo(BigDecimal.valueOf(2.90));
+        assertThat(productManager.getProductById(EXAMPLE_PRODUCT_BUTTER.getProductId()))
+                .hasValueSatisfying(p -> assertThat(p.getPrice()).isEqualTo(newPrice));
     }
 
     @Test
     void checkingIfEditMethodWorksProperlyWithChangingName() {
-        ProductRepositoryImpl productInMemoryRepository = new ProductRepositoryImpl();
-        ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
-        productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN)), new DateForProduct(LocalDate.now())));
+        productManager.addProduct(EXAMPLE_PRODUCT_BUTTER);
+        String newName = "Better";
 
-        productManager.updateProductName("butter", "Better");
+        productManager.updateProductName(EXAMPLE_PRODUCT_BUTTER.getProductId(), newName);
 
-        Assertions.assertThat(productInMemoryRepository.get("butter").getName().getValue().contains("better")).isTrue();
+        assertThat(productRepository.findById(EXAMPLE_PRODUCT_BUTTER.getProductId()))
+                .hasValueSatisfying(p -> assertThat(p.getName()).isEqualTo(new ProductName(newName)));
     }
 }
