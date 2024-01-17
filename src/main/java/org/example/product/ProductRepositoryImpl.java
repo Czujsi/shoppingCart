@@ -29,11 +29,6 @@ public class ProductRepositoryImpl implements ProductRepository<String, ProductD
         return productRepository.containsKey(name);
     }
 
-    @Override
-    public void update(String oldName, ProductDefinition productDefinition) {
-        productRepository.replace(oldName, productDefinition);
-    }
-
     public ProductDefinition get(String name) {
         return productRepository.get(name);
     }

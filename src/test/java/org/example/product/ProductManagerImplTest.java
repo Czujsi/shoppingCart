@@ -57,14 +57,14 @@ class ProductManagerImplTest {
     }
 
     @Test
-    void checkingIfEditMethodWorksProperlyWitchChangingPrice() {
+    void checkingIfEditMethodWorksProperlyWithChangingPrice() {
         ProductRepositoryImpl productInMemoryRepository = new ProductRepositoryImpl();
         ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
         productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN)), new DateForProduct(LocalDate.now())));
 
-        productManager.editProduct("Butter", new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.60), Currency.PLN)), new DateForProduct(LocalDate.now())));
+        productManager.updateProductPrice("butter", Money.of(BigDecimal.valueOf(2.90), Currency.PLN));
 
-        Assertions.assertThat(productInMemoryRepository.get("butter").getPrice().getAmount()).isEqualByComparingTo(BigDecimal.valueOf(2.60));
+        Assertions.assertThat(productInMemoryRepository.get("butter").getPrice().getAmount()).isEqualByComparingTo(BigDecimal.valueOf(2.90));
     }
 
     @Test
@@ -73,8 +73,8 @@ class ProductManagerImplTest {
         ProductManagerImpl productManager = new ProductManagerImpl(productInMemoryRepository);
         productManager.addProduct(new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), Currency.PLN)), new DateForProduct(LocalDate.now())));
 
-        productManager.editProduct("Butter", new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.60), Currency.PLN)), new DateForProduct(LocalDate.now())));
+        productManager.updateProductName("butter", "Better");
 
-        Assertions.assertThat(productInMemoryRepository.get("butter").getPrice().getAmount()).isEqualByComparingTo(BigDecimal.valueOf(2.60));
+        Assertions.assertThat(productInMemoryRepository.get("butter").getName().getValue().contains("better")).isTrue();
     }
 }

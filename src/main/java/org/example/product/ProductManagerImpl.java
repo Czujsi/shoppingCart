@@ -2,6 +2,7 @@ package org.example.product;
 
 import lombok.AllArgsConstructor;
 import org.example.currency_exchange_money.Currency;
+import org.example.currency_exchange_money.Money;
 import org.example.product.components.DateForProduct;
 import org.example.product.history.ProductHistory;
 
@@ -28,18 +29,29 @@ public class ProductManagerImpl implements ProductManager {
     }
 
     @Override
-    public void editProduct(String productName, ProductDefinition productDefinition) {
-        productRepository.update(productName.toLowerCase(), productDefinition);
+    public void updateProductName(String productName, String newName) {
+            getProductForName(productName).updateName(newName);
+
+            addProduct(getProductForName(productName));
+            removeProduct(productName);
     }
 
     @Override
-    public boolean exist(String name) {
-        return productRepository.exists(name);
+    public void updateProductPrice(String productName, Money newPrice) {
+            getProductForName(productName).updatePrice(newPrice);
+
+            addProduct(getProductForName(productName));
+            removeProduct(productName);
     }
 
     @Override
-    public ProductDefinition getProductForName(String name) {
-        return productRepository.get(name);
+    public boolean exist(String productName) {
+        return productRepository.exists(productName);
+    }
+
+    @Override
+    public ProductDefinition getProductForName(String productName) {
+        return productRepository.get(productName);
     }
 
     @Override
@@ -56,6 +68,7 @@ public class ProductManagerImpl implements ProductManager {
     public Currency getProductCurrency(String input) {
         return productRepository.get(input).getPrice().getCurrency();
     }
+
     @Override
     public DateForProduct getDateForProduct(String productName) {
         return productRepository.get(productName).getCreationDate();

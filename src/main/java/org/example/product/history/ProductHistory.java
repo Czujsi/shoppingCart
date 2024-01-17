@@ -33,5 +33,15 @@ public class ProductHistory {
                 .filter(c -> c.getType().equals(type))
                 .toList();
     }
+
+    public List<Change<?>> getHistoryByNameAndChangeType(String productName, ChangeType changeType) {
+        return filterChangesByNameAndType(productName, changeType);
+    }
+
+    private List<Change<?>> filterChangesByNameAndType(String productName, ChangeType changeType) {
+        return productHistory.stream()
+                .filter(c -> c.getValue().equals(productName))
+                .filter(c -> c.getType().equals(changeType)).toList();
+    }
 }
 

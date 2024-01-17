@@ -55,6 +55,10 @@ public class TextInterface extends UserInterface {
             addFlatPercentDiscount();
             showOptions();
         }
+        if (input.equals("update")) {
+            employee.updateOnStock();
+            showOptions();
+        }
     }
 
     private void choosingItems() {
@@ -135,13 +139,12 @@ public class TextInterface extends UserInterface {
     }
 
 
-
-
     //just for testing
     private void addItemsToStock() {
         System.out.println("Type product name, and price");
         store.addItemToStock();
     }
+
     private void addFlatPercentDiscount() {
         employee.addFlatPercentDiscount();
     }

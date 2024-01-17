@@ -22,6 +22,10 @@ public class Change<T> {
         return changeType;
     }
 
+    public T getValue() {
+        return this.value;
+    }
+
     public enum ChangeType {
         PRICE,
         NAME

@@ -44,14 +44,55 @@ public class EmployeeImpl implements Employee {
     public boolean checkIfExist(String input) {
         return productManager.exist(input);
     }
-
+    // TODO
+    //  add instruction/option to edit name or price
     @Override
     public void updateOnStock() {
-        String oldName = UserInput.getInput(scanner);
+        while (true){
+            String option = UserInput.getInput(scanner);
+            if (option.equals("name")){
+                updateName();
+                continue;
+            }
+            if (option.equals("price")){
+                updatePrice();
+                continue;
+            }
+            if (option.equals("exit")){
+                break;
+            }
+        }
+    }
+
+    private void wrongCommandInfo() {
+        out.println("Sorry, bad command.");
+    }
+
+    private void updatePrice() {
+        out.println("Type name of product that You want to update price: ");
         String productName = UserInput.getInput(scanner);
+        out.println(getFromStock(productName));
+        out.println("Type new price for that product: ");
         String textPrice = UserInput.getInput(scanner);
-        BigDecimal productPrice = new BigDecimal(textPrice);
-        productManager.editProduct(oldName, new ProductDefinition(new ProductName(productName), new Price(Money.of(productPrice, Currency.PLN)), new DateForProduct(LocalDate.now())));
+        BigDecimal newPrice = new BigDecimal(textPrice);
+        productManager.updateProductPrice(productName, Money.of(newPrice, Currency.PLN));
+        out.println("Successfully updated!");
+        out.println(getFromStock(productName));
+    }
+
+    private void updateName() {
+        out.println("Type product name: ");
+        String oldName = UserInput.getInput(scanner);
+        out.println(getFromStock(oldName));
+        out.println("Type new product name: ");
+        String newName = UserInput.getInput(scanner);
+        productManager.updateProductName(oldName, newName);
+        out.println("Successfully updated!");
+        out.println(getFromStock(newName));
+    }
+
+    private ProductDefinition getFromStock(String oldName) {
+        return productManager.getProductForName(oldName);
     }
 
     @Override
