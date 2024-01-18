@@ -7,10 +7,10 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Getter
-public final class ProductName {
+public final class Name {
     private final String value;
 
-    public ProductName(String productName) {
+    public Name(String productName) {
         this.value = productName.toLowerCase();
     }
 }

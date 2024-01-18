@@ -1,11 +1,15 @@
-package org.example.product;
+package org.example.product.repository;
 
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.example.product.ProductDefinition;
 import org.example.product.components.ProductId;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 @ToString
 @EqualsAndHashCode

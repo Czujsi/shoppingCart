@@ -1,19 +1,19 @@
-package org.example.store;
+package org.example.store.employee;
 
 import lombok.RequiredArgsConstructor;
-import org.example.UserInput;
-import org.example.coupons.CouponManager;
-import org.example.coupons.DiscountDefinition;
-import org.example.coupons.DiscountType;
-import org.example.coupons.FlatPercentDiscount;
+import org.example.user.UserInput;
+import org.example.coupons.manager.CouponManager;
+import org.example.coupons.discount.DiscountDefinition;
+import org.example.coupons.discount.type.DiscountType;
+import org.example.coupons.discount.type.FlatPercentDiscount;
 import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
-import org.example.product.ProductManager;
-import org.example.product.components.DateForProduct;
+import org.example.product.manager.ProductManager;
+import org.example.product.components.CreationDate;
 import org.example.product.components.ProductId;
 import org.example.product.components.Price;
-import org.example.product.components.ProductName;
+import org.example.product.components.Name;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -38,7 +38,7 @@ public class EmployeeImpl implements Employee {
         String productName = UserInput.getInput(scanner);
         String textPrice = UserInput.getInput(scanner);
         BigDecimal productPrice = new BigDecimal(textPrice);
-        productManager.addProduct(new ProductDefinition(new ProductName(productName), new Price(Money.of(productPrice, Currency.PLN)), new DateForProduct(LocalDate.now())));
+        productManager.addProduct(new ProductDefinition(new Name(productName), new Price(Money.of(productPrice, Currency.PLN)), new CreationDate(LocalDate.now())));
     }
 
     @Override

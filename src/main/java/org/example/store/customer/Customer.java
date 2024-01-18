@@ -1,7 +1,7 @@
-package org.example.store;
+package org.example.store.customer;
 
 import org.example.cart_components.Cart;
-import org.example.coupons.DiscountDefinition;
+import org.example.coupons.discount.DiscountDefinition;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
 

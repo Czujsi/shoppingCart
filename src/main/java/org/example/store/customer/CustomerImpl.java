@@ -1,12 +1,13 @@
-package org.example.store;
+package org.example.store.customer;
 
 import lombok.AllArgsConstructor;
 import org.example.cart_components.Cart;
-import org.example.coupons.DiscountDefinition;
+import org.example.coupons.discount.DiscountDefinition;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
-import org.example.product.ProductManager;
+import org.example.product.manager.ProductManager;
 import org.example.product.components.ProductId;
+import org.example.store.employee.Employee;
 
 import java.text.MessageFormat;
 import java.util.Map;

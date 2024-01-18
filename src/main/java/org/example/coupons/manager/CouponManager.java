@@ -1,4 +1,6 @@
-package org.example.coupons;
+package org.example.coupons.manager;
+
+import org.example.coupons.discount.DiscountDefinition;
 
 public interface CouponManager {
     boolean checkDiscountCode(String code);

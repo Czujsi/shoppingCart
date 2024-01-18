@@ -1,4 +1,4 @@
-package org.example.store;
+package org.example.store.employee;
 
 public interface Employee {
     void addToStock();

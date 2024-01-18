@@ -1,5 +1,6 @@
-package org.example.coupons;
+package org.example.coupons.discount.type;
 
+import org.example.coupons.discount.DiscountCalculator;
 import org.example.currency_exchange_money.Money;
 
 

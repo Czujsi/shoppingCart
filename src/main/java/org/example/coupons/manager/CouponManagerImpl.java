@@ -1,7 +1,8 @@
-package org.example.coupons;
+package org.example.coupons.manager;
 
 import lombok.AllArgsConstructor;
 import org.example.common.Repository;
+import org.example.coupons.discount.DiscountDefinition;
 
 @AllArgsConstructor
 public class CouponManagerImpl implements CouponManager {

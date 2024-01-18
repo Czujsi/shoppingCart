@@ -1,6 +1,9 @@
 package org.example;
 
 import org.example.cart_components.*;
+import org.example.cart_components.manager.CartManager;
+import org.example.cart_components.manager.CartManagerImpl;
+import org.example.cart_components.repository.CartRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

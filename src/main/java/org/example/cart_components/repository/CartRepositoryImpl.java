@@ -1,4 +1,7 @@
-package org.example.cart_components;
+package org.example.cart_components.repository;
+
+import org.example.cart_components.Cart;
+import org.example.cart_components.UserId;
 
 import java.util.HashMap;
 import java.util.Map;

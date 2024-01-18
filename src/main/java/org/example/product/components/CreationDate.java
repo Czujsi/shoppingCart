@@ -3,9 +3,9 @@ package org.example.product.components;
 
 import java.time.LocalDate;
 
-public class DateForProduct {
+public class CreationDate {
     public LocalDate localDate;
-    public DateForProduct(LocalDate localDate){
+    public CreationDate(LocalDate localDate){
         this.localDate = localDate;
     }
     public String toString() {

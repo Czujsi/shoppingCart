@@ -1,6 +1,11 @@
 package org.example.coupons;
 
 import org.assertj.core.api.Assertions;
+import org.example.coupons.discount.DiscountDefinition;
+import org.example.coupons.discount.repository.DiscountRepository;
+import org.example.coupons.discount.type.DiscountType;
+import org.example.coupons.discount.type.FreeTransportDiscount;
+import org.example.coupons.manager.CouponManagerImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;

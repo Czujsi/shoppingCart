@@ -3,12 +3,12 @@ package org.example.cart_components;
 
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import org.example.coupons.CouponManager;
-import org.example.coupons.DiscountDefinition;
+import org.example.coupons.manager.CouponManager;
+import org.example.coupons.discount.DiscountDefinition;
 import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
-import org.example.product.components.ProductName;
+import org.example.product.components.Name;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -38,19 +38,19 @@ public class Cart {
     }
 
     public void removeItem(String productName) {
-        products.entrySet().removeIf(product -> product.getKey().getName().equals(new ProductName(productName)));
+        products.entrySet().removeIf(product -> product.getKey().getName().equals(new Name(productName)));
     }
 
     public boolean has(String productName) {
         return !products.keySet().stream()
                 .map(ProductDefinition::getName)
-                .filter(pn -> pn.equals(new ProductName(productName)))
+                .filter(pn -> pn.equals(new Name(productName)))
                 .toList().isEmpty();
     }
 
     public int quantityOf(String item) {
         return products.entrySet().stream()
-                .filter(e -> e.getKey().getName().equals(new ProductName(item)))
+                .filter(e -> e.getKey().getName().equals(new Name(item)))
                 .map(Map.Entry::getValue)
                 .findFirst()
                 .orElse(0);

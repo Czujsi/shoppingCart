@@ -2,13 +2,17 @@ package org.example.run;
 
 import org.example.cart_components.Cart;
 import org.example.cart_components.UserId;
-import org.example.coupons.CouponManager;
-import org.example.coupons.CouponManagerImpl;
-import org.example.coupons.DiscountRepository;
-import org.example.product.ProductManager;
-import org.example.product.ProductManagerImpl;
-import org.example.product.ProductRepositoryImpl;
+import org.example.coupons.manager.CouponManager;
+import org.example.coupons.manager.CouponManagerImpl;
+import org.example.coupons.discount.repository.DiscountRepository;
+import org.example.product.manager.ProductManager;
+import org.example.product.manager.ProductManagerImpl;
+import org.example.product.repository.ProductRepositoryImpl;
 import org.example.store.*;
+import org.example.store.customer.Customer;
+import org.example.store.customer.CustomerImpl;
+import org.example.store.employee.Employee;
+import org.example.store.employee.EmployeeImpl;
 import org.example.text_interface.TextInterface;
 import org.example.user_interface.UserInterface;
 

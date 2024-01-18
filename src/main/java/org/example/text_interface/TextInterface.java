@@ -1,8 +1,8 @@
 package org.example.text_interface;
 
-import org.example.UserInput;
-import org.example.store.Customer;
-import org.example.store.Employee;
+import org.example.user.UserInput;
+import org.example.store.customer.Customer;
+import org.example.store.employee.Employee;
 import org.example.store.Store;
 import org.example.user_interface.UserInterface;
 

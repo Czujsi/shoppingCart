@@ -1,4 +1,4 @@
-package org.example.coupons;
+package org.example.coupons.discount;
 
 import org.example.currency_exchange_money.Money;
 

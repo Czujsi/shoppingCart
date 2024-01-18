@@ -5,10 +5,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.example.currency_exchange_money.Money;
-import org.example.product.components.DateForProduct;
+import org.example.product.components.CreationDate;
 import org.example.product.components.ProductId;
 import org.example.product.components.Price;
-import org.example.product.components.ProductName;
+import org.example.product.components.Name;
 import org.example.product.history.Change;
 import org.example.product.history.ProductHistory;
 
@@ -20,15 +20,15 @@ public class ProductDefinition {
     private Price price;
 
     @Getter
-    private ProductName name;
+    private Name name;
     @Getter
-    private final DateForProduct creationDate;
+    private final CreationDate creationDate;
     private final ProductHistory productHistory = new ProductHistory();
     @Getter
     @EqualsAndHashCode.Include
     private final ProductId productId = ProductId.createId();
 
-    public ProductDefinition(ProductName name, Price price, DateForProduct creationDate) {
+    public ProductDefinition(Name name, Price price, CreationDate creationDate) {
         if (name == null) {
             throw new RuntimeException("You cannot add or remove product with null name");
         }
@@ -39,7 +39,7 @@ public class ProductDefinition {
     }
 
     public static ProductDefinition of(String productName, Money price) {
-        return new ProductDefinition(new ProductName(productName), new Price(price), new DateForProduct(LocalDate.now()));
+        return new ProductDefinition(new Name(productName), new Price(price), new CreationDate(LocalDate.now()));
     }
 
     public Money getPrice() {
@@ -48,7 +48,7 @@ public class ProductDefinition {
 
     public void updateName(String productName) {
         productHistory.append(new Change<>(Change.ChangeType.NAME, this.name));
-        this.name = new ProductName(productName);
+        this.name = new Name(productName);
     }
 
     public void updatePrice(Money newPrice) {

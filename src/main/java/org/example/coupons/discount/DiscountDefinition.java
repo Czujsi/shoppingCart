@@ -1,8 +1,9 @@
-package org.example.coupons;
+package org.example.coupons.discount;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.example.coupons.discount.type.DiscountType;
 import org.example.currency_exchange_money.Money;
 
 import java.util.Map;

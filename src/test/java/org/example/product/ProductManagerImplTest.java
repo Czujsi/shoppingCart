@@ -1,13 +1,14 @@
 package org.example.product;
 
-import org.assertj.core.api.Assertions;
-import org.assertj.core.api.ThrowableAssert;
-import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
-import org.example.product.components.DateForProduct;
+import org.example.product.components.CreationDate;
 import org.example.product.components.ProductId;
 import org.example.product.components.Price;
-import org.example.product.components.ProductName;
+import org.example.product.components.Name;
+import org.example.product.manager.ProductManager;
+import org.example.product.manager.ProductManagerImpl;
+import org.example.product.repository.ProductRepository;
+import org.example.product.repository.ProductRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,8 +21,8 @@ import static org.example.currency_exchange_money.Currency.*;
 
 class ProductManagerImplTest {
 
-    public static final ProductDefinition EXAMPLE_PRODUCT_BUTTER = new ProductDefinition(new ProductName("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), PLN)), new DateForProduct(LocalDate.now()));
-    public static final ProductDefinition EXAMPLE_PRODUCT_MILK = new ProductDefinition(new ProductName("Milk"), new Price(Money.of(BigDecimal.valueOf(2.50), PLN)), new DateForProduct(LocalDate.now()));
+    public static final ProductDefinition EXAMPLE_PRODUCT_BUTTER = new ProductDefinition(new Name("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), PLN)), new CreationDate(LocalDate.now()));
+    public static final ProductDefinition EXAMPLE_PRODUCT_MILK = new ProductDefinition(new Name("Milk"), new Price(Money.of(BigDecimal.valueOf(2.50), PLN)), new CreationDate(LocalDate.now()));
     public static final ProductId NON_EXISTING_ID = new ProductId("d42e160b-0f74-4226-a45d-f0c348042a11");
 
     ProductManager productManager;
@@ -87,6 +88,6 @@ class ProductManagerImplTest {
         productManager.updateProductName(EXAMPLE_PRODUCT_BUTTER.getProductId(), newName);
 
         assertThat(productRepository.findById(EXAMPLE_PRODUCT_BUTTER.getProductId()))
-                .hasValueSatisfying(p -> assertThat(p.getName()).isEqualTo(new ProductName(newName)));
+                .hasValueSatisfying(p -> assertThat(p.getName()).isEqualTo(new Name(newName)));
     }
 }

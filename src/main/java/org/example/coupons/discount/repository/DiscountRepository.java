@@ -1,7 +1,8 @@
-package org.example.coupons;
+package org.example.coupons.discount.repository;
 
 import lombok.EqualsAndHashCode;
 import org.example.common.Repository;
+import org.example.coupons.discount.DiscountDefinition;
 
 import java.util.HashMap;
 import java.util.Map;

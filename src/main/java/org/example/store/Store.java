@@ -2,10 +2,12 @@ package org.example.store;
 
 import lombok.RequiredArgsConstructor;
 import org.example.cart_components.Cart;
-import org.example.coupons.CouponManager;
-import org.example.coupons.DiscountDefinition;
+import org.example.coupons.manager.CouponManager;
+import org.example.coupons.discount.DiscountDefinition;
 import org.example.product.ProductDefinition;
-import org.example.product.ProductManager;
+import org.example.product.manager.ProductManager;
+import org.example.store.customer.Customer;
+import org.example.store.employee.Employee;
 
 import java.util.Map;
 

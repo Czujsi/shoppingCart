@@ -1,6 +1,7 @@
-package org.example.product;
+package org.example.product.manager;
 
 import org.example.currency_exchange_money.Money;
+import org.example.product.ProductDefinition;
 import org.example.product.components.ProductId;
 
 import java.util.Collection;
