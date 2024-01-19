@@ -67,7 +67,10 @@ public class Cart {
             throw new RuntimeException("You cannot remove quantity of productDefinition that is not in your cart");
         }
 
-        ProductDefinition productDefinition = products.keySet().stream().filter(p -> p.getName().getValue().equals(productName.toLowerCase())).findFirst().orElseThrow();
+        ProductDefinition productDefinition = products.keySet().stream()
+                .filter(p -> p.getName().getValue().equals(productName.toLowerCase()))
+                .findFirst()
+                .orElseThrow();
         products.replace(productDefinition, oldAmount - productQuantity);
     }
 
@@ -84,7 +87,7 @@ public class Cart {
         for (Map.Entry<ProductDefinition, Integer> entry : products.entrySet()) {
             Integer amount = entry.getValue();
             Money price = applyProductDiscount(entry.getKey());
-            Money priceByAmount = price.multiply(amount);
+            Money priceByAmount = price.multiply(BigDecimal.valueOf(amount));
             total = total.add(priceByAmount);
         }
         return discountCart(total);
@@ -105,6 +108,14 @@ public class Cart {
         }
         return t;
 //      return handleDiscount(total, discount -> discount::applyDiscountForCart);
+    }
+
+    private Money discountTransport(Money total) {
+        Money t = total;
+        for (DiscountDefinition discountDefinition : discounts) {
+            t = discountDefinition.applyDiscountForTransport(t);
+        }
+        return t;
     }
 
     public void removeDiscount(String code) {

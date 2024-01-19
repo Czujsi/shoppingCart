@@ -11,8 +11,11 @@ import java.util.Set;
 public interface Customer {
 
     void addToCart(String input);
+
     void removeFromCart(String input, int quantity);
+
     void removeAll(String input);
+
     void checkPrice();
 
     Map<ProductDefinition, Integer> getProducts();

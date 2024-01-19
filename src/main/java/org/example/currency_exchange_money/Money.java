@@ -5,7 +5,6 @@ import lombok.*;
 import java.math.BigDecimal;
 
 @EqualsAndHashCode
-@ToString
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Money implements Comparable<Money> {
@@ -19,11 +18,6 @@ public class Money implements Comparable<Money> {
 
     public static Money of(BigDecimal v, Currency pln) {
         return new Money(v, pln);
-    }
-
-    @Deprecated
-    public Money multiply(double multiplier) {
-        return new Money(amount.multiply(new BigDecimal(multiplier)), currency);
     }
 
     public Money add(Money priceByAmount) {

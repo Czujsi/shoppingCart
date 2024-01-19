@@ -19,8 +19,7 @@ class Scratch {
     }
 
     public static void main(String[] args) {
-        Converter converter = new Converter(Set.of(new ExchangeRate(LocalDate.of(2020, Month.APRIL, 3),
-                Set.of(new ExchangeRate.SingleRate(Currency.PLN, Currency.USD, 0.46)))));
+        Converter converter = new Converter(Set.of(new ExchangeRate(LocalDate.of(2020, Month.APRIL, 3), Set.of(new ExchangeRate.SingleRate(Currency.PLN, Currency.USD, 0.46)))));
         //tutaj tworzymy nowy Converter do wymiany walut, którego parametry to:
         //tworzymy set(używamy seta aby zapobiec duplikowaniu) nowych ExchangeRate na dany dzień
         //tworzymy set nowych SingleRate(przeliczników z jednej waluty na drugą czyli z PLN na USD za pomocą mnożnika rate)
@@ -38,6 +37,7 @@ class Scratch {
 @ToString
 class Converter {
     private final Set<ExchangeRate> exchangeRates;
+
     // tworzymy tutaj prywatny finalny Set ExchangeRate o nazwie exchangeRates
     public Money convert(Money price, Scratch.Currency currency, ZonedDateTime date) {
         //tutaj mamy konstruktor Money (ale nie wiem skąd się wział w sennsie skąd konstruktor z taką ilościa parametrów skoro klasa money ma tylko dwa)
@@ -47,9 +47,9 @@ class Converter {
                 .map(exchangeRate -> exchangeRate.exchange(price, currency))
                 //mapowane z exchangeRate na exchangeRate.exchange czyli do metody która pobiera ilość pieniędzy zamienia ją na przelicznik
                 .toList().get(0);
-                //cały stream bierzemy do listy, która może mieć od 0 do nieskończoności miejsc i bierzemy z niej pierwszą pozycję
-                // ponieważ numeracja zaczyna się od zera więc zero jest pierwszą pozycją
-                //i pierwsza pozycja jest stawką wymiany na dany dzień
+        //cały stream bierzemy do listy, która może mieć od 0 do nieskończoności miejsc i bierzemy z niej pierwszą pozycję
+        // ponieważ numeracja zaczyna się od zera więc zero jest pierwszą pozycją
+        //i pierwsza pozycja jest stawką wymiany na dany dzień
 
     }
 }
@@ -80,7 +80,7 @@ class ExchangeRate {
                 .map(singleRate -> singleRate.getRate() * price.getAmount()).map(newAmount -> new Money(newAmount, targetCurrency))
                 //mapujemy do tego, że single rate to przelicznik mnożony przez ilość pieniędzy z czego wychodzą nam jakby nowe pieniądze z nową ilością w walucie docelowej
                 .toList().get(0);
-                //na koniec wrzucamy to do listy i bierzemy pierwszą ilość
+        //na koniec wrzucamy to do listy i bierzemy pierwszą ilość
     }
 
     @Getter

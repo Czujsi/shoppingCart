@@ -4,12 +4,11 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.ThrowableAssert;
 import org.example.cart_components.Cart;
 import org.example.cart_components.UserId;
-import org.example.coupons.discount.*;
+import org.example.coupons.discount.DiscountDefinition;
 import org.example.coupons.discount.repository.DiscountRepository;
 import org.example.coupons.discount.type.DiscountType;
 import org.example.coupons.discount.type.FlatPercentDiscount;
 import org.example.coupons.discount.type.FreeTransportDiscount;
-import org.example.coupons.discount.type.SimpleAmountDiscount;
 import org.example.coupons.manager.CouponManager;
 import org.example.coupons.manager.CouponManagerImpl;
 import org.example.currency_exchange_money.Currency;
@@ -24,7 +23,7 @@ import java.util.Map;
 class CartTest {
     private static final UserId USER_ID = new UserId(1L);
     private static final String NON_EXISTING_PRODUCT_NAME = "nonExistingProductName";
-    ProductDefinition productDefinition = sampleProduct(2.30);
+    ProductDefinition productDefinition = sampleProduct();
     //public static final DiscountDefinition FLAT_10_PERCENT_DISCOUNT_DEFINITION = new FlatPercentDiscount("abc", 10.0);
 
     public static DiscountDefinition FLAT_10_PERCENT = new DiscountDefinition("code", Map.of(
@@ -33,11 +32,6 @@ class CartTest {
 
     public static DiscountDefinition FREE_TRANSPORT = new DiscountDefinition("aaa", Map.of(
             DiscountType.Transport, new FreeTransportDiscount("aaa", 10.00)
-    ));
-
-    public static DiscountDefinition CART_AND_PRODUCT = new DiscountDefinition("code", Map.of(
-            DiscountType.Product, new FlatPercentDiscount(BigDecimal.TEN),
-            DiscountType.Cart, new SimpleAmountDiscount(Money.of(20.0, Currency.PLN))
     ));
 
     CouponManager couponManager;
@@ -309,17 +303,17 @@ class CartTest {
 
         cart.addItem(productDefinition, 1000);
 
-        Assertions.assertThat(cart.overallSum()).isEqualTo(Money.of(2300, Currency.PLN));
+        Assertions.assertThat(cart.overallSum()).isEqualTo(Money.of(BigDecimal.valueOf(2300.0), Currency.PLN));
     }
     //endregion
 
     //region applyDiscountForCode method tests
     @Test
-    void testingDiscount1() {
+    void testingFlat_Percent_Discount() {
         // given
         Cart cart = new Cart(couponManager, USER_ID);
         couponManager.addDiscount(FLAT_10_PERCENT);
-        cart.addItem(sampleProduct(2.30), 1000);
+        cart.addItem(sampleProduct(), 1000);
 
         // when
         cart.applyDiscountCode(FLAT_10_PERCENT.getCode());
@@ -329,8 +323,23 @@ class CartTest {
                 .isEqualByComparingTo(Money.of(BigDecimal.valueOf(2070.00), Currency.PLN));
     }
 
-    private static ProductDefinition sampleProduct(double v) {
-        return ProductDefinition.of("Butter", Money.of(BigDecimal.valueOf(v), Currency.PLN));
+    @Test
+    void testingFree_Transport_Discount() {
+        // given
+        Cart cart = new Cart(couponManager, USER_ID);
+        couponManager.addDiscount(FREE_TRANSPORT);
+        cart.addItem(sampleProduct(), 1000);
+
+        // when
+        cart.applyDiscountCode(FREE_TRANSPORT.getCode());
+
+        // then
+        Assertions.assertThat(cart.overallSum())
+                .isEqualByComparingTo(Money.of(BigDecimal.valueOf(2300.00), Currency.PLN));
+    }
+
+    private static ProductDefinition sampleProduct() {
+        return ProductDefinition.of("Butter", Money.of(BigDecimal.valueOf(2.3), Currency.PLN));
     }
     //endregion
     @Test
@@ -339,7 +348,7 @@ class CartTest {
         Cart cart = new Cart(couponManager, USER_ID);
         couponManager.addDiscount(FLAT_10_PERCENT);
         couponManager.addDiscount(FREE_TRANSPORT);
-        cart.addItem(sampleProduct(2.30), 1000);
+        cart.addItem(sampleProduct(), 1000);
         cart.applyDiscountCode(FLAT_10_PERCENT.getCode());
         cart.applyDiscountCode(FREE_TRANSPORT.getCode());
 

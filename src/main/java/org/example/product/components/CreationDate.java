@@ -5,9 +5,11 @@ import java.time.LocalDate;
 
 public class CreationDate {
     public LocalDate localDate;
-    public CreationDate(LocalDate localDate){
+
+    public CreationDate(LocalDate localDate) {
         this.localDate = localDate;
     }
+
     public String toString() {
         return localDate.toString();
     }

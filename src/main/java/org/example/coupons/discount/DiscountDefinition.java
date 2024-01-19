@@ -7,6 +7,7 @@ import org.example.coupons.discount.type.DiscountType;
 import org.example.currency_exchange_money.Money;
 
 import java.util.Map;
+
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @RequiredArgsConstructor
 public class DiscountDefinition {

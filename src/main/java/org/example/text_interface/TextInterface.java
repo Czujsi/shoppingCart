@@ -101,7 +101,7 @@ public class TextInterface extends UserInterface {
                 String productName = UserInput.getInput(scanner);
                 System.out.println("Type quantity of product that you want to remove: ");
                 int quantity = Integer.parseInt(UserInput.getInput(scanner));
-                store.removeItemFromCart(productName, quantity);
+                customer.removeFromCart(productName, quantity);
                 System.out.println("Product: " + productName + ", has been removed with quantity: " + quantity);
                 store.printSummary();
                 continue;
@@ -142,7 +142,7 @@ public class TextInterface extends UserInterface {
     //just for testing
     private void addItemsToStock() {
         System.out.println("Type product name, and price");
-        store.addItemToStock();
+        employee.addToStock();
     }
 
     private void addFlatPercentDiscount() {

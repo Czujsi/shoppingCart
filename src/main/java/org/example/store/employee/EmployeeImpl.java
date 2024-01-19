@@ -45,28 +45,26 @@ public class EmployeeImpl implements Employee {
     public boolean checkIfExist(String input) {
         return productManager.exist(new ProductId(input));
     }
+
     // TODO
     //  add instruction/option to edit name or price
     @Override
     public void updateOnStock() {
-        while (true){
+        out.println("Type 'name' to update name, 'price' to update price, or 'exit' to go back");
+        while (true) {
             String option = UserInput.getInput(scanner);
-            if (option.equals("name")){
+            if (option.equals("name")) {
                 updateName();
                 continue;
             }
-            if (option.equals("price")){
+            if (option.equals("price")) {
                 updatePrice();
                 continue;
             }
-            if (option.equals("exit")){
+            if (option.equals("exit")) {
                 break;
             }
         }
-    }
-
-    private void wrongCommandInfo() {
-        out.println("Sorry, bad command.");
     }
 
     private void updatePrice() {
