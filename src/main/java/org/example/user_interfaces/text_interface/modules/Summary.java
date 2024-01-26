@@ -18,6 +18,7 @@ public class Summary {
     private final Customer customer;
     private final Employee employee;
     private final Scanner scanner = new Scanner(System.in);
+
     public void options() {
         printOptions();
         while (true) {

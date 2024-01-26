@@ -59,5 +59,4 @@ public class TextInterface implements UserInterface {
     private void addFlatPercentDiscount() {
         employee.addFlatPercentDiscount();
     }
-
 }

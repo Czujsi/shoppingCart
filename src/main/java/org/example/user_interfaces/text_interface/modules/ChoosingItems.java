@@ -12,6 +12,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 import static java.text.MessageFormat.format;
+
 @RequiredArgsConstructor
 public class ChoosingItems {
     private final Customer customer;
@@ -19,17 +20,18 @@ public class ChoosingItems {
     private final ProductManager productManager;
     private final Summary summary;
     private final Scanner scanner = new Scanner(System.in);
+
     public void option() {
         printOptions();
         while (true) {
             String input = UserInput.getInput(scanner);
-            if (input.equals("exit")) {
-                System.out.println("Thank You for visiting, have a nice day");
+            if (input.equals("back")) {
                 break;
             }
             if (input.equals("summary")) {
                 summary.options();
-                break;
+                printOptions();
+                continue;
             }
             if (input.equals("search")) {
                 System.out.println("Type product name that You are searching for");
@@ -63,6 +65,7 @@ public class ChoosingItems {
                 , getAllProducts().get(i).getName().getValue()
                 , getAllProducts().get(i).getPrice());
     }
+
     private int getNumber(String userInput) {
         return Integer.parseInt(userInput);
     }
