@@ -9,6 +9,6 @@ class ProductIdTest {
     void testingIdLength() {
         ProductId id = ProductId.createId();
 
-        Assertions.assertThat(36).isEqualTo(id.toString().length());
+        Assertions.assertThat(36).isEqualTo(id.getValue().toString().length());
     }
 }

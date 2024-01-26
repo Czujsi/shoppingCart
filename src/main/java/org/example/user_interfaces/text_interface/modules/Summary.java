@@ -1,4 +1,4 @@
-package org.example.user_interfaces.text_interface;
+package org.example.user_interfaces.text_interface.modules;
 
 import lombok.RequiredArgsConstructor;
 import org.example.product.ProductDefinition;
@@ -13,19 +13,13 @@ import java.util.Scanner;
 import static java.lang.System.out;
 
 @RequiredArgsConstructor
-public class SummaryOptions {
+public class Summary {
     private final Store store;
     private final Customer customer;
     private final Employee employee;
     private final Scanner scanner = new Scanner(System.in);
     public void options() {
-        System.out.println("Summary options: ");
-        System.out.println("For printing all your discount type print: ");
-        System.out.println("For removing any product type: 'remove'");
-        System.out.println("For summary of Your products type: 'sum'");
-        System.out.println("For going back to shopping type: 'back'");
-        System.out.println("For adding discount type: 'discount'");
-        System.out.println("For paying type: 'pay'");
+        printOptions();
         while (true) {
             String input = UserInput.getInput(scanner);
             if (input.equals("remove")) {
@@ -58,11 +52,21 @@ public class SummaryOptions {
             }
             if (input.equals("pay")) {
                 System.out.println("Paying system");
-                options();
                 break;
             }
         }
     }
+
+    private static void printOptions() {
+        System.out.println("Summary options: ");
+        System.out.println("For printing all your discount type print: ");
+        System.out.println("For removing any product type: 'remove'");
+        System.out.println("For summary of Your products type: 'sum'");
+        System.out.println("For going back to shopping type: 'back'");
+        System.out.println("For adding discount type: 'discount'");
+        System.out.println("For paying type: 'pay'");
+    }
+
     public void printSummary() {
         for (Map.Entry<ProductDefinition, Integer> entry : customer.getProducts().entrySet()) {
             out.println("Product: " +

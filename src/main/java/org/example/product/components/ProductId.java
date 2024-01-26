@@ -1,11 +1,13 @@
 package org.example.product.components;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.util.UUID;
 
 @EqualsAndHashCode
 public class ProductId {
+    @Getter
     private final UUID value;
 
     public ProductId(String productId) {
@@ -22,6 +24,7 @@ public class ProductId {
 
     @Override
     public String toString() {
-        return value.toString();
+        return "ProductId: " +
+                value;
     }
 }

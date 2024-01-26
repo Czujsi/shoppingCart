@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.store.employee.Employee;
 import org.example.user.UserInput;
 import org.example.user_interface.UserInterface;
+import org.example.user_interfaces.text_interface.modules.ChoosingItems;
 
 import java.util.Scanner;
 
