@@ -31,7 +31,7 @@ public class ChoosingItems {
                 System.out.println("Thank You for visiting, have a nice day");
                 break;
             }
-            if (input.equals("summary")) {
+            if (input.equals("summary ")) {
                 summaryOptions.options();
                 break;
             }
