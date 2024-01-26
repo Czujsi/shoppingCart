@@ -13,6 +13,8 @@ import org.example.store.customer.Customer;
 import org.example.store.customer.CustomerImpl;
 import org.example.store.employee.Employee;
 import org.example.store.employee.EmployeeImpl;
+import org.example.user_interfaces.text_interface.ChoosingItems;
+import org.example.user_interfaces.text_interface.SummaryOptions;
 import org.example.user_interfaces.text_interface.TextInterface;
 import org.example.user_interface.UserInterface;
 
@@ -24,8 +26,10 @@ public class Run {
     UserId userId = new UserId(1L);
     Employee employee = new EmployeeImpl(productManager, couponManager);
     Customer customer = new CustomerImpl(new Cart(couponManager, userId), productManager, employee);
-    Store store = new Store(productManager, customer, employee, couponManager);
-    UserInterface textInterface = new TextInterface(store, customer, employee, productManager);
+    Store store = new Store(customer, couponManager);
+    SummaryOptions summaryOptions = new SummaryOptions(store, customer, employee);
+    ChoosingItems choosingItems = new ChoosingItems(customer, employee, productManager, summaryOptions);
+    UserInterface textInterface = new TextInterface(employee, choosingItems);
 
     public void runTextInterface() {
         textInterface.run();
