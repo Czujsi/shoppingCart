@@ -18,7 +18,6 @@ import java.time.LocalDate;
 @ToString
 public class ProductDefinition {
     private Price price;
-
     @Getter
     private Name name;
     @Getter

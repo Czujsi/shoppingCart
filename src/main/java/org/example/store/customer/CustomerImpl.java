@@ -33,7 +33,9 @@ public class CustomerImpl implements Customer {
 
     private String getAfterAddingInformation(String id) {
         ProductDefinition productDefinition = productManager.getProductById(new ProductId(id)).orElseThrow();
-        return MessageFormat.format("{0}, has been added to cart with price: {1}", id, productDefinition.getPrice());
+        return MessageFormat.format("Product: {0}, has been added to cart with price: {1}",
+                productDefinition.getName().getValue(),
+                productDefinition.getPrice());
     }
 
     @Override
@@ -53,11 +55,6 @@ public class CustomerImpl implements Customer {
     }
 
     @Override
-    public void checkPrice() {
-
-    }
-
-    @Override
     public Map<ProductDefinition, Integer> getProducts() {
         return cart.getProducts();
     }
@@ -68,8 +65,8 @@ public class CustomerImpl implements Customer {
     }
 
     @Override
-    public void applyDiscount(String input) {
-        cart.applyDiscountCode(input);
+    public void applyDiscount(String code) {
+        cart.applyDiscountCode(code);
     }
 
     @Override

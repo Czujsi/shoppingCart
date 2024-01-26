@@ -16,8 +16,6 @@ public interface Customer {
 
     void removeAll(String input);
 
-    void checkPrice();
-
     Map<ProductDefinition, Integer> getProducts();
 
     Money overallSum();

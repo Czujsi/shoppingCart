@@ -33,22 +33,13 @@ public class Store {
         out.println(customer.overallSum());
     }
 
-    public void printAllItemsFromStock() {
-        out.println((productManager.getAllProducts().stream()
-                .map(Store::getString)
-                .collect(joining(lineSeparator()))));
-    }
-
-    private static String getString(ProductDefinition pd) {
-        return format("Product: {0}, price: {1}, date: {2}", pd.getName().getValue(), pd.getPrice().getAmount(), pd.getCreationDate());
-    }
-
     public void applyDiscountForCart(String input) {
         if (!couponManager.checkDiscountCode(input)) {
             out.println("Sorry, this discount code isn't available");
         }
         Cart cart = customer.getCart();
         cart.applyDiscountCode(input);
+
     }
 
     public void printCustomerDiscounts() {

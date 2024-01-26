@@ -1,69 +1,68 @@
-package org.example.text_interface;
+package org.example.user_interfaces.text_interface;
 
-import org.example.user.UserInput;
+import lombok.RequiredArgsConstructor;
+import org.example.product.ProductDefinition;
+import org.example.product.components.ProductId;
+import org.example.product.manager.ProductManager;
+import org.example.store.Store;
 import org.example.store.customer.Customer;
 import org.example.store.employee.Employee;
-import org.example.store.Store;
+import org.example.user.UserInput;
 import org.example.user_interface.UserInterface;
 
+import java.util.List;
 import java.util.Scanner;
 
-public class TextInterface extends UserInterface {
-    Store store;
-    Customer customer;
-    Employee employee;
-    Scanner scanner = new Scanner(System.in);
+import static java.text.MessageFormat.format;
 
-    public TextInterface(Store store, Employee employee, Customer customer) {
-        super();
-        this.store = store;
-        this.employee = employee;
-        this.customer = customer;
-    }
+@RequiredArgsConstructor
+public class TextInterface implements UserInterface {
+    private final Store store;
+    private final Customer customer;
+    private final Employee employee;
+    private final ProductManager productManager;
+    private final Scanner scanner = new Scanner(System.in);
+
 
     public void run() {
-        showOptions();
-    }
-
-    private void showOptions() {
-        System.out.println("Welcome in our shop user");
-        System.out.println();
-        System.out.println("If you want to log-in, type: log");
-        System.out.println("If you want to register, type: register");
-        System.out.println("If you want to shop without account, type: shop");
-        System.out.println("If you want to exit, type: exit");
-        String input = UserInput.getInput(scanner);
-        if (input.equals("log")) {
-            System.out.println("Logging system is currently unapproachable, sorry for trouble");
-            showOptions();
-        }
-        if (input.equals("register")) {
-            System.out.println("Register system is currently unapproachable, sorry for trouble");
-            showOptions();
-        }
-        if (input.equals("shop")) {
-            choosingItems();
-        }
-        if (input.equals("exit")) {
-            System.out.println("Thank you for visiting, have a nice day");
-        }
-        if (input.equals("add")) {
-            addItemsToStock();
-            showOptions();
-        }
-        if (input.equals("add1")) {
-            addFlatPercentDiscount();
-            showOptions();
-        }
-        if (input.equals("update")) {
-            employee.updateOnStock();
-            showOptions();
+        label:
+        while (true) {
+            System.out.println("Welcome in our shop user");
+            System.out.println();
+            System.out.println("If you want to log-in, type: log");
+            System.out.println("If you want to register, type: register");
+            System.out.println("If you want to shop without account, type: shop");
+            System.out.println("If you want to exit, type: exit");
+            String input = UserInput.getInput(scanner);
+            switch (input) {
+                case "log":
+                    System.out.println("Logging system is currently unapproachable, sorry for trouble");
+                    break;
+                case "register":
+                    System.out.println("Register system is currently unapproachable, sorry for trouble");
+                    break;
+                case "shop":
+                    choosingItems();
+                    break;
+                case "exit":
+                    System.out.println("Thank you for visiting, have a nice day");
+                    break label;
+                case "add":
+                    addItemsToStock();
+                    break;
+                case "add1":
+                    addFlatPercentDiscount();
+                    break;
+                case "update":
+                    employee.updateOnStock();
+                    break;
+            }
         }
     }
 
     private void choosingItems() {
         System.out.println("Here are items that You can buy in our shop: ");
-        store.printAllItemsFromStock();
+        printStock();
         System.out.println("For adding products to your cart type product name");
         System.out.println("To exit type: 'exit'");
         System.out.println("For summary type: 'summary'");
@@ -82,7 +81,7 @@ public class TextInterface extends UserInterface {
                 System.out.println("Type product name that You searching for");
                 employee.searchForItem(input);
             }
-            customer.addToCart(input);
+            customer.addToCart(getIdByInput(input));
         }
     }
 
@@ -104,27 +103,22 @@ public class TextInterface extends UserInterface {
                 customer.removeFromCart(productName, quantity);
                 System.out.println("Product: " + productName + ", has been removed with quantity: " + quantity);
                 store.printSummary();
-                continue;
             }
             if (input.equals("print")) {
                 store.printCustomerDiscounts();
-                continue;
             }
             if (input.equals("sum")) {
                 store.printSummary();
-                continue;
             }
             if (input.equals("search")) {
                 System.out.println("Type product name that You searching for");
                 employee.searchForItem(input);
-                continue;
             }
             if (input.equals("discount")) {
                 System.out.println("Enter your discount code: ");
                 String discountCode = UserInput.getInput(scanner);
                 store.applyDiscountForCart(discountCode);
                 store.printSummary();
-                continue;
             }
             if (input.equals("back")) {
                 choosingItems();
@@ -139,6 +133,7 @@ public class TextInterface extends UserInterface {
     }
 
 
+
     //just for testing
     private void addItemsToStock() {
         System.out.println("Type product name, and price");
@@ -147,5 +142,29 @@ public class TextInterface extends UserInterface {
 
     private void addFlatPercentDiscount() {
         employee.addFlatPercentDiscount();
+    }
+    private List<ProductDefinition> getAllProducts() {
+        return productManager.getAllProducts().stream().toList();
+    }
+
+    private void printStock() {
+        for (int i = 0; i < getAllProducts().size(); i++) {
+            System.out.println(getString(i));
+        }
+    }
+
+    private String getString(int i) {
+        return format("{0} -> Product: {1}, price {2}",
+                i,
+                getAllProducts().get(i).getName().getValue(),
+                getAllProducts().get(i).getPrice());
+    }
+    private int getNumber(String userInput) {
+        return Integer.parseInt(userInput);
+    }
+
+    private String getIdByInput(String userInput) {
+        ProductId id = getAllProducts().get(getNumber(userInput)).getProductId();
+        return id.toString();
     }
 }
