@@ -1,4 +1,4 @@
-package org.example.user_interfaces.text_interface.modules;
+package org.example.user_interfaces.modules;
 
 import lombok.RequiredArgsConstructor;
 import org.example.product.ProductDefinition;

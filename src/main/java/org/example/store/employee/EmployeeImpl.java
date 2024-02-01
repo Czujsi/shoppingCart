@@ -17,6 +17,8 @@ import org.example.product.components.Name;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -26,6 +28,7 @@ import static java.lang.System.out;
 public class EmployeeImpl implements Employee {
     ProductManager productManager;
     CouponManager couponManager;
+    List<String> options = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
 
     public EmployeeImpl(ProductManager productManager, CouponManager couponManager) {
@@ -35,10 +38,13 @@ public class EmployeeImpl implements Employee {
 
     @Override
     public void addToStock() {
+        out.println("Type product name: ");
         String productName = UserInput.getInput(scanner);
+        out.println("Type product price: ");
         String textPrice = UserInput.getInput(scanner);
         BigDecimal productPrice = new BigDecimal(textPrice);
         productManager.addProduct(new ProductDefinition(new Name(productName), new Price(Money.of(productPrice, Currency.PLN)), new CreationDate(LocalDate.now())));
+        out.println("Product added!");
     }
 
     @Override
@@ -46,13 +52,16 @@ public class EmployeeImpl implements Employee {
         return productManager.exist(new ProductId(input));
     }
 
-    // TODO
-    //  add instruction/option to edit name or price
     @Override
     public void updateOnStock() {
-        out.println("Type 'name' to update name, 'price' to update price, or 'exit' to go back");
+        setOptions();
+        printUpdateOptions();
         while (true) {
             String option = UserInput.getInput(scanner);
+            if (!options.contains(option)){
+                out.println("Sorry wrong command, try again");
+                printUpdateOptions();
+            }
             if (option.equals("name")) {
                 updateName();
                 continue;
@@ -61,10 +70,16 @@ public class EmployeeImpl implements Employee {
                 updatePrice();
                 continue;
             }
-            if (option.equals("exit")) {
+            if (option.equals("back")) {
                 break;
             }
         }
+    }
+
+    private static void printUpdateOptions() {
+        out.println("Type 'name' to update name");
+        out.println("Type 'price' to update price");
+        out.println("Type 'back' for going back");
     }
 
     private void updatePrice() {
@@ -121,5 +136,11 @@ public class EmployeeImpl implements Employee {
             return;
         }
         out.println(productManager.getProductById(new ProductId(id)));
+    }
+
+    public void setOptions(){
+        options.add("name");
+        options.add("price");
+        options.add("back");
     }
 }
