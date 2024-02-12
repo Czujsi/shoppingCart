@@ -21,4 +21,6 @@ public interface ProductManager {
     Optional<ProductDefinition> getProductById(ProductId productId);
 
     Collection<ProductDefinition> getAllProducts();
+
+    Collection<ProductDefinition> refreshStock();
 }

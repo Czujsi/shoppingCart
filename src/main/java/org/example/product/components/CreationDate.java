@@ -13,4 +13,8 @@ public class CreationDate {
     public String toString() {
         return localDate.toString();
     }
+
+    public String getValue() {
+        return localDate.toString();
+    }
 }

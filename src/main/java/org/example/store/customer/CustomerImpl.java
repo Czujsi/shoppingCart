@@ -7,7 +7,7 @@ import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
 import org.example.product.manager.ProductManager;
 import org.example.product.components.ProductId;
-import org.example.store.employee.Employee;
+import org.example.user_interfaces.modules.employee.Employee;
 
 import java.text.MessageFormat;
 import java.util.Map;

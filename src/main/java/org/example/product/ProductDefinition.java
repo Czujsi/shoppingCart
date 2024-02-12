@@ -15,7 +15,6 @@ import org.example.product.history.ProductHistory;
 import java.time.LocalDate;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
 public class ProductDefinition {
     private Price price;
     @Getter
@@ -25,7 +24,7 @@ public class ProductDefinition {
     private final ProductHistory productHistory = new ProductHistory();
     @Getter
     @EqualsAndHashCode.Include
-    private final ProductId productId = ProductId.createId();
+    private ProductId productId = ProductId.createId();
 
     public ProductDefinition(Name name, Price price, CreationDate creationDate) {
         if (name == null) {
@@ -37,8 +36,28 @@ public class ProductDefinition {
         this.creationDate = creationDate;
     }
 
+    public ProductDefinition(Name name, Price price, CreationDate creationDate, ProductId productId) {
+        this.name = name;
+        this.price = price;
+        this.creationDate = creationDate;
+        this.productId = productId;
+    }
+
     public static ProductDefinition of(String productName, Money price) {
         return new ProductDefinition(new Name(productName), new Price(price), new CreationDate(LocalDate.now()));
+    }
+
+    public static ProductDefinition of(String productName, Money price, String productId) {
+        return new ProductDefinition(new Name(productName), new Price(price), new CreationDate(LocalDate.now()), new ProductId(productId));
+    }
+
+    @Override
+    public String toString() {
+        return "Name=" + name +
+                ", Price=" + price +
+                ", Creation Date=" + creationDate +
+                ", Product History=" + productHistory +
+                ", Product ID=" + productId;
     }
 
     public Money getPrice() {

@@ -33,7 +33,7 @@ class CouponManagerTest {
         couponManager.addDiscount(FREE_TRANSPORT);
 
         // when
-        couponManager.removeDiscount(FREE_TRANSPORT);
+        couponManager.removeDiscount("code");
 
         // then
         Assertions.assertThat(discountRepository.exists("code")).isFalse();

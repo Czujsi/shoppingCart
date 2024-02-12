@@ -381,8 +381,13 @@ class CartTest {
         }
 
         @Override
-        public void removeDiscount(DiscountDefinition discountDefinition) {
+        public void removeDiscount(String code) {
 
+        }
+
+        @Override
+        public DiscountType[] getDiscountTypes() {
+            return new DiscountType[0];
         }
     }
     //endregion

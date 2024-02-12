@@ -3,8 +3,9 @@ package org.example.product.manager;
 import lombok.RequiredArgsConstructor;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
-import org.example.product.repository.ProductRepository;
 import org.example.product.components.ProductId;
+import org.example.product.repository.ProductRepository;
+import org.example.product.repository.ProductRepositoryFileImpl;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -49,5 +50,10 @@ public class ProductManagerImpl implements ProductManager {
     @Override
     public Collection<ProductDefinition> getAllProducts() {
         return productRepository.getAll();
+    }
+
+    @Override
+    public Collection<ProductDefinition> refreshStock() {
+        return productRepository.refreshSock();
     }
 }

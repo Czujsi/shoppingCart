@@ -3,23 +3,23 @@ package org.example.account;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode
 @ToString
-public class AccountCreator {
+public class Account {
     private final UserLogin userLogin;
     private final UserPassword userPassword;
+    @Getter
     private final UserName userName;
     @Getter
-    @EqualsAndHashCode.Include
     private final UserId userId = UserId.createId();
 
-    public AccountCreator(UserLogin login, UserPassword userPassword, UserName userName){
+    public Account(UserLogin login, UserPassword userPassword, UserName userName){
         this.userLogin = login;
         this.userPassword = userPassword;
         this.userName = userName;
     }
 
-    public static AccountCreator of(String userLogin, String userPassword, String userName) {
-        return new AccountCreator(new UserLogin(userLogin), new UserPassword(userPassword), new UserName(userName));
+    public static Account of(String userLogin, String userPassword, String userName) {
+        return new Account(new UserLogin(userLogin), new UserPassword(userPassword), new UserName(userName));
     }
 }

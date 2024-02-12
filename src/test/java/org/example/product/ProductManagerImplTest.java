@@ -8,7 +8,7 @@ import org.example.product.components.Name;
 import org.example.product.manager.ProductManager;
 import org.example.product.manager.ProductManagerImpl;
 import org.example.product.repository.ProductRepository;
-import org.example.product.repository.ProductRepositoryImpl;
+import org.example.product.repository.ProductRepositoryInMemoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +30,7 @@ class ProductManagerImplTest {
 
     @BeforeEach
     void setUp(){
-        productRepository = new ProductRepositoryImpl();
+        productRepository = new ProductRepositoryInMemoryImpl();
         productManager = new ProductManagerImpl(productRepository);
     }
 

@@ -16,8 +16,6 @@ public class Store {
     private final Customer customer;
     private final CouponManager couponManager;
 
-
-
     public void applyDiscountForCart(String input) {
         if (!couponManager.checkDiscountCode(input)) {
             out.println("Sorry, this discount code isn't available");

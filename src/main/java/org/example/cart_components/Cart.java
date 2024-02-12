@@ -90,6 +90,9 @@ public class Cart {
             Money priceByAmount = price.multiply(BigDecimal.valueOf(amount));
             total = total.add(priceByAmount);
         }
+        if (discountCart(total).getAmount().compareTo(BigDecimal.ZERO) < 0){
+            return Money.of(BigDecimal.ZERO, Currency.PLN);
+        }
         return discountCart(total);
     }
 

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.product.ProductDefinition;
 import org.example.store.Store;
 import org.example.store.customer.Customer;
-import org.example.store.employee.Employee;
+import org.example.user_interfaces.modules.employee.Employee;
 import org.example.user.UserInput;
 
 import java.util.Map;
@@ -22,50 +22,54 @@ public class Summary {
     public void options() {
         printOptions();
         while (true) {
-            String input = UserInput.getInput(scanner);
+            out.println("help -> for help");
+            String input = UserInput.getInput("summary", scanner);
             if (input.equals("remove")) {
-                System.out.println("Type product name: ");
-                String productName = UserInput.getInput(scanner);
-                System.out.println("Type quantity of product that you want to remove: ");
-                int quantity = Integer.parseInt(UserInput.getInput(scanner));
-                customer.removeFromCart(productName, quantity);
-                System.out.println("Product: " + productName + ", has been removed with quantity: " + quantity);
-                printSummary();
-            }
-            if (input.equals("print")) {
+                removeProduct();
+            } else if (input.equals("discount")) {
                 store.printCustomerDiscounts();
-            }
-            if (input.equals("sum")) {
+            } else if (input.equals("sum")) {
                 printSummary();
-            }
-            if (input.equals("search")) {
-                System.out.println("Type product name that You searching for");
-                employee.searchForItem(input);
-            }
-            if (input.equals("discount")) {
-                System.out.println("Enter your discount code: ");
-                String discountCode = UserInput.getInput(scanner);
-                store.applyDiscountForCart(discountCode);
-                printSummary();
-            }
-            if (input.equals("back")) {
+            } else if (input.equals("coupon")) {
+                applyCoupon();
+            } else if (input.equals("back")) {
                 break;
-            }
-            if (input.equals("pay")) {
+            } else if (input.equals("help")) {
+                printOptions();
+            } else if (input.equals("pay")) {
                 System.out.println("Paying system");
                 break;
+            } else {
+                out.println("Wrong command, try again");
             }
         }
     }
 
+    private void applyCoupon() {
+        System.out.println("Enter your discount code: ");
+        String discountCode = UserInput.getInput(scanner);
+        store.applyDiscountForCart(discountCode);
+        printSummary();
+    }
+
+    private void removeProduct() {
+        System.out.println("Type product name: ");
+        String productName = UserInput.getInput(scanner);
+        System.out.println("Type quantity of product that you want to remove: ");
+        int quantity = Integer.parseInt(UserInput.getInput(scanner));
+        customer.removeFromCart(productName, quantity);
+        System.out.println("Product: " + productName + ", has been removed with quantity: " + quantity);
+        printSummary();
+    }
+
     private static void printOptions() {
         System.out.println("Summary options: ");
-        System.out.println("For printing all your discount type print: ");
-        System.out.println("For removing any product type: 'remove'");
-        System.out.println("For summary of Your products type: 'sum'");
-        System.out.println("For going back to shopping type: 'back'");
-        System.out.println("For adding discount type: 'discount'");
-        System.out.println("For paying type: 'pay'");
+        System.out.println("\t\u001B[1msum\u001B[0m      -> for summary of your products");
+        System.out.println("\t\u001B[1mremove\u001B[0m   -> for removing any product");
+        System.out.println("\t\u001B[1mcoupon\u001B[0m   -> for adding coupon");
+        System.out.println("\t\u001B[1mdiscount\u001B[0m -> for printing all your active discounts");
+        System.out.println("\t\u001B[1mpay\u001B[0m      -> for paying");
+        System.out.println("\t\u001B[1mback\u001B[0m     -> for going back");
     }
 
     public void printSummary() {

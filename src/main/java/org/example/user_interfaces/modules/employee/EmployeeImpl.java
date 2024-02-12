@@ -1,4 +1,4 @@
-package org.example.store.employee;
+package org.example.user_interfaces.modules.employee;
 
 import lombok.RequiredArgsConstructor;
 import org.example.user.UserInput;
@@ -38,10 +38,8 @@ public class EmployeeImpl implements Employee {
 
     @Override
     public void addToStock() {
-        out.println("Type product name: ");
-        String productName = UserInput.getInput(scanner);
-        out.println("Type product price: ");
-        String textPrice = UserInput.getInput(scanner);
+        String productName = UserInput.getFieldInput("Type product name", scanner);
+        String textPrice = UserInput.getFieldInput("Type product price", scanner);
         BigDecimal productPrice = new BigDecimal(textPrice);
         productManager.addProduct(new ProductDefinition(new Name(productName), new Price(Money.of(productPrice, Currency.PLN)), new CreationDate(LocalDate.now())));
         out.println("Product added!");

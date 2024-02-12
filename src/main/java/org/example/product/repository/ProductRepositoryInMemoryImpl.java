@@ -13,7 +13,7 @@ import java.util.Set;
 
 @ToString
 @EqualsAndHashCode
-public class ProductRepositoryImpl implements ProductRepository<ProductId, ProductDefinition> {
+public class ProductRepositoryInMemoryImpl implements ProductRepository<ProductId, ProductDefinition> {
     private final Set<ProductDefinition> productRepository = new HashSet<>();
 
     @Override
@@ -30,6 +30,11 @@ public class ProductRepositoryImpl implements ProductRepository<ProductId, Produ
         return productRepository.stream()
                 .filter(v -> v.getName().getValue().equalsIgnoreCase(name))
                 .toList();
+    }
+
+    @Override
+    public Collection<ProductDefinition> refreshSock() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
