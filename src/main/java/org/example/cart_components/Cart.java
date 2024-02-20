@@ -129,7 +129,6 @@ public class Cart {
     public UserId getUserId() {
         return this.userId;
     }
-
     public Map<ProductDefinition, Integer> getProducts() {
         return products;
     }

@@ -52,8 +52,8 @@ public class ProductDefinition {
 
     @Override
     public String toString() {
-        return "Name= " + name.getValue() +
-                ", Price= " + price.productPrice.getAmount().toString();
+        return "Name = " + name.getValue() +
+                ", Price = " + price.productPrice.getAmount().toString();
     }
 
     public Money getPrice() {

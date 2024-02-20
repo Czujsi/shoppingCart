@@ -1,10 +1,11 @@
-package org.example.store.customer;
+package org.example.user_interfaces.customer;
 
 import org.example.cart_components.Cart;
 import org.example.coupons.discount.DiscountDefinition;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,7 +18,7 @@ public interface Customer {
 
     void removeAll(String input);
 
-    Map<ProductDefinition, Integer> getProducts();
+    List<ProductDefinition> getProducts();
 
     Money overallSum();
 
@@ -31,8 +32,10 @@ public interface Customer {
     void saveCart();
     void createCart();
     void deleteCart();
-    List<Cart> getCarts();
+    Collection<Cart> getCarts();
     Cart chooseCart(String input);
 
     void printCarts();
+
+    Map<ProductDefinition, Integer> getProductsMap();
 }

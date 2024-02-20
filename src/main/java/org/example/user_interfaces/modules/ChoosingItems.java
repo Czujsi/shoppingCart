@@ -2,7 +2,7 @@ package org.example.user_interfaces.modules;
 
 import lombok.RequiredArgsConstructor;
 import org.example.product.manager.ProductManager;
-import org.example.store.customer.Customer;
+import org.example.user_interfaces.customer.Customer;
 import org.example.user.UserInput;
 import org.example.user_interfaces.modules.employee.Employee;
 
@@ -62,6 +62,10 @@ public class ChoosingItems {
         System.out.println("\tcreate  -> for going to summary section");
         System.out.println("\tget     -> for going to summary section");
         System.out.println("\tdelete  -> for going to summary section");
+        System.out.println("\tchange  -> for going to summary section");
+        System.out.println("\tcreate  -> for creating new cart");
+        System.out.println("\tget     -> for printing all your carts");
+        System.out.println("\tsave    -> for saving your cart");
         System.out.println("\tback    -> for going back");
     }
 }

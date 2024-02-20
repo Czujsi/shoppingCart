@@ -1,4 +1,4 @@
-package org.example.store.customer;
+package org.example.user_interfaces.customer;
 
 import lombok.AllArgsConstructor;
 import org.example.account.UserId;
@@ -13,9 +13,7 @@ import org.example.product.manager.ProductManager;
 import org.example.user_interfaces.modules.employee.Employee;
 
 import java.text.MessageFormat;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static java.lang.System.out;
 import static java.text.MessageFormat.format;
@@ -63,7 +61,15 @@ public class CustomerImpl implements Customer {
     }
 
     @Override
-    public Map<ProductDefinition, Integer> getProducts() {
+    public List<ProductDefinition> getProducts() {
+        List<ProductDefinition> productDefinitions = new ArrayList<>();
+        for (Map.Entry<ProductDefinition, Integer> entry : cart.getProducts().entrySet()) {
+            productDefinitions.add(entry.getKey());
+        }
+        return productDefinitions;
+    }
+
+    public Map<ProductDefinition, Integer> getProductsMap() {
         return cart.getProducts();
     }
 
@@ -109,7 +115,7 @@ public class CustomerImpl implements Customer {
     }
 
     @Override
-    public List<Cart> getCarts() {
+    public Collection<Cart> getCarts() {
         return cartManager.getCartByUserId(userId).stream().toList();
     }
 
@@ -118,14 +124,15 @@ public class CustomerImpl implements Customer {
         if (getNumber(input) > getCarts().size()) {
             out.println("Wrong command, try again");
         }
-        return this.cart = getCarts().get(getNumber(input));
+        return cart = getCarts().stream().toList().get(getNumber(input));
     }
 
     public void printCarts() {
         System.out.println("Here are your carts: ");
-        List<Cart> allCarts = getCarts();
+        Collection<Cart> allCarts = getCarts();
         for (int i = 0; i < allCarts.size(); i++) {
-            System.out.println(getString(i, allCarts.get(i)));
+            chooseCart(String.valueOf(i));
+            System.out.println(getString(i, allCarts.stream().toList().get(i)));
         }
     }
 

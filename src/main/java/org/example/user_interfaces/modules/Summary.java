@@ -3,7 +3,7 @@ package org.example.user_interfaces.modules;
 import lombok.RequiredArgsConstructor;
 import org.example.product.ProductDefinition;
 import org.example.store.Store;
-import org.example.store.customer.Customer;
+import org.example.user_interfaces.customer.Customer;
 import org.example.user_interfaces.modules.employee.Employee;
 import org.example.user.UserInput;
 
@@ -73,7 +73,7 @@ public class Summary {
     }
 
     public void printSummary() {
-        for (Map.Entry<ProductDefinition, Integer> entry : customer.getProducts().entrySet()) {
+        for (Map.Entry<ProductDefinition, Integer> entry : customer.getProductsMap().entrySet()) {
             out.println("Product: " +
                     entry.getKey().getName().getValue() +
                     ", quantity: " +
