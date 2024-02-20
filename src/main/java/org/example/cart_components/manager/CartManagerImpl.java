@@ -1,17 +1,20 @@
 package org.example.cart_components.manager;
 
 import lombok.AllArgsConstructor;
+import org.example.account.UserId;
 import org.example.cart_components.Cart;
 import org.example.cart_components.repository.CartRepository;
-import org.example.cart_components.UserId;
+
+import java.util.Collection;
 
 @AllArgsConstructor
 public class CartManagerImpl implements CartManager {
-    private final CartRepository cartRepository;
+    private final CartRepository<UserId, Cart> cartRepository;
 
     @Override
-    public void addCart(Cart cart) {
+    public Cart addCart(Cart cart) {
         cartRepository.save(cart);
+        return cart;
     }
 
     @Override
@@ -20,7 +23,7 @@ public class CartManagerImpl implements CartManager {
     }
 
     @Override
-    public Cart getCartByUserId(UserId userId) {
+    public Collection<Cart> getCartByUserId(UserId userId) {
         return cartRepository.get(userId);
     }
 }

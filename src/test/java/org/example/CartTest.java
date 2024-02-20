@@ -2,8 +2,8 @@ package org.example;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.ThrowableAssert;
+import org.example.account.UserId;
 import org.example.cart_components.Cart;
-import org.example.cart_components.UserId;
 import org.example.coupons.discount.DiscountDefinition;
 import org.example.coupons.discount.repository.DiscountRepository;
 import org.example.coupons.discount.type.DiscountType;
@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 class CartTest {
-    private static final UserId USER_ID = new UserId(1L);
+    private static final UserId USER_ID = new UserId("e8979366-36d0-42d3-8f2a-087c53b75c6e");
     private static final String NON_EXISTING_PRODUCT_NAME = "nonExistingProductName";
     ProductDefinition productDefinition = sampleProduct();
     //public static final DiscountDefinition FLAT_10_PERCENT_DISCOUNT_DEFINITION = new FlatPercentDiscount("abc", 10.0);

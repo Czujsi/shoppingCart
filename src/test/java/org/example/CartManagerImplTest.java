@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.account.UserId;
 import org.example.cart_components.*;
 import org.example.cart_components.manager.CartManager;
 import org.example.cart_components.manager.CartManagerImpl;
@@ -13,10 +14,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class CartManagerImplTest {
-    private final static UserId USER_ID = new UserId(1233412L);
-    private final static UserId USER_ID_2 = new UserId(122233412L);
+    private final static UserId USER_ID = new UserId("1c821945-b6c0-4ce1-b073-dfc6c6da3694");
+    private final static UserId USER_ID_2 = new UserId("8be75339-b73f-4521-b2ec-c67dc7aeb826");
 
-    private CartRepository repository;
+    private CartRepository<UserId, Cart> repository;
     private CartManager manager;
 
     @BeforeEach

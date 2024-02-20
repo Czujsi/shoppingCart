@@ -1,12 +1,14 @@
 package org.example.cart_components.manager;
 
+import org.example.account.UserId;
 import org.example.cart_components.Cart;
-import org.example.cart_components.UserId;
+
+import java.util.Collection;
 
 public interface CartManager {
-    void addCart(Cart cart);
+    Cart addCart(Cart cart);
 
     void deleteCart(UserId userId);
 
-    Cart getCartByUserId(UserId userId);
+    Collection<Cart> getCartByUserId(UserId userId);
 }

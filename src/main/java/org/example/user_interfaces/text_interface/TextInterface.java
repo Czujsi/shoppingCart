@@ -1,6 +1,7 @@
 package org.example.user_interfaces.text_interface;
 
 import lombok.RequiredArgsConstructor;
+import org.example.account.UserId;
 import org.example.product.manager.ProductManager;
 import org.example.user_interfaces.modules.DiscountOperations;
 import org.example.user_interfaces.modules.employee.Employee;
@@ -57,6 +58,7 @@ public class TextInterface implements UserInterface {
             } else if (input.equals("register")) {
                 out.println("Register system is currently unapproachable, sorry for trouble");
             } else if (input.equals("shop")) {
+                UserId.createId();
                 choosingItems.option();
             } else if (input.equals("product")) {
                 stockOperations.option();

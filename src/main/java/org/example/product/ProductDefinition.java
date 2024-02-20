@@ -3,12 +3,11 @@ package org.example.product;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 import org.example.currency_exchange_money.Money;
 import org.example.product.components.CreationDate;
-import org.example.product.components.ProductId;
-import org.example.product.components.Price;
 import org.example.product.components.Name;
+import org.example.product.components.Price;
+import org.example.product.components.ProductId;
 import org.example.product.history.Change;
 import org.example.product.history.ProductHistory;
 
@@ -53,11 +52,8 @@ public class ProductDefinition {
 
     @Override
     public String toString() {
-        return "Name=" + name +
-                ", Price=" + price +
-                ", Creation Date=" + creationDate +
-                ", Product History=" + productHistory +
-                ", Product ID=" + productId;
+        return "Name= " + name.getValue() +
+                ", Price= " + price.productPrice.getAmount().toString();
     }
 
     public Money getPrice() {

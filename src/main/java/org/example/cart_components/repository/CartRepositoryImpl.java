@@ -1,17 +1,22 @@
 package org.example.cart_components.repository;
 
+import org.example.account.UserId;
 import org.example.cart_components.Cart;
-import org.example.cart_components.UserId;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CartRepositoryImpl implements CartRepository {
-    private final Map<UserId, Cart> cartsRepository = new HashMap<>();
+public class CartRepositoryImpl implements CartRepository<UserId, Cart> {
+    private final Map<UserId, ArrayList<Cart>> cartsRepository = new HashMap<>();
 
     @Override
-    public void save(Cart object) {
-        cartsRepository.put(object.getUserId(), object);
+    public void save(Cart cart) {
+        UserId userId = cart.getUserId();
+        ArrayList<Cart> userCarts = cartsRepository.getOrDefault(userId, new ArrayList<>());
+        userCarts.add(cart);
+        cartsRepository.put(userId, userCarts);
     }
 
     @Override
@@ -25,7 +30,7 @@ public class CartRepositoryImpl implements CartRepository {
     }
 
     @Override
-    public Cart get(UserId userId) {
-        return cartsRepository.get(userId);
+    public Collection<Cart> get(UserId userId) {
+        return cartsRepository.getOrDefault(userId, new ArrayList<>());
     }
 }

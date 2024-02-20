@@ -9,8 +9,8 @@ public class UserId {
     @Getter
     private final UUID value;
 
-    public UserId(String productId) {
-        this.value = UUID.fromString(productId);
+    public UserId(String userId) {
+        this.value = UUID.fromString(userId);
     }
 
     public UserId() {
@@ -26,4 +26,5 @@ public class UserId {
         return "UserId: " +
                 value;
     }
+
 }

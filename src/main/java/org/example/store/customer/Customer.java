@@ -5,6 +5,7 @@ import org.example.coupons.discount.DiscountDefinition;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,4 +26,13 @@ public interface Customer {
     Set<DiscountDefinition> printDiscounts();
 
     Cart getCart();
+
+    String getId();
+    void saveCart();
+    void createCart();
+    void deleteCart();
+    List<Cart> getCarts();
+    Cart chooseCart(String input);
+
+    void printCarts();
 }

@@ -1,17 +1,12 @@
 package org.example.user_interfaces.modules;
 
 import lombok.RequiredArgsConstructor;
-import org.example.product.ProductDefinition;
 import org.example.product.manager.ProductManager;
 import org.example.store.customer.Customer;
-import org.example.user_interfaces.modules.employee.Employee;
 import org.example.user.UserInput;
+import org.example.user_interfaces.modules.employee.Employee;
 
-import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
-
-import static java.text.MessageFormat.format;
 
 @SuppressWarnings("IfCanBeSwitch")
 @RequiredArgsConstructor
@@ -31,6 +26,7 @@ public class ChoosingItems {
         stockOutput.printStock();
         while (true) {
             System.out.println("Type help for help");
+            System.out.println(customer.getId());
             String input = UserInput.getInput("choosing items", scanner);
             if (input.equals(COMMAND_BACK)) {
                 break;
@@ -41,6 +37,17 @@ public class ChoosingItems {
                 customer.addToCart(stockOutput.getIdByInput(productNumber));
             } else if (input.equals(COMMAND_HELP)) {
                 printOptions();
+            } else if (input.equals("create")) {
+                customer.createCart();
+            } else if (input.equals("change")) {
+                String number = UserInput.getInput("Type number", scanner);
+                customer.chooseCart(number);
+            } else if (input.equals("save")) {
+                customer.saveCart();
+            } else if (input.equals("get")) {
+                customer.printCarts();
+            } else if (input.equals("delete")) {
+                customer.deleteCart();
             } else {
                 System.out.println("Wrong command, try again.");
             }
@@ -50,13 +57,11 @@ public class ChoosingItems {
 
     private void printOptions() {
         stockOutput.printStock();
-        System.out.println("\tadd -> for adding items to cart");
+        System.out.println("\tadd     -> for adding items to cart");
         System.out.println("\tsummary -> for going to summary section");
-        System.out.println("\tback -> for going back");
+        System.out.println("\tcreate  -> for going to summary section");
+        System.out.println("\tget     -> for going to summary section");
+        System.out.println("\tdelete  -> for going to summary section");
+        System.out.println("\tback    -> for going back");
     }
-
-    private List<ProductDefinition> getAllProducts() {
-        return productManager.getAllProducts().stream().toList();
-    }
-
 }

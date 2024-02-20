@@ -3,6 +3,7 @@ package org.example.cart_components;
 
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.example.account.UserId;
 import org.example.coupons.manager.CouponManager;
 import org.example.coupons.discount.DiscountDefinition;
 import org.example.currency_exchange_money.Currency;
