@@ -22,6 +22,7 @@ import org.example.user_interfaces.text_interface.TextInterface;
 import org.example.user_interfaces.user.UserInterface;
 
 public class Run {
+
     ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl();
     CartRepository<UserId, Cart> cartRepository = new CartRepositoryImpl();
     DiscountRepository discountRepository = new DiscountRepository();
@@ -37,8 +38,7 @@ public class Run {
     StockOperations stockOperations = new StockOperations(employee, stockOutput);
     DiscountOperations discountOperations = new DiscountOperations(couponManager);
     ChoosingItems choosingItems = new ChoosingItems(customer, employee, productManager, summary, stockOutput);
-    UserInterface textInterface = new TextInterface(employee, choosingItems, stockOperations, productManager, discountOperations);
-
+    UserInterface textInterface = new TextInterface(choosingItems, stockOperations, productManager, discountOperations);
     public void runTextInterface() {
         textInterface.run();
     }

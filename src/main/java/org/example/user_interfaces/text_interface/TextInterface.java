@@ -18,9 +18,9 @@ import static java.lang.System.*;
  * -> Interfejs tekstowy.
  * <p>
  * . Koszyk:
- * .. ❌ Lista koszykow
- * .. ❌ Stworz koszyk
- * .. ❌ Usun koszyk
+ * .. ✅ Lista koszykow
+ * .. ✅ Stworz koszyk
+ * .. ✅ Usun koszyk
  * .. ✅ Daj mi cene koszyka
  * .. ✅ Dodaj produkt do koszyka
  * .. ✅ Usun produkt z koszyka
@@ -41,7 +41,6 @@ import static java.lang.System.*;
 @RequiredArgsConstructor
 public class TextInterface implements UserInterface {
 
-    private final Employee employee;
     private final ChoosingItems choosingItems;
     private final StockOperations stockOperations;
     private final Scanner scanner = new Scanner(in);
