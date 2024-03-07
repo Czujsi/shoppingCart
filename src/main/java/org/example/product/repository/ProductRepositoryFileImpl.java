@@ -1,20 +1,13 @@
 package org.example.product.repository;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.example.currency_exchange_money.Currency;
-import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
-import org.example.product.components.CreationDate;
-import org.example.product.components.Name;
-import org.example.product.components.Price;
 import org.example.product.components.ProductId;
 import org.example.product.converters.CsvConverter;
 
-import java.io.*;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.*;
 
 @RequiredArgsConstructor
