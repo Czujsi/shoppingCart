@@ -16,7 +16,7 @@ import java.util.*;
 
 public class ProductRepositoryFileImpl implements ProductRepository<ProductId, ProductDefinition> {
     Set<ProductDefinition> products = new HashSet<>();
-    File file = new File("C:\\Users\\oscar\\Desktop\\productsFolder\\test.csv");
+    File file = new File("src/main/resources/test.csv");
 
     @Override
     public void save(ProductDefinition productDefinition) {

@@ -1,18 +1,20 @@
 package org.example.user_interfaces.text_interface;
 
-import lombok.RequiredArgsConstructor;
 import org.example.account.UserId;
 import org.example.product.manager.ProductManager;
-import org.example.user_interfaces.modules.DiscountOperations;
-import org.example.user_interfaces.modules.employee.Employee;
 import org.example.user.UserInput;
-import org.example.user_interfaces.user.UserInterface;
 import org.example.user_interfaces.modules.ChoosingItems;
+import org.example.user_interfaces.modules.DiscountOperations;
 import org.example.user_interfaces.modules.StockOperations;
+import org.example.user_interfaces.user.UserInterface;
 
+import java.util.Map;
 import java.util.Scanner;
 
-import static java.lang.System.*;
+import static java.lang.System.in;
+import static java.lang.System.out;
+import static java.util.Map.entry;
+import static java.util.Map.ofEntries;
 
 /**
  * -> Interfejs tekstowy.
@@ -38,7 +40,6 @@ import static java.lang.System.*;
  */
 
 @SuppressWarnings("IfCanBeSwitch")
-@RequiredArgsConstructor
 public class TextInterface implements UserInterface {
 
     private final ChoosingItems choosingItems;
@@ -46,28 +47,39 @@ public class TextInterface implements UserInterface {
     private final Scanner scanner = new Scanner(in);
     private final ProductManager productManager;
     private final DiscountOperations discountOperations;
+    private final Map<String, Runnable> registeredCommands;
+
+    public TextInterface(ChoosingItems choosingItems, StockOperations stockOperations, ProductManager productManager, DiscountOperations discountOperations) {
+        this.choosingItems = choosingItems;
+        this.stockOperations = stockOperations;
+        this.productManager = productManager;
+        this.discountOperations = discountOperations;
+        this.registeredCommands = ofEntries(
+                entry("log", () -> out.println("Logging system is currently unapproachable, sorry for trouble")),
+                entry("register", () -> out.println("Register system is currently unapproachable, sorry for trouble")),
+                entry("shop", () -> {
+                    UserId.createId();
+                    this.choosingItems.option();
+                }),
+                entry("product", this.stockOperations::option),
+                entry("discount", this.discountOperations::options),
+                entry("help", TextInterface::printOptions)
+        );
+    }
+
 
     public void run() {
         productManager.refreshStock();
         while (true) {
             out.println("Type help for help");
-            String input = UserInput.getInput("store", scanner);
-            if (input.equals("log")) {
-                out.println("Logging system is currently unapproachable, sorry for trouble");
-            } else if (input.equals("register")) {
-                out.println("Register system is currently unapproachable, sorry for trouble");
-            } else if (input.equals("shop")) {
-                UserId.createId();
-                choosingItems.option();
-            } else if (input.equals("product")) {
-                stockOperations.option();
-            } else if (input.equals("discount")) {
-                discountOperations.options();
-            } else if (input.equals("exit")) {
+            String command = UserInput.getInput("store", scanner);
+            if (registeredCommands.containsKey(command)) {
+                Runnable runnable = registeredCommands.get(command);
+                runnable.run();
+            } else if (command.equals("exit")) {
                 out.println("Thank you for visiting, have a nice day");
                 break;
-            } else if (input.equals("help")) {
-                printOptions();
+
             } else {
                 out.println("There is no such command");
             }
