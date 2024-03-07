@@ -1,5 +1,7 @@
 package org.example.product.repository;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
@@ -7,6 +9,7 @@ import org.example.product.components.CreationDate;
 import org.example.product.components.Name;
 import org.example.product.components.Price;
 import org.example.product.components.ProductId;
+import org.example.product.converters.CsvConverter;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -14,7 +17,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+@RequiredArgsConstructor
 public class ProductRepositoryFileImpl implements ProductRepository<ProductId, ProductDefinition> {
+    private final CsvConverter csvConverter;
     Set<ProductDefinition> products = new HashSet<>();
     File file = new File("src/main/resources/test.csv");
 
@@ -66,46 +71,14 @@ public class ProductRepositoryFileImpl implements ProductRepository<ProductId, P
         return products;
     }
 
-    public Collection<ProductDefinition> refreshStock(){
+    public Collection<ProductDefinition> refreshStock() {
         CsvFileReader();
         return products;
     }
+
     private void CsvFileReader() {
-        BufferedReader reader = null;
-        String line;
-        try {
-            reader = new BufferedReader(new FileReader(file));
-            while ((line = reader.readLine()) != null) {
-                String[] column = line.split(";");
-                if (column.length >= 3) {
-                    String name = column[0];
-
-                    BigDecimal price = new BigDecimal(column[1]);
-
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    LocalDate date = LocalDate.parse(column[2], formatter);
-
-                    String id = column[3];
-
-                    ProductDefinition productDefinition = new ProductDefinition(new Name(name), new Price(Money.of(price, Currency.PLN)), new CreationDate(date), new ProductId(id));
-
-                    products.add(productDefinition);
-                } else {
-                    throw new IllegalArgumentException("Invalid line format: " + line);
-                }
-
-
-            }
-            reader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                Objects.requireNonNull(reader).close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        List<ProductDefinition> productDefinitions = csvConverter.convertFromFile(file.getPath());
+        products.addAll(productDefinitions);
     }
 
     @Override
