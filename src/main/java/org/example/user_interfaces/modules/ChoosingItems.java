@@ -23,7 +23,6 @@ public class ChoosingItems {
     private final Scanner scanner = new Scanner(System.in);
 
     public void option() {
-        productManager.refreshStock();
         stockOutput.printStock();
         while (true) {
             System.out.println("Type help for help");
