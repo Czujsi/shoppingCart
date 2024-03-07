@@ -69,7 +69,6 @@ public class TextInterface implements UserInterface {
 
 
     public void run() {
-        productManager.refreshStock();
         while (true) {
             out.println("Type help for help");
             String command = UserInput.getInput("store", scanner);
