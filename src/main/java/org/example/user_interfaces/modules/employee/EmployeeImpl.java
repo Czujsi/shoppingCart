@@ -1,20 +1,19 @@
 package org.example.user_interfaces.modules.employee;
 
 import lombok.RequiredArgsConstructor;
-import org.example.user.UserInput;
-import org.example.coupons.manager.CouponManager;
 import org.example.coupons.discount.DiscountDefinition;
 import org.example.coupons.discount.type.DiscountType;
 import org.example.coupons.discount.type.FlatPercentDiscount;
+import org.example.coupons.manager.CouponManager;
 import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
-import org.example.product.manager.ProductManager;
 import org.example.product.components.CreationDate;
-import org.example.product.components.ProductId;
-import org.example.product.components.Price;
 import org.example.product.components.Name;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.product.components.Price;
+import org.example.product.components.ProductId;
+import org.example.product.manager.ProductManager;
+import org.example.user.UserInput;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -30,16 +29,10 @@ import static java.lang.System.out;
 @RequiredArgsConstructor
 public class EmployeeImpl implements Employee {
 
-    @Autowired
-    ProductManager productManager;
-    CouponManager couponManager;
+    private final ProductManager productManager;
+    private final CouponManager couponManager;
     List<String> options = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
-
-    public EmployeeImpl(ProductManager productManager, CouponManager couponManager) {
-        this.productManager = productManager;
-        this.couponManager = couponManager;
-    }
 
     @Override
     public void addToStock() {
