@@ -9,6 +9,7 @@ import org.example.cart_components.repository.CartRepositoryImpl;
 import org.example.coupons.discount.repository.DiscountRepository;
 import org.example.coupons.manager.CouponManager;
 import org.example.coupons.manager.CouponManagerImpl;
+import org.example.product.converters.CsvConverter;
 import org.example.product.manager.ProductManager;
 import org.example.product.manager.ProductManagerImpl;
 import org.example.product.repository.ProductRepositoryFileImpl;
@@ -24,8 +25,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Run {
-
-    ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl();
+    CsvConverter csvConverter = new CsvConverter();
+    ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl(csvConverter);
     CartRepository<UserId, Cart> cartRepository = new CartRepositoryImpl();
     DiscountRepository discountRepository = new DiscountRepository();
     ProductManager productManager = new ProductManagerImpl(productRepositoryFile);

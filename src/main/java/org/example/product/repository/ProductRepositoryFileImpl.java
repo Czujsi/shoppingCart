@@ -1,33 +1,29 @@
 package org.example.product.repository;
 
-import org.example.currency_exchange_money.Currency;
-import org.example.currency_exchange_money.Money;
+import lombok.RequiredArgsConstructor;
 import org.example.product.ProductDefinition;
-import org.example.product.components.CreationDate;
-import org.example.product.components.Name;
-import org.example.product.components.Price;
 import org.example.product.components.ProductId;
+import org.example.product.converters.CsvConverter;
 
-import java.io.*;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.*;
 
+@RequiredArgsConstructor
 public class ProductRepositoryFileImpl implements ProductRepository<ProductId, ProductDefinition> {
+    private final CsvConverter csvConverter;
     Set<ProductDefinition> products = new HashSet<>();
     File file = new File("src/main/resources/test.csv");
 
     @Override
     public void save(ProductDefinition productDefinition) {
-        // sprawdzam czy w liście produktów którą pobrałem z pliku, ta definicja produktu już istnieje, porównując id produktu
         if (exists(productDefinition.getProductId())) {
             throw new IllegalArgumentException("Product already exists");
         }
-        // następnie dodaję ten produkt do listy w pamięci, na której pracuję, dzięki temu nie muszę za każdym razem odczytywać pliku
+
         products.add(productDefinition);
 
-        // tutaj najpierw konwertuję produkt do formatu csv za pomocą metody, a następnie zapisuję w pliku
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
             writer.write(convertToCSV(productDefinition));
             writer.newLine();
@@ -37,11 +33,7 @@ public class ProductRepositoryFileImpl implements ProductRepository<ProductId, P
     }
 
     private String convertToCSV(ProductDefinition productDefinition) {
-        return String.format("%s;%s;%s;%s",
-                productDefinition.getName().getValue(),
-                productDefinition.getPrice().getAmount().toString(),
-                productDefinition.getCreationDate(),
-                productDefinition.getProductId().getValue());
+        return String.format("%s;%s;%s;%s", productDefinition.getName().getValue(), productDefinition.getPrice().getAmount().toString(), productDefinition.getCreationDate(), productDefinition.getProductId().getValue());
     }
 
     @Override
@@ -56,9 +48,7 @@ public class ProductRepositoryFileImpl implements ProductRepository<ProductId, P
 
     @Override
     public Optional<ProductDefinition> findById(ProductId productId) {
-        return products.stream()
-                .filter(v -> v.getProductId().equals(productId))
-                .findFirst();
+        return products.stream().filter(v -> v.getProductId().equals(productId)).findFirst();
     }
 
     @Override
@@ -66,46 +56,14 @@ public class ProductRepositoryFileImpl implements ProductRepository<ProductId, P
         return products;
     }
 
-    public Collection<ProductDefinition> refreshStock(){
+    public Collection<ProductDefinition> refreshStock() {
         CsvFileReader();
         return products;
     }
+
     private void CsvFileReader() {
-        BufferedReader reader = null;
-        String line;
-        try {
-            reader = new BufferedReader(new FileReader(file));
-            while ((line = reader.readLine()) != null) {
-                String[] column = line.split(";");
-                if (column.length >= 3) {
-                    String name = column[0];
-
-                    BigDecimal price = new BigDecimal(column[1]);
-
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    LocalDate date = LocalDate.parse(column[2], formatter);
-
-                    String id = column[3];
-
-                    ProductDefinition productDefinition = new ProductDefinition(new Name(name), new Price(Money.of(price, Currency.PLN)), new CreationDate(date), new ProductId(id));
-
-                    products.add(productDefinition);
-                } else {
-                    throw new IllegalArgumentException("Invalid line format: " + line);
-                }
-
-
-            }
-            reader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                Objects.requireNonNull(reader).close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        List<ProductDefinition> productDefinitions = csvConverter.convertFromFile(file.getPath());
+        products.addAll(productDefinitions);
     }
 
     @Override

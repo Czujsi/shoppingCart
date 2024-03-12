@@ -8,6 +8,7 @@ import org.example.product.components.CreationDate;
 import org.example.product.components.Name;
 import org.example.product.components.Price;
 import org.example.product.components.ProductId;
+import org.example.product.converters.CsvConverter;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
 class ProductRepositoryFileImplTest {
+    private final CsvConverter csvConverter = new CsvConverter();
     private static final ProductDefinition EXAMPLE_PRODUCT_1 = new ProductDefinition(new Name("Banana1")
             , new Price(Money.of(BigDecimal.valueOf(2.65), Currency.PLN))
             , new CreationDate(LocalDate.now())
@@ -44,7 +46,7 @@ class ProductRepositoryFileImplTest {
 
     @Test
     void name() {
-        ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl();
+        ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl(csvConverter);
 
         System.out.println(productRepositoryFile.getAll().stream().map(ProductDefinition::toString).collect(Collectors.joining("\n")));
     }
@@ -52,14 +54,14 @@ class ProductRepositoryFileImplTest {
     // checking if cache memory is faster than parsing from csv file always for every need, and how fast it is
     @Test
     void checkingIfInMemoryListIsMoreOptimal() {
-        ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl();
+        ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl(csvConverter);
 
         System.out.println(productRepositoryFile.getAll1().stream().map(ProductDefinition::toString).collect(Collectors.joining("\n")));
     }
 
     @Test
     void testingIfSavingMethodWorksAsIntended() {
-        ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl();
+        ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl(csvConverter);
 
         productRepositoryFile.save(EXAMPLE_PRODUCT_1);
         productRepositoryFile.save(EXAMPLE_PRODUCT_2);
@@ -74,7 +76,7 @@ class ProductRepositoryFileImplTest {
 
     @Test
     void testingIfSavingMethodWorksAsIntended2() {
-        ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl();
+        ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl(csvConverter);
         productRepositoryFile.save(EXAMPLE_PRODUCT_5);
 
         ThrowableAssert.ThrowingCallable addItem = () -> productRepositoryFile.save(EXAMPLE_PRODUCT_5);
