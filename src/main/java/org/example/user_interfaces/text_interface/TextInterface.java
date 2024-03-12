@@ -7,6 +7,7 @@ import org.example.user_interfaces.modules.ChoosingItems;
 import org.example.user_interfaces.modules.DiscountOperations;
 import org.example.user_interfaces.modules.StockOperations;
 import org.example.user_interfaces.user.UserInterface;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -40,6 +41,7 @@ import static java.util.Map.ofEntries;
  */
 
 @SuppressWarnings("IfCanBeSwitch")
+@Component
 public class TextInterface implements UserInterface {
 
     private final ChoosingItems choosingItems;
@@ -66,7 +68,6 @@ public class TextInterface implements UserInterface {
                 entry("help", TextInterface::printOptions)
         );
     }
-
 
     public void run() {
         productManager.refreshStock();

@@ -3,12 +3,14 @@ package org.example.user_interfaces.modules;
 import lombok.RequiredArgsConstructor;
 import org.example.user_interfaces.modules.employee.Employee;
 import org.example.user.UserInput;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
 import static java.lang.System.out;
 
 @SuppressWarnings("IfCanBeSwitch")
+@Component
 @RequiredArgsConstructor
 public class StockOperations {
     private final Employee employee;
@@ -34,8 +36,7 @@ public class StockOperations {
                 printingOptions();
             } else if (input.equals("list")) {
                 stockOutput.printStock();
-            }
-            else {
+            } else {
                 out.println("Wrong command, try again");
             }
             out.println();

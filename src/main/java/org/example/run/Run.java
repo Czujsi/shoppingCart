@@ -21,9 +21,8 @@ import org.example.user_interfaces.modules.employee.Employee;
 import org.example.user_interfaces.modules.employee.EmployeeImpl;
 import org.example.user_interfaces.text_interface.TextInterface;
 import org.example.user_interfaces.user.UserInterface;
-import org.springframework.stereotype.Component;
 
-@Component
+
 public class Run {
     CsvConverter csvConverter = new CsvConverter();
     ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl(csvConverter);
@@ -42,6 +41,7 @@ public class Run {
     DiscountOperations discountOperations = new DiscountOperations(couponManager);
     ChoosingItems choosingItems = new ChoosingItems(customer, employee, productManager, summary, stockOutput);
     UserInterface textInterface = new TextInterface(choosingItems, stockOperations, productManager, discountOperations);
+
     public void runTextInterface() {
         textInterface.run();
     }

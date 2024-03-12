@@ -4,12 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.example.product.ProductDefinition;
 import org.example.product.components.ProductId;
 import org.example.product.converters.CsvConverter;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.*;
 
+@Component
 @RequiredArgsConstructor
 public class ProductRepositoryFileImpl implements ProductRepository<ProductId, ProductDefinition> {
     private final CsvConverter csvConverter;

@@ -2,12 +2,14 @@ package org.example.cart_components.repository;
 
 import org.example.account.UserId;
 import org.example.cart_components.Cart;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class CartRepositoryImpl implements CartRepository<UserId, Cart> {
     private final Map<UserId, ArrayList<Cart>> cartsRepository = new HashMap<>();
 

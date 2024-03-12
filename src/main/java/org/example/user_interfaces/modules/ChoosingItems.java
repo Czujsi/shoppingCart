@@ -5,10 +5,12 @@ import org.example.product.manager.ProductManager;
 import org.example.user_interfaces.customer.Customer;
 import org.example.user.UserInput;
 import org.example.user_interfaces.modules.employee.Employee;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
 @SuppressWarnings("IfCanBeSwitch")
+@Component
 @RequiredArgsConstructor
 public class ChoosingItems {
     public static final String COMMAND_BACK = "back";
@@ -59,10 +61,8 @@ public class ChoosingItems {
         stockOutput.printStock();
         System.out.println("\tadd     -> for adding items to cart");
         System.out.println("\tsummary -> for going to summary section");
-        System.out.println("\tcreate  -> for going to summary section");
-        System.out.println("\tget     -> for going to summary section");
-        System.out.println("\tdelete  -> for going to summary section");
-        System.out.println("\tchange  -> for going to summary section");
+        System.out.println("\tdelete  -> for deleting a cart");
+        System.out.println("\tchange  -> for changing your cart");
         System.out.println("\tcreate  -> for creating new cart");
         System.out.println("\tget     -> for printing all your carts");
         System.out.println("\tsave    -> for saving your cart");

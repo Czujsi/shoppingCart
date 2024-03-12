@@ -5,12 +5,14 @@ import org.example.cart_components.Cart;
 import org.example.coupons.discount.DiscountDefinition;
 import org.example.coupons.manager.CouponManager;
 import org.example.user_interfaces.customer.Customer;
+import org.springframework.stereotype.Component;
 
 import static java.lang.System.lineSeparator;
 import static java.lang.System.out;
 import static java.text.MessageFormat.format;
 import static java.util.stream.Collectors.joining;
 
+@Component
 @RequiredArgsConstructor
 public class Store {
     private final Customer customer;

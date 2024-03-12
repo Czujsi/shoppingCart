@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import org.example.common.Repository;
 import org.example.coupons.discount.DiscountDefinition;
 import org.example.coupons.discount.type.DiscountType;
+import org.springframework.stereotype.Component;
 
+@Component
 @AllArgsConstructor
 public class CouponManagerImpl implements CouponManager {
     private final Repository<String, DiscountDefinition> discountInMemoryDiscountRepository;

@@ -6,12 +6,14 @@ import org.example.store.Store;
 import org.example.user_interfaces.customer.Customer;
 import org.example.user_interfaces.modules.employee.Employee;
 import org.example.user.UserInput;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.Scanner;
 
 import static java.lang.System.out;
 
+@Component
 @RequiredArgsConstructor
 public class Summary {
     private final Store store;

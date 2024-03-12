@@ -3,10 +3,12 @@ package org.example.coupons.discount.repository;
 import lombok.EqualsAndHashCode;
 import org.example.common.Repository;
 import org.example.coupons.discount.DiscountDefinition;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 @EqualsAndHashCode
 public class DiscountRepository implements Repository<String, DiscountDefinition> {
     private final Map<String, DiscountDefinition> repository = new HashMap<>();

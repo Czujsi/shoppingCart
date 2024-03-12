@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import org.example.account.UserId;
 import org.example.cart_components.Cart;
 import org.example.cart_components.repository.CartRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
+@Component
 @AllArgsConstructor
 public class CartManagerImpl implements CartManager {
     private final CartRepository<UserId, Cart> cartRepository;

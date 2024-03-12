@@ -10,6 +10,7 @@ import org.example.coupons.manager.CouponManager;
 import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
 import org.example.user.UserInput;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,23 +18,25 @@ import java.util.Map;
 import java.util.Scanner;
 
 import static java.text.MessageFormat.format;
+
+@Component
 @RequiredArgsConstructor
 public class DiscountOperations {
     private final CouponManager couponManager;
 
     private final Scanner scanner = new Scanner(System.in);
-    public void options(){
-        while (true){
+
+    public void options() {
+        while (true) {
             System.out.println("For help type help");
             String input = UserInput.getInput("discount operations", scanner);
-            if (input.equals("back")){
+            if (input.equals("back")) {
                 break;
             } else if (input.equals("add")) {
                 addDiscount();
             } else if (input.equals("delete")) {
                 deleteDiscount();
-            }
-            else if (input.equals("help")) {
+            } else if (input.equals("help")) {
                 printOptions();
             }
         }
@@ -51,15 +54,18 @@ public class DiscountOperations {
         System.out.println("\t\u001B[1mback\u001B[0m    -> for going back");
     }
 
-    private List<DiscountType> getDiscountTypes(){
+    private List<DiscountType> getDiscountTypes() {
         return List.of(couponManager.getDiscountTypes());
     }
+
     private String getString(int i, DiscountType discountType) {
         return format("{0} -> Discount type: {1}", i, discountType.name());
     }
+
     private int getNumber(String userInput) {
         return Integer.parseInt(userInput);
     }
+
     private DiscountType getType(String userInput) {
         return getDiscountTypes().get(getNumber(userInput));
     }
@@ -76,7 +82,7 @@ public class DiscountOperations {
         String discountCode = UserInput.getInput("discount code", ":", scanner);
 
 
-        if (getType(number).equals(DiscountType.Product)){
+        if (getType(number).equals(DiscountType.Product)) {
             String textPrice = UserInput.getInput("Enter the discount percent amount", ":", scanner);
             BigDecimal multiplier = new BigDecimal(textPrice);
             couponManager.addDiscount(new DiscountDefinition(discountCode, Map.of(

@@ -11,6 +11,7 @@ import org.example.product.ProductDefinition;
 import org.example.product.components.ProductId;
 import org.example.product.manager.ProductManager;
 import org.example.user_interfaces.modules.employee.Employee;
+import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
 import java.util.*;
@@ -18,6 +19,7 @@ import java.util.*;
 import static java.lang.System.out;
 import static java.text.MessageFormat.format;
 
+@Component
 @AllArgsConstructor
 public class CustomerImpl implements Customer {
     private Cart cart;

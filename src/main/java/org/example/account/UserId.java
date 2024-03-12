@@ -2,8 +2,11 @@ package org.example.account;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
+
+@Component
 @EqualsAndHashCode
 public class UserId {
     @Getter

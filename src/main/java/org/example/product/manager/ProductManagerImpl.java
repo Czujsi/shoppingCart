@@ -5,10 +5,12 @@ import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
 import org.example.product.components.ProductId;
 import org.example.product.repository.ProductRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Optional;
 
+@Component
 @RequiredArgsConstructor
 public class ProductManagerImpl implements ProductManager {
     private final ProductRepository<ProductId, ProductDefinition> productRepository;

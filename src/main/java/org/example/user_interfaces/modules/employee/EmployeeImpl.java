@@ -14,6 +14,8 @@ import org.example.product.components.CreationDate;
 import org.example.product.components.ProductId;
 import org.example.product.components.Price;
 import org.example.product.components.Name;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -24,8 +26,11 @@ import java.util.Scanner;
 
 import static java.lang.System.out;
 
+@Component
 @RequiredArgsConstructor
 public class EmployeeImpl implements Employee {
+
+    @Autowired
     ProductManager productManager;
     CouponManager couponManager;
     List<String> options = new ArrayList<>();
@@ -56,7 +61,7 @@ public class EmployeeImpl implements Employee {
         printUpdateOptions();
         while (true) {
             String option = UserInput.getInput(scanner);
-            if (!options.contains(option)){
+            if (!options.contains(option)) {
                 out.println("Sorry wrong command, try again");
                 printUpdateOptions();
             }
@@ -136,7 +141,7 @@ public class EmployeeImpl implements Employee {
         out.println(productManager.getProductById(new ProductId(id)));
     }
 
-    public void setOptions(){
+    public void setOptions() {
         options.add("name");
         options.add("price");
         options.add("back");

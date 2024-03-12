@@ -10,10 +10,12 @@ import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
 import org.example.product.components.Name;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.*;
 
+@Component
 @RequiredArgsConstructor
 @ToString
 public class Cart {

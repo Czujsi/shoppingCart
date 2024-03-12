@@ -8,6 +8,7 @@ import org.example.product.components.CreationDate;
 import org.example.product.components.Name;
 import org.example.product.components.Price;
 import org.example.product.components.ProductId;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Component
 @RequiredArgsConstructor
 public class CsvConverter implements FileConverter {
     ProductDefinition productDefinition;
