@@ -1,10 +1,11 @@
 package org.example;
 
-import org.example.run.Run;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class Main {
     public static void main(String[] args) {
-        Run run = new Run();
-        run.runTextInterface();
+        SpringApplication.run(Main.class, args);
     }
 }

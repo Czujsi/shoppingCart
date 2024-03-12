@@ -20,7 +20,9 @@ import org.example.user_interfaces.modules.employee.Employee;
 import org.example.user_interfaces.modules.employee.EmployeeImpl;
 import org.example.user_interfaces.text_interface.TextInterface;
 import org.example.user_interfaces.user.UserInterface;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Run {
 
     ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl();
