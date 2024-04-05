@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.example.product.history.Change.ChangeType;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import static org.example.product.history.Change.ChangeType.PRICE;
 @ToString
 @RequiredArgsConstructor
 @EqualsAndHashCode
+@Component
 public class ProductHistory {
     private final List<Change<?>> productHistory = new ArrayList<>();
 

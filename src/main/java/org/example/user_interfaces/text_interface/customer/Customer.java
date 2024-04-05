@@ -1,4 +1,4 @@
-package org.example.user_interfaces.customer;
+package org.example.user_interfaces.text_interface.customer;
 
 import org.example.cart_components.Cart;
 import org.example.coupons.discount.DiscountDefinition;

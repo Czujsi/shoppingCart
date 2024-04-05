@@ -13,5 +13,5 @@ public interface ProductRepository<ID, TYPE>{
     Optional<ProductDefinition> findById(ProductId productId);
     Collection<ProductDefinition> getAll();
     Collection<ProductDefinition> getIdForName(String name);
-    Collection<ProductDefinition> refreshSock();
+    Collection<ProductDefinition> refreshStock();
 }

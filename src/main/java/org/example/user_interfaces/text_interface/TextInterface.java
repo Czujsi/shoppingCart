@@ -3,10 +3,10 @@ package org.example.user_interfaces.text_interface;
 import org.example.account.UserId;
 import org.example.product.manager.ProductManager;
 import org.example.user.UserInput;
-import org.example.user_interfaces.modules.ChoosingItems;
-import org.example.user_interfaces.modules.DiscountOperations;
-import org.example.user_interfaces.modules.StockOperations;
-import org.example.user_interfaces.user.UserInterface;
+import org.example.user_interfaces.text_interface.modules.ChoosingItems;
+import org.example.user_interfaces.text_interface.modules.DiscountOperations;
+import org.example.user_interfaces.text_interface.modules.StockOperations;
+import org.example.user_interfaces.text_interface.user.UserInterface;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

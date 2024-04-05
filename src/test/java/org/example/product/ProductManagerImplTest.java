@@ -1,7 +1,6 @@
 package org.example.product;
 
 import org.example.currency_exchange_money.Money;
-import org.example.product.components.CreationDate;
 import org.example.product.components.ProductId;
 import org.example.product.components.Price;
 import org.example.product.components.Name;
@@ -21,8 +20,8 @@ import static org.example.currency_exchange_money.Currency.*;
 
 class ProductManagerImplTest {
 
-    public static final ProductDefinition EXAMPLE_PRODUCT_BUTTER = new ProductDefinition(new Name("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), PLN)), new CreationDate(LocalDate.now()));
-    public static final ProductDefinition EXAMPLE_PRODUCT_MILK = new ProductDefinition(new Name("Milk"), new Price(Money.of(BigDecimal.valueOf(2.50), PLN)), new CreationDate(LocalDate.now()));
+    public static final ProductDefinition EXAMPLE_PRODUCT_BUTTER = new ProductDefinition(new Name("Butter"), new Price(Money.of(BigDecimal.valueOf(2.50), PLN)), LocalDate.now());
+    public static final ProductDefinition EXAMPLE_PRODUCT_MILK = new ProductDefinition(new Name("Milk"), new Price(Money.of(BigDecimal.valueOf(2.50), PLN)), LocalDate.now());
     public static final ProductId NON_EXISTING_ID = new ProductId("d42e160b-0f74-4226-a45d-f0c348042a11");
 
     ProductManager productManager;
@@ -32,19 +31,20 @@ class ProductManagerImplTest {
     void setUp(){
         productRepository = new ProductRepositoryInMemoryImpl();
         productManager = new ProductManagerImpl(productRepository);
+        productManager.refreshStock();
     }
 
     @Test
     void checkingIfAddProductMethodWorksProperly() {
-        productManager.addProduct(EXAMPLE_PRODUCT_BUTTER);
+        productManager.createProduct(EXAMPLE_PRODUCT_BUTTER);
 
         assertThat(productRepository.exists(EXAMPLE_PRODUCT_BUTTER.getProductId())).isTrue();
     }
 
     @Test
     void checkingIfWhenAddingTwoProductsTwoProductsAreInRepository() {
-        productManager.addProduct(EXAMPLE_PRODUCT_BUTTER);
-        productManager.addProduct(EXAMPLE_PRODUCT_MILK);
+        productManager.createProduct(EXAMPLE_PRODUCT_BUTTER);
+        productManager.createProduct(EXAMPLE_PRODUCT_MILK);
 
         assertThat(productRepository.exists(EXAMPLE_PRODUCT_BUTTER.getProductId())).isTrue();
         assertThat(productRepository.exists(EXAMPLE_PRODUCT_MILK.getProductId())).isTrue();
@@ -52,8 +52,8 @@ class ProductManagerImplTest {
 
     @Test
     void checkingIfRemoveProductMethodWorksProperly() {
-        productManager.addProduct(EXAMPLE_PRODUCT_BUTTER);
-        productManager.addProduct(EXAMPLE_PRODUCT_MILK);
+        productManager.createProduct(EXAMPLE_PRODUCT_BUTTER);
+        productManager.createProduct(EXAMPLE_PRODUCT_MILK);
 
         productManager.removeProduct(EXAMPLE_PRODUCT_MILK.getProductId());
 
@@ -71,7 +71,7 @@ class ProductManagerImplTest {
 
     @Test
     void checkingIfEditMethodWorksProperlyWithChangingPrice() {
-        productManager.addProduct(EXAMPLE_PRODUCT_BUTTER);
+        productManager.createProduct(EXAMPLE_PRODUCT_BUTTER);
         Money newPrice = Money.of((EXAMPLE_PRODUCT_BUTTER.getPrice().getAmount().add(BigDecimal.ONE)), PLN);
 
         productManager.updateProductPrice(EXAMPLE_PRODUCT_BUTTER.getProductId(), newPrice);
@@ -82,7 +82,7 @@ class ProductManagerImplTest {
 
     @Test
     void checkingIfEditMethodWorksProperlyWithChangingName() {
-        productManager.addProduct(EXAMPLE_PRODUCT_BUTTER);
+        productManager.createProduct(EXAMPLE_PRODUCT_BUTTER);
         String newName = "Better";
 
         productManager.updateProductName(EXAMPLE_PRODUCT_BUTTER.getProductId(), newName);

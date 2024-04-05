@@ -1,4 +1,4 @@
-package org.example.user_interfaces.customer;
+package org.example.user_interfaces.text_interface.customer;
 
 import lombok.AllArgsConstructor;
 import org.example.account.UserId;
@@ -10,7 +10,7 @@ import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
 import org.example.product.components.ProductId;
 import org.example.product.manager.ProductManager;
-import org.example.user_interfaces.modules.employee.Employee;
+import org.example.user_interfaces.text_interface.modules.employee.Employee;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;

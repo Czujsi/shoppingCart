@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
-import org.example.product.components.CreationDate;
 import org.example.product.components.Name;
 import org.example.product.components.Price;
 import org.example.product.components.ProductId;
@@ -22,11 +21,15 @@ import java.util.Objects;
 @Component
 @RequiredArgsConstructor
 public class CsvConverter implements FileConverter {
-    ProductDefinition productDefinition;
     private final List<ProductDefinition> products = new ArrayList<>();
+
+    public List<ProductDefinition> convertedProducts() {
+        return products;
+    }
 
     @Override
     public List<ProductDefinition> convertFromFile(String filePath) {
+        products.clear();
         BufferedReader reader = null;
         String line;
         try {
@@ -43,7 +46,7 @@ public class CsvConverter implements FileConverter {
 
                     String id = column[3];
 
-                    productDefinition = new ProductDefinition(new Name(name), new Price(Money.of(price, Currency.PLN)), new CreationDate(date), new ProductId(id));
+                    ProductDefinition productDefinition = new ProductDefinition(new Name(name), new Price(Money.of(price, Currency.PLN)), date, new ProductId(id));
 
                     products.add(productDefinition);
 
@@ -63,10 +66,6 @@ public class CsvConverter implements FileConverter {
                 e.printStackTrace();
             }
         }
-        return products;
-    }
-
-    public List<ProductDefinition> convertedProducts() {
         return products;
     }
 

@@ -2,9 +2,10 @@ package org.example.product.components;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
-
+@Component
 @EqualsAndHashCode
 public class ProductId {
     @Getter

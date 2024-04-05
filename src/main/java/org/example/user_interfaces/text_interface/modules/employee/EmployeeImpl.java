@@ -1,4 +1,4 @@
-package org.example.user_interfaces.modules.employee;
+package org.example.user_interfaces.text_interface.modules.employee;
 
 import lombok.RequiredArgsConstructor;
 import org.example.coupons.discount.DiscountDefinition;
@@ -8,7 +8,6 @@ import org.example.coupons.manager.CouponManager;
 import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
-import org.example.product.components.CreationDate;
 import org.example.product.components.Name;
 import org.example.product.components.Price;
 import org.example.product.components.ProductId;
@@ -39,7 +38,7 @@ public class EmployeeImpl implements Employee {
         String productName = UserInput.getFieldInput("Type product name", scanner);
         String textPrice = UserInput.getFieldInput("Type product price", scanner);
         BigDecimal productPrice = new BigDecimal(textPrice);
-        productManager.addProduct(new ProductDefinition(new Name(productName), new Price(Money.of(productPrice, Currency.PLN)), new CreationDate(LocalDate.now())));
+        productManager.createProduct(new ProductDefinition(new Name(productName), new Price(Money.of(productPrice, Currency.PLN)), LocalDate.now()));
         out.println("Product added!");
     }
 

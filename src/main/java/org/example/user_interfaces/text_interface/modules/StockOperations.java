@@ -1,7 +1,7 @@
-package org.example.user_interfaces.modules;
+package org.example.user_interfaces.text_interface.modules;
 
 import lombok.RequiredArgsConstructor;
-import org.example.user_interfaces.modules.employee.Employee;
+import org.example.user_interfaces.text_interface.modules.employee.Employee;
 import org.example.user.UserInput;
 import org.springframework.stereotype.Component;
 

@@ -33,8 +33,8 @@ public class ProductRepositoryInMemoryImpl implements ProductRepository<ProductI
     }
 
     @Override
-    public Collection<ProductDefinition> refreshSock() {
-        throw new UnsupportedOperationException();
+    public Collection<ProductDefinition> refreshStock() {
+        return getAll();
     }
 
     @Override

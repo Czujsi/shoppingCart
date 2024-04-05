@@ -1,4 +1,4 @@
-package org.example.user_interfaces.user;
+package org.example.user_interfaces.text_interface.user;
 
 import org.springframework.stereotype.Component;
 

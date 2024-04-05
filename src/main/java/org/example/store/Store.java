@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.cart_components.Cart;
 import org.example.coupons.discount.DiscountDefinition;
 import org.example.coupons.manager.CouponManager;
-import org.example.user_interfaces.customer.Customer;
+import org.example.user_interfaces.text_interface.customer.Customer;
 import org.springframework.stereotype.Component;
 
 import static java.lang.System.lineSeparator;

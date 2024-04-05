@@ -1,10 +1,13 @@
 package org.example.product.manager;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
 import org.example.product.components.ProductId;
 import org.example.product.repository.ProductRepository;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -12,11 +15,12 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class ProductManagerImpl implements ProductManager {
     private final ProductRepository<ProductId, ProductDefinition> productRepository;
 
     @Override
-    public void addProduct(ProductDefinition productDefinition) {
+    public void createProduct(ProductDefinition productDefinition) {
         productRepository.save(productDefinition);
     }
 
@@ -50,11 +54,14 @@ public class ProductManagerImpl implements ProductManager {
 
     @Override
     public Collection<ProductDefinition> getAllProducts() {
+        refreshStock();
         return productRepository.getAll();
     }
 
     @Override
+    @EventListener(ApplicationReadyEvent.class)
     public Collection<ProductDefinition> refreshStock() {
-        return productRepository.refreshSock();
+        log.debug("refreshing stock");
+        return productRepository.refreshStock();
     }
 }
