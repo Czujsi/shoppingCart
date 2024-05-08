@@ -1,6 +1,5 @@
 package org.example.user_interfaces.web_interface.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -53,42 +52,6 @@ class CustomerControllerTest {
     private final ProductManager productManager = new ProductManagerImpl(productRepositoryFile);
     private final ProductManagerService productManagerService = new ProductManagerService(productManager);
 
-
-    @Test
-    void name() throws JsonProcessingException {
-//        String abc = "{\"name\": \"oskar\"}";
-//        String product = "{\"price\": \"2.65 PLN\"" +
-//                ",\"name\": \"banana3\",\"creationDate\": \"2024-02-06\"" +
-//                ",\"productId\": \"2f5cd2c6-a71c-4c57-a06a-bf4c422e9a33\"}";
-//        JsonNode root = objectMapper.readTree(abc);
-//
-//        CustomerController.Test root1 = objectMapper.readValue(abc, CustomerController.Test.class);
-//        CustomerController.Test root2 = objectMapper.treeToValue(root, CustomerController.Test.class);
-//
-////        // json { }
-////        // root -> konwencyjna nazwa
-////        ObjectNode root = objectMapper.createObjectNode();
-////
-////        // odpowiednik jsona "Oskar"
-////        TextNode name = objectMapper.getNodeFactory().textNode("Oskar");
-////
-////        // tworzy jsona {"name":"Oskar"}
-////        root.set("name", name);
-////
-////        log.info("{} {}", root, root.toPrettyString());
-//
-//
-//        CustomerController.Test body = new CustomerController.Test();
-//        //body.setName("Oskar");
-//        var response = restClient.post()
-//                .uri("http://localhost:" + port + "/customer/" + "2f5cd2c6-a71c-4c57-a06a-bf4c422e9a56")
-//                .contentType(APPLICATION_JSON)
-//                .body(root2)
-//                .retrieve()
-//                .toEntity(CustomerController.Test.class);
-//        log.info("{}", response);
-
-    }
 
     @Test
     void name1() {

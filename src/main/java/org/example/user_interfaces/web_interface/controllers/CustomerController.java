@@ -1,6 +1,5 @@
 package org.example.user_interfaces.web_interface.controllers;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.cart_components.Cart;
@@ -41,11 +40,5 @@ public class CustomerController {
             productDefinitions.add(entry.getKey());
         }
         return productDefinitions;
-    }
-
-    @Data
-    public static class Test {
-
-        private String name;
     }
 }
