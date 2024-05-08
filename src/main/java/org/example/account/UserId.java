@@ -6,10 +6,9 @@ import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
-
-@Component
 @EqualsAndHashCode
 @ToString
+@Component
 public class UserId {
     @Getter
     private final UUID value;

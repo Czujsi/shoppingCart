@@ -19,8 +19,8 @@ import java.util.Map;
 import java.util.Set;
 
 @Component
-@RequiredArgsConstructor
 @ToString
+@RequiredArgsConstructor
 public class Cart {
     private final Map<ProductDefinition, Integer> products = new HashMap<>();
 
