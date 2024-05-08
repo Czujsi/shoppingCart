@@ -1,0 +1,15 @@
+version: "3.0"
+services:
+  postgres:
+    environment:
+      POSTGRES_PASSWORD: postgres
+    image: postgres
+    ports:
+      - "5433:5432"
+  pgadmin4:
+    ports:
+      - 80:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@domain.com
+      PGADMIN_DEFAULT_PASSWORD: SuperSecret
+    image: dpage/pgadmin4

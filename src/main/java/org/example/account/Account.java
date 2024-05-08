@@ -3,6 +3,7 @@ package org.example.account;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
 @EqualsAndHashCode
 @ToString
 public class Account {
@@ -13,7 +14,7 @@ public class Account {
     @Getter
     private final UserId userId = UserId.createId();
 
-    public Account(UserLogin login, UserPassword userPassword, UserName userName){
+    public Account(UserLogin login, UserPassword userPassword, UserName userName) {
         this.userLogin = login;
         this.userPassword = userPassword;
         this.userName = userName;

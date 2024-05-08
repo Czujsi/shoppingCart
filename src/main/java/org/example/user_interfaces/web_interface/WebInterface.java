@@ -13,6 +13,4 @@ public class WebInterface {
     public String hello() {
         return "Hello";
     }
-
-
 }

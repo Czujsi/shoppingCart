@@ -2,6 +2,7 @@ package org.example.config;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.example.config.deserializers.MoneyJacksonDeserializer;
 import org.example.config.deserializers.PriceJacksonDeserializer;
 import org.example.config.serializers.MoneyJacksonSerializer;
 import org.example.config.serializers.ProductHistoryJacksonSerializer;
@@ -17,9 +18,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ObjectMapperConfiguration {
-
     @Bean
-    public Module productModule(){
+    public Module productModule() {
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(ProductId.class, new ProductIdJacksonSerializer());
         simpleModule.addSerializer(Name.class, new ProductNameJacksonSerializer());
@@ -29,8 +29,9 @@ public class ObjectMapperConfiguration {
     }
 
     @Bean
-    public Module deserializerModule(){
+    public Module deserializerModule() {
         SimpleModule simpleModule = new SimpleModule();
+//        simpleModule.addDeserializer(Price.class, new PriceJacksonDeserializerForTypeScript());
         simpleModule.addDeserializer(Price.class, new PriceJacksonDeserializer());
         simpleModule.addDeserializer(Money.class, new MoneyJacksonDeserializer());
         return simpleModule;

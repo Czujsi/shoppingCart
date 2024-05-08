@@ -120,8 +120,7 @@ public class EmployeeImpl implements Employee {
         System.out.println("Type discount rate from 1 to 100: ");
         String value = UserInput.getInput(scanner);
         BigDecimal percent = new BigDecimal(value);
-        couponManager.addDiscount(new DiscountDefinition(discountCode, Map.of(
-                DiscountType.Cart, new FlatPercentDiscount(percent))));
+        couponManager.addDiscount(new DiscountDefinition(discountCode, Map.of(DiscountType.Cart, new FlatPercentDiscount(percent))));
     }
 
     @Override

@@ -11,6 +11,7 @@ import org.example.product.converters.CsvConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.stream.Collectors;
@@ -54,7 +55,7 @@ class ProductRepositoryFileImplTest {
     ProductRepositoryFileImpl productRepositoryFile;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         productRepositoryFile = new ProductRepositoryFileImpl(csvConverter);
         productRepositoryFile.refreshStock();
     }

@@ -38,11 +38,12 @@ public class ProductManagerController {
     }
 
     @PostMapping(path = "/delete/{id}")
-    public ResponseEntity<?> removeProduct(@PathVariable("id")  String id) {
+    public ResponseEntity<?> removeProduct(@PathVariable("id") String id) {
         productManager.removeProduct(new ProductId(id));
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     @PostMapping(path = "/update/name/{id}")
     public ResponseEntity<Optional<ProductDefinition>> updateProductName(@PathVariable String id, @RequestBody String newName) {
         productManager.updateProductName(new ProductId(id), newName);
@@ -50,6 +51,7 @@ public class ProductManagerController {
         Optional<ProductDefinition> changedProduct = productManager.getProductById(new ProductId(id));
         return new ResponseEntity<>(changedProduct, HttpStatus.ACCEPTED);
     }
+
     @PostMapping(path = "/update/price/{id}")
     public ResponseEntity<Optional<ProductDefinition>> updateProductPrice(@PathVariable String id, @RequestBody Money money) {
         productManager.updateProductPrice(new ProductId(id), money);

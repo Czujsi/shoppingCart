@@ -8,7 +8,7 @@ import lombok.ToString;
 public class UserLogin {
     private final String userLogin;
 
-    public UserLogin(String userLogin){
-        this.userLogin = userLogin.replaceAll("\\s+", "");
+    public UserLogin(String userLogin) {
+        this.userLogin = userLogin.trim();
     }
 }

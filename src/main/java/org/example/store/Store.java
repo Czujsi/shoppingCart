@@ -24,7 +24,6 @@ public class Store {
         }
         Cart cart = customer.getCart();
         cart.applyDiscountCode(input);
-
     }
 
     public void printCustomerDiscounts() {

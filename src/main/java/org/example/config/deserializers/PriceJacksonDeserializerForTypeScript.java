@@ -11,19 +11,16 @@ import org.example.product.components.Price;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-public class PriceJacksonDeserializer extends JsonDeserializer<Price> {
-
+public class PriceJacksonDeserializerForTypeScript extends JsonDeserializer<Price> {
     @Override
     public Price deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
 
-        String textPrice = node.textValue();
+        String textAmount = node.get("amount").asText();
+        String textCurrency = node.get("currency").asText();
 
-        String[] parts = textPrice.split(" ");
-
-
-        BigDecimal amount = new BigDecimal(parts[0]);
-        Currency currency = Currency.valueOf(parts[1]);
+        BigDecimal amount = new BigDecimal(textAmount);
+        Currency currency = Currency.valueOf(textCurrency);
 
 
         Money productPrice = Money.of(amount, currency);

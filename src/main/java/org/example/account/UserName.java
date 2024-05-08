@@ -8,7 +8,7 @@ import lombok.ToString;
 public class UserName {
     private final String userName;
 
-    public UserName(String userName){
-        this.userName = userName.toLowerCase().replaceAll("\\s+", "");
+    public UserName(String userName) {
+        this.userName = userName.toLowerCase().trim();
     }
 }

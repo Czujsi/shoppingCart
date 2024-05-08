@@ -1,10 +1,8 @@
 package org.example.user_interfaces.text_interface.modules;
 
 import lombok.RequiredArgsConstructor;
-import org.example.product.manager.ProductManager;
-import org.example.user_interfaces.text_interface.customer.Customer;
 import org.example.user.UserInput;
-import org.example.user_interfaces.text_interface.modules.employee.Employee;
+import org.example.user_interfaces.text_interface.customer.Customer;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
@@ -18,8 +16,6 @@ public class ChoosingItems {
     private static final String COMMAND_ADD = "add";
     private static final String COMMAND_HELP = "help";
     private final Customer customer;
-    private final Employee employee;
-    private final ProductManager productManager;
     private final Summary summary;
     private final StockOutput stockOutput;
     private final Scanner scanner = new Scanner(System.in);

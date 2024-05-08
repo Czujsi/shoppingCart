@@ -17,33 +17,10 @@ import static java.lang.System.out;
 import static java.util.Map.entry;
 import static java.util.Map.ofEntries;
 
-/**
- * -> Interfejs tekstowy.
- * <p>
- * . Koszyk:
- * .. ✅ Lista koszykow
- * .. ✅ Stworz koszyk
- * .. ✅ Usun koszyk
- * .. ✅ Daj mi cene koszyka
- * .. ✅ Dodaj produkt do koszyka
- * .. ✅ Usun produkt z koszyka
- * .. ✅ Zaaplikuj znizke
- * .. ✅ Usun znizke
- * . Produkt
- * .. ✅ Stworz produkt
- * .. ✅ Zmien produkt
- * .. ✅ Usun produkt (Uwazaj na produkty w koszykach. Jak to rozwiącac?)
- * .. ❌ Wylistuj produkty. Pokaz jak sie zmieniala cena w ostatnim miesiacu.
- * . Znizki
- * .. ✅ Stworz znizke
- * .. ✅ Usun znizke
- * .. ✅ Wypisz wszystkie znizki
- */
 
 @SuppressWarnings("IfCanBeSwitch")
 @Component
 public class TextInterface implements UserInterface {
-
     private final ChoosingItems choosingItems;
     private final StockOperations stockOperations;
     private final Scanner scanner = new Scanner(in);

@@ -4,8 +4,8 @@ package org.example.cart_components;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.example.account.UserId;
-import org.example.coupons.manager.CouponManager;
 import org.example.coupons.discount.DiscountDefinition;
+import org.example.coupons.manager.CouponManager;
 import org.example.currency_exchange_money.Currency;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
@@ -13,7 +13,10 @@ import org.example.product.components.Name;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -23,8 +26,8 @@ public class Cart {
 
     private final Set<DiscountDefinition> discounts = new HashSet<>();
 
-    Money amount;
     private final CouponManager couponManager;
+
     private final UserId userId;
 
     public void addItem(ProductDefinition productDefinition, int amount) {
@@ -93,7 +96,7 @@ public class Cart {
             Money priceByAmount = price.multiply(BigDecimal.valueOf(amount));
             total = total.add(priceByAmount);
         }
-        if (discountCart(total).getAmount().compareTo(BigDecimal.ZERO) < 0){
+        if (discountCart(total).getAmount().compareTo(BigDecimal.ZERO) < 0) {
             return Money.of(BigDecimal.ZERO, Currency.PLN);
         }
         return discountCart(total);
@@ -113,15 +116,6 @@ public class Cart {
             t = discountDefinition.applyDiscountForCart(t);
         }
         return t;
-//      return handleDiscount(total, discount -> discount::applyDiscountForCart);
-    }
-
-    private Money discountTransport(Money total) {
-        Money t = total;
-        for (DiscountDefinition discountDefinition : discounts) {
-            t = discountDefinition.applyDiscountForTransport(t);
-        }
-        return t;
     }
 
     public void removeDiscount(String code) {
@@ -131,6 +125,7 @@ public class Cart {
     public UserId getUserId() {
         return this.userId;
     }
+
     public Map<ProductDefinition, Integer> getProducts() {
         return products;
     }

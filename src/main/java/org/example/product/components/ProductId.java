@@ -2,9 +2,11 @@ package org.example.product.components;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
+@ToString
 @Component
 @EqualsAndHashCode
 public class ProductId {
@@ -21,11 +23,5 @@ public class ProductId {
 
     public static ProductId createId() {
         return new ProductId();
-    }
-
-    @Override
-    public String toString() {
-        return "ProductId: " +
-                value;
     }
 }

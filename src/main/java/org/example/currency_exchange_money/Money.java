@@ -1,6 +1,9 @@
 package org.example.currency_exchange_money;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 

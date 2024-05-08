@@ -3,9 +3,8 @@ package org.example.user_interfaces.text_interface.modules;
 import lombok.RequiredArgsConstructor;
 import org.example.product.ProductDefinition;
 import org.example.store.Store;
-import org.example.user_interfaces.text_interface.customer.Customer;
-import org.example.user_interfaces.text_interface.modules.employee.Employee;
 import org.example.user.UserInput;
+import org.example.user_interfaces.text_interface.customer.Customer;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -18,7 +17,6 @@ import static java.lang.System.out;
 public class Summary {
     private final Store store;
     private final Customer customer;
-    private final Employee employee;
     private final Scanner scanner = new Scanner(System.in);
 
     public void options() {

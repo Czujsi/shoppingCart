@@ -1,8 +1,8 @@
 package org.example.user_interfaces.text_interface.modules;
 
 import lombok.RequiredArgsConstructor;
-import org.example.user_interfaces.text_interface.modules.employee.Employee;
 import org.example.user.UserInput;
+import org.example.user_interfaces.text_interface.modules.employee.Employee;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;

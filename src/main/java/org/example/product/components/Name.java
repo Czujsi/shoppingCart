@@ -9,7 +9,6 @@ import lombok.ToString;
 @Getter
 public final class Name {
     private final String value;
-
     public Name(String productName) {
         this.value = productName.toLowerCase();
     }

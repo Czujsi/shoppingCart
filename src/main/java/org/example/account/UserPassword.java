@@ -8,7 +8,7 @@ import lombok.ToString;
 public class UserPassword {
     private final String userPassword;
 
-    public UserPassword(String userPassword){
+    public UserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
 }

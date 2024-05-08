@@ -12,6 +12,7 @@ import org.example.product.history.Change;
 import org.example.product.history.ProductHistory;
 
 import java.time.LocalDate;
+
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ProductDefinition {
     private Price price;

@@ -4,14 +4,12 @@ import org.example.cart_components.Cart;
 import org.example.coupons.discount.DiscountDefinition;
 import org.example.currency_exchange_money.Money;
 import org.example.product.ProductDefinition;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Component
 public interface Customer {
 
     void addToCart(String input);

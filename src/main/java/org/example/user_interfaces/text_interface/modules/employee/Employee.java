@@ -1,8 +1,5 @@
 package org.example.user_interfaces.text_interface.modules.employee;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public interface Employee {
     void addToStock();
 

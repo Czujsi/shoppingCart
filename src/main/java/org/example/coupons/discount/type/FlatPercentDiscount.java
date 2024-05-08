@@ -16,7 +16,7 @@ public class FlatPercentDiscount implements DiscountCalculator {
         } else if (multiplier.compareTo(BigDecimal.valueOf(100)) > 0) {
             throw new IllegalArgumentException("Flat percent discount can't be higher than 100%");
         }
-        this.multiplier = BigDecimal.ONE.subtract(multiplier.divide(BigDecimal.valueOf(100.00),2, RoundingMode.HALF_DOWN));
+        this.multiplier = BigDecimal.ONE.subtract(multiplier.divide(BigDecimal.valueOf(100.00), 2, RoundingMode.HALF_DOWN));
     }
 
     @Override
