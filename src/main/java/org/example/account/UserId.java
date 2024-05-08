@@ -2,12 +2,14 @@ package org.example.account;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
 @EqualsAndHashCode
+@ToString
 public class UserId {
     @Getter
     private final UUID value;
@@ -23,11 +25,4 @@ public class UserId {
     public static UserId createId() {
         return new UserId();
     }
-
-    @Override
-    public String toString() {
-        return "UserId: " +
-                value;
-    }
-
 }
