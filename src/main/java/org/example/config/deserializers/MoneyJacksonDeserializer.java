@@ -1,6 +1,5 @@
 package org.example.config.deserializers;
 
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -13,7 +12,7 @@ import java.math.BigDecimal;
 
 public class MoneyJacksonDeserializer extends JsonDeserializer<Money> {
     @Override
-    public Money deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public Money deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException{
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
 
         String textPrice = node.get("price").asText();

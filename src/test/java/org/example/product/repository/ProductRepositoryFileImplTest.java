@@ -11,12 +11,11 @@ import org.example.product.converters.CsvConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.stream.Collectors;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
@@ -89,7 +88,6 @@ class ProductRepositoryFileImplTest {
     }
 
 
-
     @Test
     void deletingProduct() {
         productRepositoryFile.save(EXAMPLE_PRODUCT_6);
@@ -98,7 +96,6 @@ class ProductRepositoryFileImplTest {
 
         productRepositoryFile.delete(EXAMPLE_PRODUCT_6.getProductId());
         productRepositoryFile.refreshStock();
-
 
 
         assertThat(productRepositoryFile.exists(EXAMPLE_PRODUCT_6.getProductId())).isFalse();
