@@ -105,12 +105,12 @@ public class CustomerImpl implements Customer {
 
     @Override
     public void saveCart() {
-        cartManager.addCart(cart);
+        cartManager.addCart(userId, cart);
     }
 
     @Override
     public void createCart() {
-        this.cart = cartManager.addCart(new Cart(cartId, couponManager, userId));
+        this.cart = cartManager.addCart(userId, new Cart(cartId, couponManager));
     }
 
     @Override

@@ -19,7 +19,7 @@ class CartRepositoryImplTest {
     void checkingIfMethodSaveWorksAsIntended() {
         CartRepositoryImpl cartRepository = new CartRepositoryImpl();
 
-        cartRepository.save(new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, EXAMPLE_USER_ID));
+        cartRepository.save(EXAMPLE_USER_ID, new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE));
 
         Assertions.assertThat(cartRepository.exists(new UserId("bea3ccd9-108d-42b7-9af7-45dbcfcebfc3"))).isTrue();
     }

@@ -14,8 +14,8 @@ public class CartManagerImpl implements CartManager {
     private final CartRepository<UserId, Cart> cartRepository;
 
     @Override
-    public Cart addCart(Cart cart) {
-        cartRepository.save(cart);
+    public Cart addCart(UserId userId, Cart cart) {
+        cartRepository.save(userId, cart);
         return cart;
     }
 
@@ -28,5 +28,5 @@ public class CartManagerImpl implements CartManager {
     public Collection<Cart> getCartByUserId(UserId userId) {
         return cartRepository.get(userId);
     }
-    
+
 }

@@ -6,7 +6,7 @@ import org.example.cart_components.Cart;
 import java.util.Collection;
 
 public interface CartManager {
-    Cart addCart(Cart cart);
+    Cart addCart(UserId userId, Cart cart);
 
     void deleteCart(UserId userId);
 

@@ -4,7 +4,6 @@ package org.example.cart_components;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import org.example.account.UserId;
 import org.example.coupons.discount.DiscountDefinition;
 import org.example.coupons.manager.CouponManager;
 import org.example.currency_exchange_money.Currency;
@@ -30,8 +29,6 @@ public class Cart {
     private final CartId cartId;
 
     private final CouponManager couponManager;
-
-    private final UserId userId;
 
     public void addItem(ProductDefinition productDefinition, int amount) {
         if (productDefinition == null)
@@ -123,10 +120,6 @@ public class Cart {
 
     public void removeDiscount(String code) {
         discounts.removeIf(d -> d.getCode().equals(code));
-    }
-
-    public UserId getUserId() {
-        return this.userId;
     }
 
     public Map<ProductDefinition, Integer> getProducts() {

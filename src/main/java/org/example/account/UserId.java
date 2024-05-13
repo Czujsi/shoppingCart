@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 @EqualsAndHashCode
 @ToString
-@Component
 public class UserId {
     @Getter
     private final UUID value;

@@ -14,8 +14,7 @@ public class CartRepositoryImpl implements CartRepository<UserId, Cart> {
     private final Map<UserId, ArrayList<Cart>> cartsRepository = new HashMap<>();
 
     @Override
-    public void save(Cart cart) {
-        UserId userId = cart.getUserId();
+    public void save(UserId userId, Cart cart) {
         ArrayList<Cart> userCarts = cartsRepository.getOrDefault(userId, new ArrayList<>());
         userCarts.add(cart);
         cartsRepository.put(userId, userCarts);

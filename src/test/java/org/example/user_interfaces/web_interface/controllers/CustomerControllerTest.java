@@ -48,7 +48,7 @@ class CustomerControllerTest {
     private final CartId cartId = new CartId("4562c2d7-5a73-4427-b7a0-e00cfea7a755");
     CouponManager couponManager = new CouponManagerImpl(discountRepository);
     private final UserId userId = new UserId();
-    private final Cart cart = new Cart(cartId, couponManager, userId);
+    private final Cart cart = new Cart(cartId, couponManager);
     private final CsvConverter csvConverter = new CsvConverter();
     private final ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl(csvConverter);
     private final ProductManager productManager = new ProductManagerImpl(productRepositoryFile);
