@@ -63,7 +63,6 @@ class CartTest {
 
         //then
         Assertions.assertThat(cart.has("Butter")).isTrue();
-
     }
 
     @Test
@@ -73,7 +72,6 @@ class CartTest {
 
         //when-then
         Assertions.assertThat(cart.has("Butter")).isFalse();
-
     }
 
     @Test
