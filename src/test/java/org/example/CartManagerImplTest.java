@@ -1,7 +1,8 @@
 package org.example;
 
 import org.example.account.UserId;
-import org.example.cart_components.*;
+import org.example.cart_components.Cart;
+import org.example.cart_components.CartId;
 import org.example.cart_components.manager.CartManager;
 import org.example.cart_components.manager.CartManagerImpl;
 import org.example.cart_components.repository.CartRepository;
@@ -13,8 +14,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class CartManagerImplTest {
     private final static UserId USER_ID = new UserId("1c821945-b6c0-4ce1-b073-dfc6c6da3694");

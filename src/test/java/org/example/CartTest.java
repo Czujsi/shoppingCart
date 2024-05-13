@@ -2,7 +2,6 @@ package org.example;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.ThrowableAssert;
-import org.example.account.UserId;
 import org.example.cart_components.Cart;
 import org.example.cart_components.CartId;
 import org.example.coupons.discount.DiscountDefinition;
@@ -22,7 +21,6 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 class CartTest {
-    private static final UserId USER_ID = new UserId("e8979366-36d0-42d3-8f2a-087c53b75c6e");
     private static final String NON_EXISTING_PRODUCT_NAME = "nonExistingProductName";
     private static final CartId EXAMPLE_CART_ID = new CartId("16697fa0-585f-43fc-a838-07f79186f591");
     ProductDefinition productDefinition = sampleProduct();
@@ -271,7 +269,7 @@ class CartTest {
     @Test
     void givenAnEmptyCart_whenRemoveOneItemQuantity_thenThrowingException() {
         //given
-        Cart cart = new Cart(EXAMPLE_CART_ID,MockCouponManager.INSTANCE);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE);
 
         //when then
         Assertions.assertThatThrownBy(() -> cart.removeQuantity("Butter", 1)).hasMessage("You cannot remove quantity of productDefinition that is not in your cart");
@@ -290,10 +288,6 @@ class CartTest {
                 .hasMessage("You cannot remove quantity of productDefinition that is not in your cart");
     }
 
-    @Test
-    void name() {
-        Assertions.assertThat("abc").isEqualTo("abc");
-    }
     //endregion - -
 
     //region overallSum method tests
@@ -341,6 +335,7 @@ class CartTest {
     private static ProductDefinition sampleProduct() {
         return ProductDefinition.of("Butter", Money.of(BigDecimal.valueOf(2.3), Currency.PLN));
     }
+
     //endregion
     @Test
     void removingDiscountFromCart() {

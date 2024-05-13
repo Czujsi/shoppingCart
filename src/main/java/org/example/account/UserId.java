@@ -3,9 +3,9 @@ package org.example.account;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import org.springframework.stereotype.Component;
 
 import java.util.UUID;
+
 @EqualsAndHashCode
 @ToString
 public class UserId {

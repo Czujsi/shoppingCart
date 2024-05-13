@@ -1,6 +1,5 @@
 package org.example.cart_components.repository;
 
-import org.example.account.UserId;
 import org.example.cart_components.Cart;
 import org.springframework.stereotype.Component;
 
