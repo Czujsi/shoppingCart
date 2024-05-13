@@ -25,6 +25,7 @@ public class Cart {
     private final Map<ProductDefinition, Integer> products = new HashMap<>();
 
     private final Set<DiscountDefinition> discounts = new HashSet<>();
+    private final CartId cartId;
 
     private final CouponManager couponManager;
 
