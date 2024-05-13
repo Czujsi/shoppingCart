@@ -3,6 +3,7 @@ package org.example.user_interfaces.text_interface.customer;
 import lombok.AllArgsConstructor;
 import org.example.account.UserId;
 import org.example.cart_components.Cart;
+import org.example.cart_components.CartId;
 import org.example.cart_components.manager.CartManager;
 import org.example.coupons.discount.DiscountDefinition;
 import org.example.coupons.manager.CouponManager;
@@ -28,6 +29,7 @@ public class CustomerImpl implements Customer {
     private final CartManager cartManager;
     private final CouponManager couponManager;
     private final UserId userId = UserId.createId();
+    private final CartId cartId = CartId.createId();
 
     @Override
     public void addToCart(String id) {
@@ -108,7 +110,7 @@ public class CustomerImpl implements Customer {
 
     @Override
     public void createCart() {
-        this.cart = cartManager.addCart(new Cart(couponManager, userId));
+        this.cart = cartManager.addCart(new Cart(cartId, couponManager, userId));
     }
 
     @Override

@@ -3,6 +3,8 @@ package org.example.user_interfaces.web_interface.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.cart_components.Cart;
+import org.example.cart_components.manager.CartManager;
+import org.example.cart_components.manager.CartManagerImpl;
 import org.example.product.ProductDefinition;
 import org.example.user_interfaces.web_interface.services.ProductManagerService;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +22,7 @@ import java.util.Map;
 @Slf4j
 public class CustomerController {
     private final Cart cart;
+    private final CartManager cartManager;
     private final ProductManagerService productManagerService;
 
     @PostMapping("/{id}")
@@ -30,8 +33,8 @@ public class CustomerController {
     }
 
     @PostMapping("/add/{id}")
-    public void addProductToCart(@PathVariable("id") String input) {
-        cart.addItem(productManagerService.getProductById(input).orElseThrow(), 1);
+    public void addProductToCart(@PathVariable("productId") String productId, @PathVariable("cartId") String cartId) {
+        cart.addItem(productManagerService.getProductById(productId).orElseThrow(), 1);
     }
 
     public List<ProductDefinition> getProducts() {

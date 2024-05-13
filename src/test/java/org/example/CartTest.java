@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.ThrowableAssert;
 import org.example.account.UserId;
 import org.example.cart_components.Cart;
+import org.example.cart_components.CartId;
 import org.example.coupons.discount.DiscountDefinition;
 import org.example.coupons.discount.repository.DiscountRepository;
 import org.example.coupons.discount.type.DiscountType;
@@ -23,6 +24,7 @@ import java.util.Map;
 class CartTest {
     private static final UserId USER_ID = new UserId("e8979366-36d0-42d3-8f2a-087c53b75c6e");
     private static final String NON_EXISTING_PRODUCT_NAME = "nonExistingProductName";
+    private static final CartId EXAMPLE_CART_ID = new CartId("16697fa0-585f-43fc-a838-07f79186f591");
     ProductDefinition productDefinition = sampleProduct();
     //public static final DiscountDefinition FLAT_10_PERCENT_DISCOUNT_DEFINITION = new FlatPercentDiscount("abc", 10.0);
 
@@ -47,7 +49,7 @@ class CartTest {
     @Test
     void givenAnEmptyCart_whenAddedOneItem_thenCheckingIfDoesNotThrowAnyException() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         //when then
         Assertions.assertThatCode(() -> cart.addItem(productDefinition, 1)).doesNotThrowAnyException();
@@ -56,7 +58,7 @@ class CartTest {
     @Test
     void givenAnEmptyCart_whenAddedOneItem_thenCheckingIfIsItTrueThatItemWasAdded() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         //when
         cart.addItem(productDefinition, 1);
@@ -68,7 +70,7 @@ class CartTest {
     @Test
     void givenAnEmptyCart_whenNotModifyingContent_thenCheckingIfItIsFalseThatItemDoesNotExistInContent() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         //when-then
         Assertions.assertThat(cart.has("Butter")).isFalse();
@@ -77,7 +79,7 @@ class CartTest {
     @Test
     void givenAnEmptyCart_whenAddingOneItemWith99Quantity_thenCheckingIfTrueThatCartHasAddedItem() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         //when
         cart.addItem(productDefinition, 99);
@@ -90,7 +92,7 @@ class CartTest {
     @Test
     void givenAnEmptyCart_whenAddingItemWhit0Quantity_thenCheckingIfItIsFalseThatItemIsInCart() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         //when
         cart.addItem(productDefinition, 0);
@@ -103,7 +105,7 @@ class CartTest {
     @Test
     void givenAnEmptyCart_thenAddingItemWithNullProductNameAndCheckingIfExceptionIsThrown() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         //when-then
         Assertions.assertThatThrownBy(() -> cart.addItem(null, 1)).hasMessage("ProductDefinition cannot be null");
@@ -113,7 +115,7 @@ class CartTest {
     @Test
     void givenAnEmptyCart_whenAddingItemWithNegativeQuantity_thenCheckingIfExceptionIsThrown() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         //when
         ThrowableAssert.ThrowingCallable addItem = () -> cart.addItem(productDefinition, -2);
@@ -126,7 +128,7 @@ class CartTest {
     @Test
     void givenACartWithOneItem_whenAddedTheSameItem_thenQuantityIsASumOfItems() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
         cart.addItem(productDefinition, 1);
 
         //when
@@ -140,7 +142,7 @@ class CartTest {
     @Test
     void givenAnEmptyCart_whenAddingItemWithOneQuantity_thenAddingItemWith2QuantityAndCheckingIfItemIsInContentAndQuantityIsSummed() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         //when
         cart.addItem(productDefinition, 1);
@@ -155,7 +157,7 @@ class CartTest {
     @Test
     void givenAnEmptyCart_whenAddingTwoSameItemsTwoTimesWithDifferentQuantity_ThenCheckingIfContentHasItemAndIfQuantityIsSummedUp() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         //when
         cart.addItem(productDefinition, 2);
@@ -168,7 +170,7 @@ class CartTest {
 
     @Test
     void givenAnEmptyCart_thenCheckingCartContentIfNotAddedItemQuantityIsZero() {
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         Assertions.assertThat(cart.quantityOf("Butter")).isEqualTo(0);
     }
@@ -176,7 +178,7 @@ class CartTest {
     @Test
     void giveACartWithOneItem_whenRemovingItem_checkingIfItemWasRemovedWithQuantity() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
         cart.addItem(productDefinition, 1);
 
         //when
@@ -192,7 +194,7 @@ class CartTest {
     @Test
     void givenCartWithOneItem_whenRemovingOneItem_thenCartHasItemIsFalse() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         cart.addItem(productDefinition, 1);
 
@@ -207,7 +209,7 @@ class CartTest {
     @Test
     void givenCartWithTwoItems_whenRemovingOneItem_thenCartHasItemIsTrue() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         cart.addItem(productDefinition, 3);
 
@@ -224,7 +226,7 @@ class CartTest {
     @Test
     void givenCartWithTwoItem_whenRemovingQuantityOfItem_thenLeftItemWithOneQuantity() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         cart.addItem(productDefinition, 2);
 
@@ -238,7 +240,7 @@ class CartTest {
     @Test
     void givenCartWithTwoItem_whenRemovingNegativeValueOfQuantity_thenThrowException() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
         cart.addItem(productDefinition, 2);
 
         //when
@@ -251,7 +253,7 @@ class CartTest {
     @Test
     void givenCartWithMultipleAddedItems_whenRemovingQuantityMultipleTimes_thenCheckingIfResultIsCorrect() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
         cart.addItem(productDefinition, 2);
         cart.addItem(productDefinition, 2);
         cart.addItem(productDefinition, 2);
@@ -269,7 +271,7 @@ class CartTest {
     @Test
     void givenAnEmptyCart_whenRemoveOneItemQuantity_thenThrowingException() {
         //given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID,MockCouponManager.INSTANCE, USER_ID);
 
         //when then
         Assertions.assertThatThrownBy(() -> cart.removeQuantity("Butter", 1)).hasMessage("You cannot remove quantity of productDefinition that is not in your cart");
@@ -278,7 +280,7 @@ class CartTest {
     @Test
     void givenCartWithOneItem_thenRemovingItemQuantityWithNullProductNameAndCheckingIfExceptionIsThrown() {
         // given
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         // when
         ThrowableAssert.ThrowingCallable action = () -> cart.removeQuantity(NON_EXISTING_PRODUCT_NAME, 1);
@@ -297,7 +299,7 @@ class CartTest {
     //region overallSum method tests
     @Test
     void creatingOverallSum() {
-        Cart cart = new Cart(MockCouponManager.INSTANCE, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, USER_ID);
 
         cart.addItem(productDefinition, 1000);
 
@@ -309,7 +311,7 @@ class CartTest {
     @Test
     void testingFlat_Percent_Discount() {
         // given
-        Cart cart = new Cart(couponManager, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, couponManager, USER_ID);
         couponManager.addDiscount(FLAT_10_PERCENT);
         cart.addItem(sampleProduct(), 1000);
 
@@ -324,7 +326,7 @@ class CartTest {
     @Test
     void testingFree_Transport_Discount() {
         // given
-        Cart cart = new Cart(couponManager, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, couponManager, USER_ID);
         couponManager.addDiscount(FREE_TRANSPORT);
         cart.addItem(sampleProduct(), 1000);
 
@@ -343,7 +345,7 @@ class CartTest {
     @Test
     void removingDiscountFromCart() {
         // given
-        Cart cart = new Cart(couponManager, USER_ID);
+        Cart cart = new Cart(EXAMPLE_CART_ID, couponManager, USER_ID);
         couponManager.addDiscount(FLAT_10_PERCENT);
         couponManager.addDiscount(FREE_TRANSPORT);
         cart.addItem(sampleProduct(), 1000);
@@ -358,6 +360,15 @@ class CartTest {
                 .isEqualByComparingTo(Money.of(BigDecimal.valueOf(2300.00), Currency.PLN));
     }
 
+    @Test
+    void addingToCartByCartId() {
+        Cart cart = new Cart(EXAMPLE_CART_ID, couponManager, USER_ID);
+
+        CartId cartId = cart.getCartId();
+
+        Assertions.assertThat(cartId).isNotNull();
+        System.out.println(cartId);
+    }
 
     //region MockCouponManager
     static class MockCouponManager implements CouponManager {

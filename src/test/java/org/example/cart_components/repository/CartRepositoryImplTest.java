@@ -3,6 +3,7 @@ package org.example.cart_components.repository;
 import org.assertj.core.api.Assertions;
 import org.example.account.UserId;
 import org.example.cart_components.Cart;
+import org.example.cart_components.CartId;
 import org.example.coupons.discount.DiscountDefinition;
 import org.example.coupons.discount.type.DiscountType;
 import org.example.coupons.manager.CouponManager;
@@ -12,12 +13,13 @@ import java.util.ArrayList;
 
 class CartRepositoryImplTest {
     private final static UserId EXAMPLE_USER_ID = new UserId("bea3ccd9-108d-42b7-9af7-45dbcfcebfc3");
+    private static final CartId EXAMPLE_CART_ID = new CartId("16697fa0-585f-43fc-a838-07f79186f591");
 
     @Test
     void checkingIfMethodSaveWorksAsIntended() {
         CartRepositoryImpl cartRepository = new CartRepositoryImpl();
 
-        cartRepository.save(new Cart(MockCouponManager.INSTANCE, EXAMPLE_USER_ID));
+        cartRepository.save(new Cart(EXAMPLE_CART_ID, MockCouponManager.INSTANCE, EXAMPLE_USER_ID));
 
         Assertions.assertThat(cartRepository.exists(new UserId("bea3ccd9-108d-42b7-9af7-45dbcfcebfc3"))).isTrue();
     }

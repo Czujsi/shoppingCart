@@ -14,15 +14,15 @@ public class CartId {
     @Getter
     private final UUID uuid;
 
-    public CartId(String productId) {
-        this.uuid = UUID.fromString(productId);
+    public CartId(String cartId) {
+        this.uuid = UUID.fromString(cartId);
     }
 
     public CartId() {
         this.uuid = UUID.randomUUID();
     }
 
-    public static ProductId createId() {
-        return new ProductId();
+    public static CartId createId() {
+        return new CartId();
     }
 }

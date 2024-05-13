@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.example.account.UserId;
 import org.example.cart_components.Cart;
+import org.example.cart_components.CartId;
 import org.example.config.serializers.MoneyJacksonSerializer;
 import org.example.coupons.discount.repository.DiscountRepository;
 import org.example.coupons.manager.CouponManager;
@@ -44,9 +45,10 @@ class CustomerControllerTest {
     static final ProductDefinition EXAMPLE_PRODUCT = new ProductDefinition(new Name("Milk"), new Price(Money.of(BigDecimal.TEN, Currency.PLN)), LocalDate.now());
 
     private final DiscountRepository discountRepository = new DiscountRepository();
+    private final CartId cartId = new CartId("4562c2d7-5a73-4427-b7a0-e00cfea7a755");
     CouponManager couponManager = new CouponManagerImpl(discountRepository);
     private final UserId userId = new UserId();
-    private final Cart cart = new Cart(couponManager, userId);
+    private final Cart cart = new Cart(cartId, couponManager, userId);
     private final CsvConverter csvConverter = new CsvConverter();
     private final ProductRepositoryFileImpl productRepositoryFile = new ProductRepositoryFileImpl(csvConverter);
     private final ProductManager productManager = new ProductManagerImpl(productRepositoryFile);

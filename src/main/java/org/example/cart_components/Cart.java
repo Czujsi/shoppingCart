@@ -1,6 +1,7 @@
 package org.example.cart_components;
 
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.example.account.UserId;
@@ -25,6 +26,7 @@ public class Cart {
     private final Map<ProductDefinition, Integer> products = new HashMap<>();
 
     private final Set<DiscountDefinition> discounts = new HashSet<>();
+    @Getter
     private final CartId cartId;
 
     private final CouponManager couponManager;
