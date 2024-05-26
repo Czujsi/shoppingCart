@@ -4,18 +4,15 @@ import org.example.account.UserId;
 import org.example.cart_components.Cart;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class CartRepositoryImpl implements CartRepository<UserId, Cart> {
-    private final Map<UserId, ArrayList<Cart>> cartsRepository = new HashMap<>();
+    private final Map<UserId, List<Cart>> cartsRepository = new HashMap<>();
 
     @Override
     public void save(UserId userId, Cart cart) {
-        ArrayList<Cart> userCarts = cartsRepository.getOrDefault(userId, new ArrayList<>());
+        List<Cart> userCarts = cartsRepository.getOrDefault(userId, new ArrayList<>());
         userCarts.add(cart);
         cartsRepository.put(userId, userCarts);
     }
