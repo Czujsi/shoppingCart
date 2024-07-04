@@ -16,6 +16,7 @@ import java.util.*;
 public class ProductRepositoryFileImpl implements ProductRepository<ProductId, ProductDefinition> {
     private final CsvConverter csvConverter;
     Set<ProductDefinition> products = new HashSet<>();
+    //InputStream inputFile = getClass().getClassLoader().getResourceAsStream("test.csv");
     File file = new File("src/main/resources/test.csv");
 
     @Override
