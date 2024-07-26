@@ -16,6 +16,7 @@ public class Account {
     @Getter
     @EqualsAndHashCode.Include
     private final UserId userId = UserId.createId();
+
     public static Account of(String userLogin, String userPassword, String userName) {
         return new Account(new UserLogin(userLogin), new UserPassword(userPassword), new UserName(userName));
     }

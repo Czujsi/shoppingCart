@@ -6,10 +6,7 @@ import lombok.ToString;
 import org.example.product.ProductDefinition;
 import org.example.product.components.ProductId;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @ToString
 @EqualsAndHashCode
@@ -24,12 +21,6 @@ public class ProductRepositoryInMemoryImpl implements ProductRepository<ProductI
     @Override
     public void delete(ProductId productId) {
         productRepository.removeIf(p -> p.getProductId().equals(productId));
-    }
-
-    public Collection<ProductDefinition> getIdForName(String name) {
-        return productRepository.stream()
-                .filter(v -> v.getName().getValue().equalsIgnoreCase(name))
-                .toList();
     }
 
     @Override
@@ -52,5 +43,19 @@ public class ProductRepositoryInMemoryImpl implements ProductRepository<ProductI
     @Override
     public Collection<ProductDefinition> getAll() {
         return productRepository;
+    }
+
+    @Override
+    public List<String> getIdForName(String name) {
+        return productRepository.stream()
+                .filter(productDefinition -> productDefinition
+                        .getName()
+                        .getValue()
+                        .equals(name))
+                .map(p -> p
+                        .getProductId()
+                        .getValue()
+                        .toString())
+                .toList();
     }
 }

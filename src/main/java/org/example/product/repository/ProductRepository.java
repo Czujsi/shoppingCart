@@ -4,6 +4,7 @@ import org.example.product.ProductDefinition;
 import org.example.product.components.ProductId;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository<ID, TYPE> {
@@ -17,7 +18,7 @@ public interface ProductRepository<ID, TYPE> {
 
     Collection<ProductDefinition> getAll();
 
-    Collection<ProductDefinition> getIdForName(String name);
+    List<String> getIdForName(String name);
 
     Collection<ProductDefinition> refreshStock();
 }

@@ -29,7 +29,8 @@ public class Cart {
     private final CartId cartId;
 
     private final CouponManager couponManager;
-    public static Cart of(CouponManager couponManager){
+
+    public static Cart of(CouponManager couponManager) {
         return new Cart(CartId.createId(), couponManager);
     }
 

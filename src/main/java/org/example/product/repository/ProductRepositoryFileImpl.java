@@ -14,10 +14,10 @@ import java.util.*;
 @RequiredArgsConstructor
 @EqualsAndHashCode
 public class ProductRepositoryFileImpl implements ProductRepository<ProductId, ProductDefinition> {
+
     private final CsvConverter csvConverter;
     Set<ProductDefinition> products = new HashSet<>();
-    //InputStream inputFile = getClass().getClassLoader().getResourceAsStream("test.csv");
-    File file = new File("src/main/resources/test.csv");
+    File file = new File("C:\\Users\\oscar\\Desktop\\Programming\\projects\\shoppingCart\\src\\main\\resources\\test.csv");
 
     @Override
     public void save(ProductDefinition productDefinition) {
@@ -35,8 +35,12 @@ public class ProductRepositoryFileImpl implements ProductRepository<ProductId, P
         }
     }
 
-    private String convertToCSV(ProductDefinition productDefinition) {
-        return String.format("%s;%s;%s;%s", productDefinition.getName().getValue(), productDefinition.getPrice().getAmount().toString(), productDefinition.getCreationDate(), productDefinition.getProductId().getValue());
+    public String convertToCSV(ProductDefinition productDefinition) {
+        return String.format("%s;%s;%s;%s",
+                productDefinition.getName().getValue(),
+                productDefinition.getPrice().getAmount().toString(),
+                productDefinition.getCreationDate(),
+                productDefinition.getProductId().getValue());
     }
 
     @Override
@@ -106,7 +110,7 @@ public class ProductRepositoryFileImpl implements ProductRepository<ProductId, P
     }
 
     @Override
-    public Collection<ProductDefinition> getIdForName(String name) {
+    public List<String> getIdForName(String name) {
         throw new UnsupportedOperationException();
     }
 

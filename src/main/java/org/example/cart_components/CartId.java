@@ -3,10 +3,10 @@ package org.example.cart_components;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import org.example.product.components.ProductId;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
+
 @Component
 @EqualsAndHashCode
 @ToString

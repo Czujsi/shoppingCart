@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
+
 @ToString
 @Component
 @EqualsAndHashCode

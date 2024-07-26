@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.cart_components.Cart;
 import org.example.cart_components.manager.CartManager;
-import org.example.cart_components.manager.CartManagerImpl;
 import org.example.product.ProductDefinition;
 import org.example.user_interfaces.web_interface.services.ProductManagerService;
 import org.springframework.http.HttpHeaders;
